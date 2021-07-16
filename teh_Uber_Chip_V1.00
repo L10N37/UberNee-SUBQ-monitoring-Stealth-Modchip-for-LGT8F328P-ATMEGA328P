@@ -1,0 +1,208 @@
+// \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
+//                                                                                                                                                                 //
+//  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
+//                                        I dub Thee: Teh UbeR ChiP  V1.00                                                                                         //
+//                                            VAJSKIDS JULY 2021                                                                                                   //
+//  SOURCES OF INFORMATION:                                                                                                                                        //
+//                          https://github.com/vxbinaca/modavr/blob/master/modavr.asm                                                                              //
+//                          http://www.oldcrows.net/mcc1.html                                                                                                      //
+//                          https://github.com/Gadorach/PSX-MultiMode3-PIC12F683/blob/master/MPLAB%20X/MM3-12F683.X/main.c                                         //
+//                          And an older version of PSNEE source code before it also covered OneChip/ psone , the latest one has IMO being over optimised          //
+//                          and is harder to understand.                                                                                                           //
+//tools used:                                                                                                                                                      //
+//$17 ebay logic analyser (watched data line on an old crow + data lines on my arduino)                                                                            //
+//Logic 2 (software)                                                                                                                                               //
+//PU18 SCPH5502 with a drive from another playstation and an extension ribbon cable                                                                                //
+// Arduino Nano (clone with old bootloader)                                                                                                                        //
+// An old modchip pulled out of one of many systems I've flipped                                                                                                   //
+//                                                                                                                                                                 //
+// Most of the time was spent trying to understand "what to inject" as outlined below.... otherwise this would have being working within a couple of hours         //
+// This is a great example for a learner / by a learner                                                                                                            //
+// This is currently set up to watch on the serial monitor with a ~3.5v "power sensor" wire as oppose being hardwired into the console                             //
+// which would be a very easy change.                                                                                                                              //
+//                                                                                                                                                                 //
+//https://imgur.com/eLf89y5                                                                                                                                        //                                                                                  
+// \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
+
+
+//Define the used pins
+#define GATE 2
+#define DATA 12
+#define P_SENS 4
+#define mchipregister PIND  //register for monitoring high/low states (read only)
+#define mchipregwrite PORTD //register to write pin states to in setup
+int bitdelay (3974); //delay between bits sent to drive controller (MS)
+int stringdelay (67); //delay between string injections
+//const int System_On = (0B00010011); //default state for D register when PSX is (little endian, 7:0), no longer used as only monitors for being off, if not off, assumed on
+const int System_Off = (0B00000011); //RX & TX are always high
+char Dots[1] = ".";
+char equalsign[]= "==============================";
+//const boolean PALSTRING[44] {1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0};
+/*  00110101  00111101 01011101  01011101 (remove start bit "1" and two stop bits "0, 0" between each byte)
+
+    10111010 10111010 10111100 10101100   (Reverse it)
+
+    01000101 01000101 01000011 01010011   (Invert it, correct here sending LSB first/ Little Endian)
+
+    01010011 01000011 01000101 01000101   (Big Endian, MSB first, we have "SCEE")                       */
+int injectcounter = 0;
+int P_SENS_Monitor = 0; //variable to store power sensor status
+
+/*PORTD maps to Arduino digital pins 0 to 7
+
+    DDRD - The Port D Data Direction Register - read/write
+    PORTD - The Port D Data Register - read/write
+    PIND - The Port D Input Pins Register - read only */
+
+void setup() {
+  Serial.begin(57600);
+  //Set up the used pins
+  pinMode (GATE, OUTPUT);
+  pinMode (DATA, OUTPUT);
+  pinMode (P_SENS, INPUT);
+  //setup default register state (psx off)
+  digitalWrite (mchipregwrite, 0B00001011);
+}
+
+void PowerUpDelay() { //A power up delay with serial monitor stuff, self explanatory
+  Serial.println ("  PSX Console Power-On Detected ...Gate Closed, Preparing to Inject!   ");
+  Serial.println (Dots); //need to learn how to loop print character and save memory
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println (Dots);
+  Serial.println ("  STARTING INJECTION CYCLES   ");
+  Serial.println (equalsign);
+  delay (600);
+  // digitalWrite (GATE, LOW); //close the gate (or GATE, 0) , gate defaults to closed, this isn't needed
+  inject(); //ready to inject
+}
+
+
+
+void complete() {
+
+  pinMode (GATE, INPUT);    //open the gate back up by switching it to an input
+  pinMode (DATA, INPUT);    // & release the data line in the same manner
+  exit (0);
+  //add sleep mode and interrupt pin etc for drive lid in future to re-inject for multidisc*??
+}
+
+void inject() { //need to learn bitmask stuff
+
+  if (injectcounter == 128) {            //The amount of times you want to inject the string (>26 no go, 28 good [PU18] but hangs on black screen)
+  Serial.println (" Injection cycles complete ");
+  Serial.println (" ...Gate Opening in 10s ");
+  Serial.println (equalsign);
+  delay (30); 
+    complete();
+  }
+  else {
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay); //delay between single bit injections
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delay (stringdelay); //delay between string injects
+    injectcounter = (injectcounter + 1);
+    Serial.println ("   SCEE String Injected      "); //delays between injects as well as serial monitor stuff
+    inject();
+  }
+}
+
+void loop() {
+
+  do {
+    Serial.println ("Playstation Console isn't powered on");  //keep printing this to serial monitor
+    delay (850);                                              //with this delay between prints/ scans
+  }
+  while (mchipregister == System_Off);                        //while system isn't detected as being powered on
+  //started as an if, else if, else
+  PowerUpDelay();                            //otherwise start the injection cycles
+}
