@@ -96,7 +96,7 @@ void inject() { //need to learn bitmask stuff
 
   if (injectcounter == 128) {            //The amount of times you want to inject the string (>26 no go, 28 good [PU18] but hangs on black screen)
   Serial.println (" Injection cycles complete ");
-  Serial.println (" ...Gate Opening in 10s ");
+  Serial.println (" ...Gate Opening in 30s ");
   Serial.println (equalsign);
   delay (30); 
     complete();
