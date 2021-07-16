@@ -10,7 +10,7 @@
 //                          And an older version of PSNEE source code before it also covered OneChip/ psone , the latest one has IMO being over optimised          //
 //                          and is harder to understand.                                                                                                           //
 //tools used:                                                                                                                                                      //
-//$17 ebay logic analyser (watched data line on an old crow + data lines on my arduino)                                                                            //
+//$17 ebay logic analyser (watched data line on an old crow + data lines on my arduino + data line on console with genuine disc - 11 injections)                                                                            //
 //Logic 2 (software)                                                                                                                                               //
 //PU18 SCPH5502 with a drive from another playstation and an extension ribbon cable                                                                                //
 // Arduino Nano (clone with old bootloader)                                                                                                                        //
