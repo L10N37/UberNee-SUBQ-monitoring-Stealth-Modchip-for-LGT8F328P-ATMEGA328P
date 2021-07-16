@@ -46,8 +46,7 @@ char equalsign[]= "==============================";
     01000101 01000101 01000011 01010011   (Invert it, correct here sending LSB first/ Little Endian)
 
     01010011 01000011 01000101 01000101   (Big Endian, MSB first, we have "SCEE")                       */
-int injectcounter = 0;
-int P_SENS_Monitor = 0; //variable to store power sensor status
+int injectcounter = 0; //variable for injection loop storage
 
 /*PORTD maps to Arduino digital pins 0 to 7
 
