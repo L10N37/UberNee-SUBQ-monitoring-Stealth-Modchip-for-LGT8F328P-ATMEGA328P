@@ -1,0 +1,14 @@
+# tehUberChip_Another_PSX_Modchip
+Another PSX modchip made in 2021 for arduino
+
+UberChip - by Vajskids Consoles 2021
+
+An Open Source arduino full stealth modchip developed on an SCPH5502/ PU18 with an Arduino Nano. 
+Multi-disc support and a full serial monitor output which shows you exactly what's
+happening as well as acting like a built in debugger.
+
+No Audio CD delay- will boot straight to audio CD player
+
+Currently only PAL string bits are included, but this is easily changed. 
+Thanks to all the other open source modchip writers and especially thanks to OldCrows old articles and for
+releasing the first of the mighty PSX modchips!
