@@ -1,0 +1,278 @@
+// \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
+//                                                                                                                                                                 //
+//  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
+//                                        I dub Thee: Teh UbeR ChiP  V1.5                                                                                         //
+//                                            VAJSKIDS JULY 2021                                                                                                   //
+//  SOURCES OF INFORMATION:                                                                                                                                        //
+//                          https://github.com/vxbinaca/modavr/blob/master/modavr.asm                                                                              //
+//                          http://www.oldcrows.net/mcc1.html                                                                                                      //
+//                          https://github.com/Gadorach/PSX-MultiMode3-PIC12F683/blob/master/MPLAB%20X/MM3-12F683.X/main.c                                         //
+//                          And an older version of PSNEE source code before it also covered OneChip/ psone , the latest one has IMO being over optimised          //
+//                          and is harder to understand.                                                                                                           //
+//tools used:                                                                                                                                                      //
+//$17 ebay logic analyser (watched data line on an old crow + data lines on my arduino + data line on console with genuine disc - 11 injections)                   //
+//Logic 2 (software)                                                                                                                                               //
+//PU18 SCPH5502 with a drive from another playstation and an extension ribbon cable                                                                                //
+// Arduino Nano (clone with old bootloader)                                                                                                                        //
+// An old modchip pulled out of one of many systems I've flipped                                                                                                   //
+//                                                                                                                                                                 //
+// Most of the time was spent trying to understand "what to inject" as outlined below.... otherwise this would have being working within a couple of hours         //
+// This is a great example for a learner / by a learner                                                                                                            //
+// This is currently set up to watch on the serial monitor with a ~3.5v "power sensor" wire as oppose being hardwired into the console                             //
+// which would be a very easy change.                                                                                                                              //
+//                                                                                                                                                                 //                                                                                                                                                           //
+//  https://imgur.com/eLf89y5                                                                                                                                      //
+// IT BOOTS UM JAMMER LAMMY [NTSC], the only game I know that can detect a modchip!!                                                                               //
+//                                                                                                                                                                 //
+//V1.5: Some minor timing and magic key injection tweaks, added multidisc support. Extra lid sensor wire in defines.                                               //
+// Audio CD Fix + Jumps straight into CD player if an audio disc is inserted, this was just a delay at boot before injections as an audio                          //
+// CD is detected within the first 4 or 5 seconds and launches the player. Injecting the String / 'magic key' after this time                                      //
+// doesn't affect boot time of a game disc what so ever. Releasing Gate/ Data pins early breaks the program, possibly because of the register states used but      //
+//releasing them isn't required - just can't keep pumping the 'magic key' down the DATA line or it's picked up by anti-stealth.                                    //
+// ...Will likely move onto a PSOne version after this. Proper Install diagrams will be coming!                                                                    //
+// You won't be able to break this using the console normally, but if you really, really try you could probably flag an anti-mod                                   //
+//                                                                                                                                                                 //
+//                                                                                                                                                                 //
+// \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
+
+
+//Define the used pins
+#define DRIVE_LID_SENS 8
+#define GATE 2
+#define DATA 12
+#define P_SENS 4
+#define mchipregister PIND  //register for monitoring high/low states (read only)
+#define mchipregwrite PORTD //register to write pin states to in setup
+#define DRIVE_LID_SENS_REG PINB //the register with the DATA line and our drive lid sensor line
+int bitdelay (3974); //delay between bits sent to drive controller (MS)
+int stringdelay (67); //delay between string injections
+const int System_Off = (0B00000011); //RX & TX are always high
+const int Lid_Open = (0B000001); //so we don't have to refer to the states in bits further on
+const int Lid_Closed = (0B000000);
+char Dots[1] = ".";
+char equalsign[] = "==============================";
+int injectcounter = 0; //variable for injection loop storage
+char notice[] = "Playstation Console isn't Powered-On or if this stops printing the powers on and the Drive Lid is Open";
+unsigned int DiscSwap = 0;
+/*  00110101  00111101 01011101  01011101 (remove start bit "1" and two stop bits "0, 0" between each byte)
+
+    10111010 10111010 10111100 10101100   (Reverse it)
+
+    01000101 01000101 01000011 01010011   (Invert it, correct here sending LSB first/ Little Endian)
+
+    01010011 01000011 01000101 01000101   (Big Endian, MSB first, we have "SCEE")                       */
+
+
+/*PORTD maps to Arduino digital pins 0 to 7
+
+    DDRD - The Port D Data Direction Register - read/write
+    PORTD - The Port D Data Register - read/write
+    PIND - The Port D Input Pins Register - read only
+
+
+    PORTB maps to Arduino digital pins 8 to 13 The two high bits (6 & 7) map to the crystal pins and are not usable
+
+    DDRB - The Port B Data Direction Register - read/write
+    PORTB - The Port B Data Register - read/write
+    PINB - The Port B Input Pins Register - read only           */
+
+
+void setup() {
+
+  Serial.begin(57600); //serial monitor for debugging
+  //Set up the used pins
+  pinMode (GATE, OUTPUT);
+  pinMode (DATA, OUTPUT);
+  pinMode (P_SENS, INPUT);
+  pinMode (DRIVE_LID_SENS, INPUT);
+  //setup default register state (psx off)
+  digitalWrite (mchipregwrite, 0B00001011);
+  //otherwise LED pin 13 will go high when flashing and break code
+  //and sets true states of other unused pins in this register
+}
+void NewDisc() {
+  if (DRIVE_LID_SENS_REG == Lid_Open)
+  {
+    delay (1500);
+    Serial.println ("   ...Awaiting disc swap and drive lid closure  " );
+  }
+  else
+  {
+    inject(); //print that debug stuff while the lids open otherwise jump directly to the inject routine skipping main()
+  }
+    NewDisc(); // forms this into a conditional loop
+}
+void DriveLidStatus() { //a conditional loop for the status of the drive lid sensor pin using the state of it's entire register
+  //for multi-disc games
+
+  if (DRIVE_LID_SENS_REG == Lid_Closed) { //state of this register after initial injection routine with lid closed
+
+    injectcounter = 0;                  //This reset is in case of multidisc/ multiple injection routines
+    Serial.println (" Injection cycles complete ");
+    Serial.println (" ...Gate will remain closed "); //print more debug stuff
+    Serial.println (equalsign);
+    delay (850);
+    Serial.println ("   Stealth chip enabled, monitoring disc drive lid status   ");
+  }
+  else if (DRIVE_LID_SENS_REG == 0B000001) {  //monitor register state with this pin for sensing purposes, data idles low after injection, only need to look for a change in one bit (lid sens pin)
+    Serial.println (" Drive Lid is Open!" );  //print this to serial monitor while drive lid is open and wait for it to close again
+    delay (850);
+    DiscSwap = (DiscSwap + 1);                   // **debug purposes**
+    Serial.println ("Disc swapped ");            // **              **
+    Serial.print (DiscSwap);
+    Serial.print (  "   time/s!"  );
+    delay (500);
+    NewDisc();
+
+  }
+  DriveLidStatus();                           //forms a conditional if loop
+}
+
+void PowerUpDelay() { //A power up delay with serial monitor stuff, self explanatory
+
+  Serial.println ("  PSX Console Powered-On & Drive lid is closed ...Data Gate Closed, Preparing to Inject!   ");
+  delay (500);
+  Serial.println (Dots);
+  delay (500);
+  Serial.println (Dots);
+  delay (500);
+  Serial.println (Dots);
+  delay (500);
+  Serial.println (Dots);
+  delay (250);
+  Serial.println (Dots);
+  delay (250);
+  Serial.println (Dots);
+  delay (250);
+  Serial.println (Dots);
+  delay (250);
+  Serial.println (Dots);
+  delay (150);
+  Serial.println (Dots);
+  delay (150);
+  Serial.println ("  STARTING INJECTION CYCLES   ");
+  Serial.println (equalsign);
+  delay (4000);                                         //Audio-CD Fix boot delay, detects audio disc within this time frame
+  // but squirting the region string in after this point is ok for a game disc
+  // doesn't affect game boot time
+  inject(); //ready to inject
+}
+
+void inject() {
+
+  if (injectcounter == 64) {   //The amount of times you want to inject the string which happens to be equal to the competition at the time (>26 no go, 28 minimum is good [PU18] but hangs on black screen)
+    DriveLidStatus();          // call drive lid status routine
+  }
+  else {
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay); //delay between single bit injections
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 1);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delayMicroseconds (bitdelay);
+    digitalWrite (DATA, 0);
+    delay (stringdelay); //delay between string injects
+    injectcounter = (injectcounter + 1);
+    Serial.println ("   SCEE String Injected     "); //delays between injects as well as serial monitor stuff
+    inject();
+  }
+}
+
+void loop() {
+
+  if (mchipregister == System_Off) //if power off
+  {
+    Serial.println (notice);  //keep printing this to serial monitor
+    delay (1500);
+    return;
+  }
+  else if (DRIVE_LID_SENS_REG == Lid_Open) //if drive lid open and power is on
+  {
+    delay (1500);             //increased delays to stop false state detect jumps whilst debugging
+    return;
+  }
+  else
+  {
+    PowerUpDelay();             // else jump to here
+  }
+}
