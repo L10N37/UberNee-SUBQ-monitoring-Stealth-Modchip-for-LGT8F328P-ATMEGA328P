@@ -16,3 +16,5 @@ releasing the first of the mighty PSX modchips!
 For stand-alone version (internal installations, no debug/ serial monitor) run a link from D4 to 3.3v pin
 
 PU18 diagrams done
+...For now if you want to use other strings (my consoles are PAL, so cbf) i suggest using find and replace in notepad or similar
+to switch out the bit strings with the delays or re-write it in a fancier manner (the injection method)
