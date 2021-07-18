@@ -15,6 +15,10 @@ releasing the first of the mighty PSX modchips!
 
 For stand-alone version (internal installations, no debug/ serial monitor) run a link from D4 to 3.3v pin
 
+A clone arduino nano will set you back a whopping 6.60AUD free post at the moment.
+Flash with arduino IDE with old bootloader (if clone) and CH340 drivers (if clone)
+picture attached
+
 PU18 diagrams done
 ...For now if you want to use other strings (my consoles are PAL, so cbf) i suggest using find and replace in notepad or similar
 to switch out the bit strings with the delays or re-write it in a fancier manner (the injection method)
