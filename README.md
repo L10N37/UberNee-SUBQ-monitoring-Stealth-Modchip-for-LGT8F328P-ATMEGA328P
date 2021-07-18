@@ -14,3 +14,5 @@ Thanks to all the other open source modchip writers and especially thanks to Old
 releasing the first of the mighty PSX modchips!
 
 For stand-alone version (internal installations, no debug/ serial monitor) run a link from D4 to 3.3v pin
+
+PU18 diagrams done
