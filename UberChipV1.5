@@ -1,7 +1,7 @@
 // \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
 //                                                                                                                                                                 //
 //  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
-//                                        I dub Thee: Teh UbeR ChiP  V1.5                                                                                          //
+//                                        I dub Thee: Teh UbeR ChiP  V1.00                                                                                         //
 //                                            VAJSKIDS JULY 2021                                                                                                   //
 //  SOURCES OF INFORMATION:                                                                                                                                        //
 //                          https://github.com/vxbinaca/modavr/blob/master/modavr.asm                                                                              //
@@ -20,7 +20,7 @@
 // This is a great example for a learner / by a learner                                                                                                            //
 // This is currently set up to watch on the serial monitor with a ~3.5v "power sensor" wire as oppose being hardwired into the console                             //
 // which would be a very easy change.                                                                                                                              //
-//                                                                                                                                                                 //                                                                                                                                                           //
+//                                                                                                                                                                 //                   //                                                                                                                                                                 //
 //  https://imgur.com/eLf89y5                                                                                                                                      //
 // IT BOOTS UM JAMMER LAMMY [NTSC], the only game I know that can detect a modchip!!                                                                               //
 //                                                                                                                                                                 //
@@ -94,16 +94,13 @@ void setup() {
   digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
 }
 void NewDisc() {
-  if (DRIVE_LID_SENS_REG == Lid_Open)
+  do
   {
     delay (1500);
     Serial.println ("   ...Awaiting disc swap and drive lid closure  " );
   }
-  else
-  {
-    inject(); //print that debug stuff while the lids open otherwise jump directly to the inject routine skipping main()
-  }
-  NewDisc(); // forms this into a conditional loop
+  while (DRIVE_LID_SENS_REG == Lid_Open);
+  inject();
 }
 void DriveLidStatus() { //a conditional loop for the status of the drive lid sensor pin using the state of it's entire register
   //for multi-disc games
@@ -162,10 +159,14 @@ void PowerUpDelay() { //A power up delay with serial monitor stuff, self explana
 
 void inject() {
 
-  if (injectcounter == 64) {   //The amount of times you want to inject the string which happens to be equal to the competition at the time (>26 no go, 28 minimum is good [PU18] but hangs on black screen)
+  if (injectcounter == 100)    //The amount of times you want to inject the string
+                              //This is long enough to load games that take a while to start (i.e Dino Crisis) but stops
+                               //string injection (goes stealth) soon enough for anti-mod game (i.e Umjammer Lammy) to not flag the chip
+  {   
     DriveLidStatus();          // call drive lid status routine
   }
-  else {
+  else 
+  {
     digitalWrite (DATA, 1);
     delayMicroseconds (bitdelay); //delay between single bit injections
     digitalWrite (DATA, 0);
@@ -262,13 +263,13 @@ void inject() {
 
 void loop() {
 
-  delay(2000);
-  if (DRIVE_LID_SENS_REG == Lid_Open||mchipregister == System_Off) //if power off or lid closed
+  delay(1800);
+  if (DRIVE_LID_SENS_REG == Lid_Open || mchipregister == System_Off) //if power off or lid closed
   {
     Serial.println (notice);  //keep printing this to serial monitor
     Serial.print (blank);     //otherwise it prints a dot along with 'notice' 9 times after jumping to powerupdelay, instead of just the 9 new line dots (?!?!)
   }
-  else 
+  else
   {
     PowerUpDelay();             // else jump to here
   }
