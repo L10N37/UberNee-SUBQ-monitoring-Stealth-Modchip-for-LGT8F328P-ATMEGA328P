@@ -1,7 +1,7 @@
 // \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
 //                                                                                                                                                                 //
 //  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
-//                                        I dub Thee: Teh UbeR ChiP  V1.5                                                                                         //
+//                                        I dub Thee: Teh UbeR ChiP  V1.00                                                                                         //
 //                                            VAJSKIDS JULY 2021                                                                                                   //
 //  SOURCES OF INFORMATION:                                                                                                                                        //
 //                          https://github.com/vxbinaca/modavr/blob/master/modavr.asm                                                                              //
@@ -27,8 +27,8 @@
 //V1.5: Some minor timing and magic key injection tweaks, added multidisc support. Extra lid sensor wire in defines.                                               //
 // Audio CD Fix + Jumps straight into CD player if an audio disc is inserted, this was just a delay at boot before injections as an audio                          //
 // CD is detected within the first 4 or 5 seconds and launches the player. Injecting the String / 'magic key' after this time                                      //
-// doesn't affect boot time of a game disc what so ever. Releasing Gate/ Data pins early breaks the program, possibly because of the register states used but      //
-//releasing them isn't required - just can't keep pumping the 'magic key' down the DATA line or it's picked up by anti-stealth.                                    //
+// doesn't affect boot time of a game disc what so ever. Releasing Gate/ Data pins breaks the program, possibly because of the register states used but            //
+// releasing them isn't required - just can't keep pumping the 'magic key' down the DATA line or it's picked up by anti-stealth.                                   //
 // ...Will likely move onto a PSOne version after this. Proper Install diagrams will be coming!                                                                    //
 // You won't be able to break this using the console normally, but if you really, really try you could probably flag an anti-mod                                   //
 //                                                                                                                                                                 //
@@ -47,12 +47,14 @@
 int bitdelay (3974); //delay between bits sent to drive controller (MS)
 int stringdelay (67); //delay between string injections
 const int System_Off = (0B00000011); //RX & TX are always high
+const int System_On = (0B00001011); //
 const int Lid_Open = (0B000001); //so we don't have to refer to the states in bits further on
 const int Lid_Closed = (0B000000);
 char Dots[1] = ".";
 char equalsign[] = "==============================";
 int injectcounter = 0; //variable for injection loop storage
-char notice[] = "Playstation Console isn't Powered-On or if this stops printing the powers on and the Drive Lid is Open";
+char notice[] = "Playstation Console isn't Powered-On or the powers on and the Drive Lid is Open";
+char blank[] = " "; //just to fix an annoying debugging bug
 unsigned int DiscSwap = 0;
 /*  00110101  00111101 01011101  01011101 (remove start bit "1" and two stop bits "0, 0" between each byte)
 
@@ -89,6 +91,7 @@ void setup() {
   digitalWrite (mchipregwrite, 0B00001011);
   //otherwise LED pin 13 will go high when flashing and break code
   //and sets true states of other unused pins in this register
+  digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
 }
 void NewDisc() {
   if (DRIVE_LID_SENS_REG == Lid_Open)
@@ -100,7 +103,7 @@ void NewDisc() {
   {
     inject(); //print that debug stuff while the lids open otherwise jump directly to the inject routine skipping main()
   }
-    NewDisc(); // forms this into a conditional loop
+  NewDisc(); // forms this into a conditional loop
 }
 void DriveLidStatus() { //a conditional loop for the status of the drive lid sensor pin using the state of it's entire register
   //for multi-disc games
@@ -114,7 +117,7 @@ void DriveLidStatus() { //a conditional loop for the status of the drive lid sen
     delay (850);
     Serial.println ("   Stealth chip enabled, monitoring disc drive lid status   ");
   }
-  else if (DRIVE_LID_SENS_REG == 0B000001) {  //monitor register state with this pin for sensing purposes, data idles low after injection, only need to look for a change in one bit (lid sens pin)
+  else if (DRIVE_LID_SENS_REG == Lid_Open) {  //monitor register state with this pin for sensing purposes, data idles low after injection, only need to look for a change in one bit (lid sens pin)
     Serial.println (" Drive Lid is Open!" );  //print this to serial monitor while drive lid is open and wait for it to close again
     delay (850);
     DiscSwap = (DiscSwap + 1);                   // **debug purposes**
@@ -129,7 +132,6 @@ void DriveLidStatus() { //a conditional loop for the status of the drive lid sen
 }
 
 void PowerUpDelay() { //A power up delay with serial monitor stuff, self explanatory
-
   Serial.println ("  PSX Console Powered-On & Drive lid is closed ...Data Gate Closed, Preparing to Inject!   ");
   delay (500);
   Serial.println (Dots);
@@ -260,18 +262,13 @@ void inject() {
 
 void loop() {
 
-  if (mchipregister == System_Off) //if power off
+  delay(1200);
+  if (DRIVE_LID_SENS_REG == Lid_Open||mchipregister == System_Off) //if power off or lid closed
   {
     Serial.println (notice);  //keep printing this to serial monitor
-    delay (1500);
-    return;
+    Serial.print (blank);     //otherwise it prints a dot along with 'notice' 9 times after jumping to powerupdelay, instead of just the 9 new line dots (?!?!)
   }
-  else if (DRIVE_LID_SENS_REG == Lid_Open) //if drive lid open and power is on
-  {
-    delay (1500);             //increased delays to stop false state detect jumps whilst debugging
-    return;
-  }
-  else
+  else 
   {
     PowerUpDelay();             // else jump to here
   }
