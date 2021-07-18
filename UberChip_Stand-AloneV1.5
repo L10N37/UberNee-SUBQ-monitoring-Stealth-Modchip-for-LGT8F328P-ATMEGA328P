@@ -59,9 +59,6 @@ void setup() {
   pinMode (DATA, OUTPUT);
   pinMode (P_SENS, INPUT);
   pinMode (DRIVE_LID_SENS, INPUT);
-  //setup default register state (psx off)
-  digitalWrite (mchipregwrite, 0B00001011);
-  //otherwise LED pin 13 will go high when flashing and break code
   //and sets true states of other unused pins in this register
   digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
 }
