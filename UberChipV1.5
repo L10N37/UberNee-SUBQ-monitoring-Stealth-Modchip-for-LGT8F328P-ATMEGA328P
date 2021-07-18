@@ -160,8 +160,9 @@ void PowerUpDelay() { //A power up delay with serial monitor stuff, self explana
 void inject() {
 
   if (injectcounter == 100)    //The amount of times you want to inject the string
-                              //This is long enough to load games that take a while to start (i.e Dino Crisis) but stops
+                              //This is long enough to load games that take a while to start (i.e Dino Crisis, RE3) but stops
                                //string injection (goes stealth) soon enough for anti-mod game (i.e Umjammer Lammy) to not flag the chip
+                               //likely safe to increase to another 10 to 30 injections??
   {   
     DriveLidStatus();          // call drive lid status routine
   }
