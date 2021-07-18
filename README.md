@@ -12,3 +12,5 @@ No Audio CD delay- will boot straight to audio CD player
 Currently only PAL string bits are included, but this is easily changed. 
 Thanks to all the other open source modchip writers and especially thanks to OldCrows old articles and for
 releasing the first of the mighty PSX modchips!
+
+For stand-alone version (internal installations, no debug/ serial monitor) run a link from D4 to 3.3v pin
