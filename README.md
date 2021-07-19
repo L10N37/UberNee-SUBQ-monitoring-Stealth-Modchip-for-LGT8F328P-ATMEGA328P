@@ -31,4 +31,4 @@ Optional reset: connection 4 off MM3 diagrams to the RST on the arduino.
 Without this, you can reset but you'd have to open the drive lid and close it again to get the game disc to boot again.
 
 Just checked this connection and it has a logic high of 3.xxV and gets pulled low on reset which should trigger the arduinos reset
-pin simulataneously without an issue.
+pin simultaneously without an issue.
