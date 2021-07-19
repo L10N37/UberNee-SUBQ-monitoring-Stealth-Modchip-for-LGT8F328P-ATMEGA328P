@@ -22,3 +22,14 @@ picture attached
 PU18 diagrams done
 ...For now if you want to use other strings (my consoles are PAL, so cbf) i suggest using find and replace in notepad or similar
 to switch out the bit strings with the delays or re-write it in a fancier manner (the injection method)
+
+
+
+
+
+========================================================================
+Optional reset: connection 4 off MM3 diagrams to the RST on the arduino.
+Without this, you can reset but you'd have to open the drive lid and close it again to get the game disc to boot again.
+
+Just checked this connection and it has a logic high of 3.xxV and gets pulled low on reset which should trigger the arduinos reset
+pin simulataneously without an issue.
