@@ -29,6 +29,14 @@ This should also cover PU23 and then onto BIOS patching and PSone method. Interi
 
 
 
+
+
+
+
+
+
+
+
 UberChip - by Vajskids Consoles 2021
 
 An Open Source arduino full stealth modchip developed on an SCPH5502/ PU18 with an Arduino Nano. 
