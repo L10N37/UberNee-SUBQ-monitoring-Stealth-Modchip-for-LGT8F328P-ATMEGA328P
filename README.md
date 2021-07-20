@@ -26,6 +26,8 @@ Also note that I'm using '1' to mean a high bit in the SCEx message - I.E. the s
 Next: Take that link as an input and pass it out as an output temporarily so we can go full stealth on this b*tch like the chip was never there....!
 This should also cover PU23 and then onto BIOS patching and PSone method. Interim release posted for anyone interested.
 
+Also should mention this: http://www.psxdev.net/forum/viewtopic.php?t=1266 - i technically gave up after 2 days because i wanted to learn to program and couldn't work out the bitstream, so took the WUNSnZEROs out of PSNEE but they're also here :)
+
 
 
 
