@@ -1,4 +1,4 @@
-//************************************************* Stand-Alone version v1.5,1 for internal install / no debug ****************************************************//
+//************************************************* Stand-Alone version v1.5.1 for internal install / no debug ****************************************************//
 // \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
 //                                                                                                                                                                 //
 //  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
