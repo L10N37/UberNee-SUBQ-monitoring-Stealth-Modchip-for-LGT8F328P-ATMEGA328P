@@ -1,4 +1,7 @@
-//************************************************* Stand-Alone version v1.5.1 PU18 for internal install / no debug ***********************************************//
+//Back up, seems the WFCLK wasn't connected, i thought it was - this will black screen everytime 100% without that link, just a data wire
+// Having the link run doesn't help at all
+// Needs further investigation
+//rewrote injection method
 // \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
 //                                                                                                                                                                 //
 //  A STUPID DUMBED DOWN VERSION OF A PSX MODCHIP BY A TOTAL AMATEUR WITH A FEW DAYS OF ARDUINO TINKERING EXPERIENCE                                               //
