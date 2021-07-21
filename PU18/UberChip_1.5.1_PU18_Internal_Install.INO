@@ -114,8 +114,7 @@ void inject() {
     digitalWrite (DATA, 0);
     delay (stringdelay); //delay between string injects
     injectcounter = (injectcounter + 1);
-    Serial.println ("   SCEE String Injected     "); //delays between injects as well as serial monitor stuff
-    inject();
+        inject();
   }
 }
 void loop() {
