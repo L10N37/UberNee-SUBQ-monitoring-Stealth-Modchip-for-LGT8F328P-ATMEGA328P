@@ -21,7 +21,7 @@
 // This is a great example for a learner / by a learner                                                                                                            //
 // This is currently set up to watch on the serial monitor with a ~3.5v "power sensor" wire as oppose being hardwired into the console                             //
 // which would be a very easy change.                                                                                                                              //
-//                                                                                                                                                                 //                                                                                                                                                            //
+//                                                                                                                                                                 //
 //  https://imgur.com/eLf89y5                                                                                                                                      //
 // IT BOOTS UM JAMMER LAMMY [NTSC], the only game I know that can detect a modchip!!                                                                               //
 //                                                                                                                                                                 //
