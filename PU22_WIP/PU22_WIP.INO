@@ -148,7 +148,6 @@ void inject() {
 void loop() {
   if  (bitcounter >= 3740)
   {
-    pinMode (DATA, INPUT);
     DriveLidStatus();
   }
   delay(1800);
