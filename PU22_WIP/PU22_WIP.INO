@@ -1,5 +1,5 @@
 //UberChip for PU22 WIP
-// Shortened until injection crucial for game to load, not for black screen. Very easy to get black screen with a single injection at the right time.
+// Shortened delay until injection crucial for game to load, not for black screen. Very easy to get black screen with a single injection at the right time.
 //Define the used pins
 
 
