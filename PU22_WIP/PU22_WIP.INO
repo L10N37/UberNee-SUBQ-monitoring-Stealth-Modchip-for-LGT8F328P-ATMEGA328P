@@ -113,9 +113,10 @@ void PowerUpDelay() { //A power up delay with serial monitor stuff, self explana
   inject(); //ready to inject
 }
 
-void inject() {
-  do
-  {
+ void inject() {
+
+   do
+    {
     for (byte i = 0; i < sizeof(SCEE) - 1; i++)
 
       if (SCEE[i] == '1')
@@ -128,6 +129,10 @@ void inject() {
       else if (SCEE[i] == 'S')
       {
         delay(stringdelay); //string delay when it hits 's' (end of injection string bits)
+      }
+      else if (DRIVE_LID_SENS_REG == Lid_Open)
+      {
+        DriveLidStatus();
       }
       else
       {
@@ -143,7 +148,6 @@ void inject() {
   while (bitcounter < 3740);
   DriveLidStatus();
 }
-
 
 void loop() {
   if  (bitcounter >= 3740)
