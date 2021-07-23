@@ -122,7 +122,7 @@ void PowerUpDelay() { //A power up delay with serial monitor stuff, self explana
       if (SCEE[i] == '1')
       {
         pinMode (DATA, INPUT);
-        Serial.println (" WFCK bit (high) ");
+        Serial.println (" Release DATA line (high) ");
         delayMicroseconds (bitdelay);
         bitcounter = (bitcounter + 1);
       }
