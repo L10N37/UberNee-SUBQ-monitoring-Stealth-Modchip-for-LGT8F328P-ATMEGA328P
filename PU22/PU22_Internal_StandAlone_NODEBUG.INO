@@ -69,7 +69,6 @@ void inject() {
       if (SCEE[i] == '1')
       {
         pinMode (DATA, INPUT);
-        Serial.println (" Release DATA line (high) ");
         delayMicroseconds (bitdelay);
         bitcounter = (bitcounter + 1);
       }
@@ -86,7 +85,6 @@ void inject() {
         pinMode (DATA, OUTPUT);
         digitalWrite (DATA, LOW);
         delayMicroseconds (bitdelay);
-        Serial.println (" '0' bit ");
         bitcounter = (bitcounter + 1);
       }
   }
