@@ -65,7 +65,7 @@ void DriveLidStatus() { //a conditional loop for the status of the drive lid sen
     bitcounter = 0;                  //This reset is in case of multidisc/ multiple injection routines
 
     Serial.println (" Injection cycles complete ");
-    Serial.println (" ...Gate will remain closed "); //print more debug stuff
+    Serial.println (" Data Line Released "); //print more debug stuff
     Serial.println (equalsign);
     delay (850);
     Serial.println ("   Stealth chip enabled, monitoring disc drive lid status   ");
