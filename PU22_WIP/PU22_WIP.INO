@@ -10,7 +10,6 @@
 #define mchipregister PIND  //register for monitoring high/low states (read only)
 #define mchipregwrite PORTD //register to write pin states to in setup
 #define DRIVE_LID_SENS_REG PINB //the register with the DATA line and our drive lid sensor line
-int Stealth = 0;
 int bitdelay (3794); //delay between bits sent to drive controller (MS)
 int stringdelay (100); //delay between string injections
 const int System_Off = (0B00000011); //RX & TX are always high
