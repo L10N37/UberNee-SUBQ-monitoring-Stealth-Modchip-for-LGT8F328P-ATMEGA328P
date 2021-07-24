@@ -19,6 +19,9 @@ char Dots[1] = ".";
 char equalsign[] = "==============================";
 int bitcounter = 0; //variable for injection loop storage
 char SCEE[] = "S10011010100100111101001010111010010101110100";
+char SCEA[] = "10011010100100111101001010111010010111110100";
+char SCEI[] = "10011010100100111101001010111010010110110100";
+//DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION
 
 
 void setup() {
