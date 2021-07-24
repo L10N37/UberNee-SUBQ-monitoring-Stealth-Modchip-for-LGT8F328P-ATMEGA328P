@@ -15,8 +15,6 @@ int bitdelay (3794); //delay between bits sent to drive controller (MS)
 int stringdelay (150); //delay between string injections
 const int Lid_Open = (0B000001); //so we don't have to refer to the states in bits further on
 const int Lid_Closed = (0B000000);
-char Dots[1] = ".";
-char equalsign[] = "==============================";
 int bitcounter = 0; //variable for injection loop storage
 char SCEE[] = "S10011010100100111101001010111010010101110100";
 char SCEA[] = "S10011010100100111101001010111010010111110100";
