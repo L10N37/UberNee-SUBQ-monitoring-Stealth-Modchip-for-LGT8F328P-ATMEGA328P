@@ -40,7 +40,7 @@ pin simultaneously without an issue.
 
 How it works: Precise timing of injections on each model then either stopping the injections but keeping the gate
 held low (earlier phats) or stopping the injections then reverting the DATA line to an input thus letting the original signal in without
-any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on.
+any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on. On the later models it's only working @ a 50% load i.e. it's only 'injecting' the low bits of the string, then releasing for the high bits.
 
 The timing isn't written in stone, but I'd suggest leaving as I've tested thorougly (I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
 
