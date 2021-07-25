@@ -12,7 +12,7 @@ http://www.psxdev.net/forum/viewtopic.php?t=1266
 
 UberChip - by Vajskids Consoles 2021
 
-An Open Source arduino full stealth modchip developed on an SCPH5502/ PU18 with an Arduino Nano. 
+An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23) with an Arduino Nano. 
 Multi-disc support and a full serial monitor output which shows you exactly what's
 happening as well as acting like a built in debugger.
 
