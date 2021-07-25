@@ -42,7 +42,7 @@ How it works: Precise timing of injections on each model then either stopping th
 held low (earlier phats) or stopping the injections then reverting the DATA line to an input thus letting the original signal in without
 any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on. On the later models it's only working @ a 50% load i.e. it's only 'injecting' the low bits of the string, then releasing for the high bits. (it basically chops up the original signal to mimic the string, then disappears)
 
-The timing isn't written in stone, but I'd suggest leaving as I've tested thorougly (I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
+The timing isn't written in stone, but I'd suggest leaving it as is, as I've tested them thoroughly (I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
 
 Tested using 2 lasers across the board, one from a PU20 and one from a PU23 on extension cables, these were the only good lasers I had on hand at the time.
 Tested with about 10 games each, 3 antimods included and a few libcrypts.
@@ -54,7 +54,7 @@ FF9, UmJammer Lammy, Spyro - Year of the Dragon - no issue with any of them.
 By installing this chip YOUR DRIVE IS RESTRICTED IN WORKING within the boundaries of the chips programming!
 
 Benefits of this:
-Less wires, Discs must be in good shape! If your disc can't load within the parameters of the modchip then you've got a scratched up disc - make a fresh one. scratched
+Less wires, Discs must be in good shape! If your disc can't load within the parameters of the modchip then you've got a scratched up disc - make a fresh one. Scratched
 discs are only going to wear out your laser faster. Each model has slightly different timing and/ or single bit / full string injections.
 
 Downfalls:
