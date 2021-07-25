@@ -1,3 +1,3 @@
 Just a folder for tested arduinos, check images
 
-The 168 version (This was sent by a seller but pictured to be the same as the old boot loader version) won't allow reflashing with anything connected to the 3.3v pin (i.e whilst installed in the console)
+The clone version with the Atmega 168 pictured doesn't seem to be very trust worthy, I've had one erase itself over night and then require reflashing. No issues with the 368.
