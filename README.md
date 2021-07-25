@@ -14,7 +14,7 @@ UberChip - by Vajskids Consoles 2021
 
 An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23) with an Arduino Nano. 
 Multi-disc support and a full serial monitor output which shows you exactly what's
-happening as well as acting like a built in debugger.
+happening as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
 No Audio CD delay- will boot straight to audio CD player
 
