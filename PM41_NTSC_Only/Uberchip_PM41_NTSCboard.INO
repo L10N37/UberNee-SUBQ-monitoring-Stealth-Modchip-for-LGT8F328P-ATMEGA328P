@@ -18,9 +18,6 @@ char SCEI[] = "S10011010100100111101001010111010010110110100";
 
 void setup() {
   //Set up the used pins
-
-  pinMode (PSOneBIOS1, INPUT);
-  pinMode (PSOneBIOS2, INPUT);
   pinMode (GATE, OUTPUT);
   pinMode (DATA, OUTPUT);
   digitalWrite (DATA, LOW);
