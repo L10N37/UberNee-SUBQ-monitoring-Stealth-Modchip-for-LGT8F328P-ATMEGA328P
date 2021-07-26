@@ -2,8 +2,6 @@
 #define GATE 2
 #define DATA 12
 #define P_SENS 4
-#define PSOneBIOS2 10        //  ** PAL PSOne BIOS Patch pins  **
-#define PSOneBIOS1 11        //  **                            **
 #define mchipregister PIND    //register for monitoring high/low states (read only)
 #define mchipregwrite PORTD   //register to write pin states to in setup
 #define DRIVE_LID_SENS_REG PINB //the register with the DATA line and our drive lid sensor line
