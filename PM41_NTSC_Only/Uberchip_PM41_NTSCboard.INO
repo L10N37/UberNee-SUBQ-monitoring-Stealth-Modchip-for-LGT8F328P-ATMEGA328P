@@ -1,5 +1,5 @@
 //VajskiDs Consoles 2021 @  https://github.com/L10N37/tehUberChip_Another_PSX_Modchip/
-// UberChip V1.00 for NTSC mainboards (no BIOS patch on this version)
+// UberChip V1.00 for PM41 NTSC mainboards (no BIOS patch on this version)
 
 #define DRIVE_LID_SENS 8
 #define GATE 2
