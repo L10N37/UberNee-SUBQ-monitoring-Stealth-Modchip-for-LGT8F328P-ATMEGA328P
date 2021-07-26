@@ -90,7 +90,7 @@ void inject() {
       {
         DriveLidStatus();
       }
-      else if (NTSC_FIX == 32)  //after 32 full string injections release the BIOS D2 (black screen gets a little garbled on the bottom, WIP)
+      else if (NTSC_FIX == 32)  //after 32 full string injections release the BIOS D2 (black screen gets a little garbled on the bottom, WIP) (26 seems to be on the money for everygame I've tried bar FF9)
       {
         pinMode (PSOneBIOS1, INPUT);
       }
