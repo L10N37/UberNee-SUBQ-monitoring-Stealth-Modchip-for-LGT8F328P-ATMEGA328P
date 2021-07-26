@@ -37,7 +37,7 @@
 //   not something you'd do in real PSX use, but further proofs the code                                                                                           //
 //                                                                                                                                                                 //
 // V1.5.2: Updated the injection method, re-coded to suit direct wiring to 3.3v line / no link wire needed anymore                                                 //
-//  I haven't tested this personally as I CBF re-installing to a PU18 but it should be fine.
+//  I haven't tested this personally as I CBF re-installing to a PU18 but it should be fine.                                                                       //
 // \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/         \m/      \m/ //
 //Define the used pins
 #define DRIVE_LID_SENS 8
