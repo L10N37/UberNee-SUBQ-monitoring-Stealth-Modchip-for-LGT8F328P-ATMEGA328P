@@ -25,7 +25,7 @@
 //  https://imgur.com/eLf89y5                                                                                                                                      //
 // IT BOOTS UM JAMMER LAMMY [NTSC], the only game I know that can detect a modchip!!                                                                               //
 //                                                                                                                                                                 //
-//V1.5: Some minor timing and magic key injection tweaks, added multidisc support. Extra lid sensor wire in defines.                                               //
+//  V1.5: Some minor timing and magic key injection tweaks, added multidisc support. Extra lid sensor wire in defines.                                             //
 // Audio CD Fix + Jumps straight into CD player if an audio disc is inserted, this was just a delay at boot before injections as an audio                          //
 // CD is detected within the first 4 or 5 seconds and launches the player. Injecting the String / 'magic key' after this time                                      //
 // doesn't affect boot time of a game disc what so ever. Releasing Gate/ Data pins breaks the program, possibly because of the register states used but            //
@@ -33,7 +33,7 @@
 // ...Will likely move onto a PSOne version after this. Proper Install diagrams will be coming!                                                                    //
 // You won't be able to break this using the console normally, but if you really, really try you could probably flag an anti-mod                                   //
 //                                                                                                                                                                 //
-// V1.5.1: Injection routine now also monitors drive lid status, so can break out of the injection cycle early and restart it                                      //
+//  V1.5.1: Injection routine now also monitors drive lid status, so can break out of the injection cycle early and restart it                                     //
 //   not something you'd do in real PSX use, but further proofs the code                                                                                           //
 //                                                                                                                                                                 //
 // V1.5.2: Updated the injection method, re-coded to suit direct wiring to 3.3v line / no link wire needed anymore                                                 //
