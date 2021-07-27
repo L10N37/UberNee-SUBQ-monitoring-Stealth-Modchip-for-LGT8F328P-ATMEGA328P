@@ -20,7 +20,7 @@
 #define mchipregwrite PORTD   //register to write pin states to in setup
 #define DRIVE_LID_SENS_REG PINB //the register with the DATA line and our drive lid sensor line
 int bitdelay (3794); //delay between bits sent to drive controller (MS)
-int stringdelay (140); //delay between string injections
+int stringdelay (170); //delay between string injections
 const int Lid_Open = (0B000001); //so we don't have to refer to the states in bits further on
 const int Lid_Closed = (0B000000);
 int bitcounter = 0; //variable for injection loop storage
@@ -97,7 +97,7 @@ void inject() {
         pinMode (PSOneBIOS1, OUTPUT);
         digitalWrite (PSOneBIOS1, LOW);
       }
-      else if (NTSC_FIX == 22)                  //Release BIOS D2 @ ___ Iterations
+      else if (NTSC_FIX == 26)                  //Release BIOS D2 @ ___ Iterations
       {
         pinMode (PSOneBIOS1, INPUT);
       }
