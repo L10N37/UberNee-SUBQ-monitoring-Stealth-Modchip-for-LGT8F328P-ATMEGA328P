@@ -1,5 +1,5 @@
 /*  =================================================VAJSKIDS CONSOLES 2021 =================================================
-Stealth modchip with Single Wire BIOS patch for PM41 [Uber-dd V1.00]
+Stealth modchip with Single Wire BIOS patch for PM41 [Uber-dd V1.00] (this is a rushed release, will tidy up, debug and re-release)
 Quote VajskiDs himself - "it's reliable enough" :P
 
 ....As for the WIP versions, they were so broken it was only a fluke they worked as well as they did. 
