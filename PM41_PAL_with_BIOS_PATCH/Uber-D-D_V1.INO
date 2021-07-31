@@ -4,6 +4,7 @@ Quote VajskiDs himself - "it's reliable enough" :P
 
 ....As for the WIP versions, they were so broken it was only a fluke they worked as well as they did. 
 
+There could be irelevant function names or comments, haven't tidied this up yet....
 
 Testing so far
 
