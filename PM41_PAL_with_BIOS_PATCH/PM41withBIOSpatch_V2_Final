@@ -15,13 +15,13 @@
 //
 // I haven't had much time lately to do much, and I am losing interest in the project - I haven't had an issue with original discs until this version.
 // so now you can start the console with the lid open, then close it for a genuine disc - this disables any modchip functionality and just issues a status light.
-// for my own personal use, and I'm sure most people out there - this is a totally acceptable strike rate of at least 80% (One game did refuse to load
+// For my own personal use, and I'm sure most people out there - this code has a totally acceptable strike rate of at least 80% (One game did refuse to load
 // I made a tiny alteration.)
 // Once again, thanks to all the peope who put any helpful information out there, if this is ever tweaked to 'perfection' I hope you let us know!
 //
 //  Reliablity video attached:
-// 220UF bypass cap connected!!!
-// Diagrams coming
+//  220UF bypass cap connected!!!
+//  Diagrams coming
 
 #define DRIVE_LID_SENS 8
 #define LED 2
