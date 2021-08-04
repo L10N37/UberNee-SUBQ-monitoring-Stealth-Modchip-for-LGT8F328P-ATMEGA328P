@@ -19,9 +19,11 @@
 // I made a tiny alteration.)
 // Once again, thanks to all the peope who put any helpful information out there, if this is ever tweaked to 'perfection' I hope you let us know!
 //
-//  Reliablity video attached:
-//  220UF bypass cap connected!!!
-//  Diagrams coming
+//  Reliability video:                  https://youtu.be/Ahy8XMkAvQc 
+//  220UF bypass cap connected!!! You can use the mounting hole next to 3.3v as the GND. Slot in sideways, leave some of the positive leg exposed for the wire to
+//  the PSX mainboard
+//  Install diagrams in this folder and an example installation - probably better off routing in the gap bottom right or all through the hole near the laser.
+//  you can rest the shield on an angle against the bottom shell with some overhang while installing so the wires aren't massively long.
 
 #define DRIVE_LID_SENS 8
 #define LED 2
