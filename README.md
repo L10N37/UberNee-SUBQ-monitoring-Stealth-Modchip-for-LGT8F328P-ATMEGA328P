@@ -12,7 +12,7 @@ http://www.psxdev.net/forum/viewtopic.php?t=1266
 
 UberChip - by Vajskids Consoles 2021
 
-An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23) with an Arduino Nano. 
+An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23, PM41 - Assumed to work on PU20 - have one ...but CBF) with an Arduino Nano (3.3v 16mhz, running @ 8mhz). 
 Multi-disc support and a full serial monitor output which shows you exactly what's
 happening as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
@@ -24,15 +24,11 @@ the other string characters added to the header of the INO's shortly,
 Thanks to all the other open source modchip writers and especially thanks to OldCrows old articles and for
 releasing the first of the mighty PSX modchips!
 
-For stand-alone version (internal installations, no debug/ serial monitor) run a link from D4 to 3.3v pin (this will be fixed so you only need one wire and no link shortly)
-
 A clone arduino nano will set you back a whopping 6.60AUD free post at the moment, please check compatible arduinos folder.
 This will be updated when possible, but as of now I only purchase the cheap nano clones, this should work on MANY arduinos though.
 
-
-
 Optional reset: connection 4 off MM3 diagrams to the RST on the arduino.
-Without this, you can reset but you'd have to open the drive lid and close it again to get the game disc to boot again.
+Without this, you can reset but you'd have to open the drive lid and close it again to get the game disc to boot again. 
 
 Just checked this connection and it has a logic high of 3.xxV and gets pulled low on reset which should trigger the arduinos reset
 pin simultaneously without an issue.
