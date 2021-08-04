@@ -1,22 +1,25 @@
-//PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1 - [VajskiDs Consoles 2021]
-// Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with sony entertainment America with this version, but very rarely.
+// PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1 - [VajskiDs Consoles 2021]
+// Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with 
+// sony entertainment America with this version, but very rarely.
 // You may also get the normal European screen, but very rarely.
 // LED (with appropriate resistor) to 5v on mainboard, Arduino provides path to ground on Digital Pin 2
 //
 //
-// LED STATUSES: 
+// LED STATUSES:
 //                Fast Pulsing =     Pulses after each full string injection
-//                Blinking =    Blinks every 4s post injection routine, modchip is in stealth mode and monitoring drive lid status
-//                Solid =       Drive door lid is open, will return to Pulsing between string injections once the lid is closed
-//              
+//                Blinking (4s) =    Blinks every 4s post injection routine, modchip is in stealth mode and monitoring drive lid status
+//                Solid =            Drive door lid is open, will return to Pulsing between string injections once the lid is closed
+//                Blinking (10s) =   Genuine Disc Mode
+//
 //
 //
 // I haven't had much time lately to do much, and I am losing interest in the project - I haven't had an issue with original discs until this version.
+// so now you can start the console with the lid open, then close it for a genuine disc - this disables any modchip functionality and just issues a status light.
 // for my own personal use, and I'm sure most people out there - this is a totally acceptable strike rate of at least 80% (One game did refuse to load
 // I made a tiny alteration.)
 // Once again, thanks to all the peope who put any helpful information out there, if this is ever tweaked to 'perfection' I hope you let us know!
 //
-//  Reliablity video attached: 
+//  Reliablity video attached:
 // 220UF bypass cap connected!!!
 // Diagrams coming
 
@@ -43,6 +46,15 @@ void setup() {
   pinMode (DRIVE_LID_SENS, INPUT);
   digitalWrite (mchipregwrite, 0B00001011);
   digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
+}
+
+void Genuine() {              //Genuine disc mode (start PSX with lid open, then close) does nothing, just lets you know it's in this mode with the LED
+  pinMode (LED, INPUT);
+  delay (10000);
+  pinMode (LED, OUTPUT);
+  digitalWrite (LED, LOW);  //pulse the LED light every 4 seconds to indicate string injections complete, stealth mode on, awaiting disc change
+  delay (1000);
+  Genuine();
 }
 
 void NewDisc() {
@@ -132,6 +144,9 @@ void inject() {
 
 
 void loop() {
+  if (digitalRead(DRIVE_LID_SENS) == 1) {
+    Genuine();
+  }
   delay (3800); //start-up delay
   inject();
 }
