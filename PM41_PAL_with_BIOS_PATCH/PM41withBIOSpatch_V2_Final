@@ -9,7 +9,7 @@
 //                Fast Pulsing =     Pulses after each full string injection
 //                Blinking (4s) =    Blinks every 4s post injection routine, modchip is in stealth mode and monitoring drive lid status
 //                Solid =            Drive door lid is open, will return to Pulsing between string injections once the lid is closed
-//                Blinking (10s) =   Genuine Disc Mode
+//                Blinking (10s) =   Genuine Disc Mode / chip is effectively only capable of blinking a light until it's reset or power cycled
 //
 //
 //
