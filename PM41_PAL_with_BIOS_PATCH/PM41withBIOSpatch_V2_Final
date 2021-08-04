@@ -1,5 +1,5 @@
 // PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1 - [VajskiDs Consoles 2021]
-// Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with 
+// Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with
 // sony entertainment America with this version, but very rarely.
 // You may also get the normal European screen, but very rarely.
 // LED (with appropriate resistor) to 5v on mainboard, Arduino provides path to ground on Digital Pin 2
@@ -26,7 +26,6 @@
 #define DRIVE_LID_SENS 8
 #define LED 2
 #define DATA 12
-#define P_SENS 4
 #define PSOneBIOS 11
 #define mchipregwrite PORTD   //register to write pin states to in setup
 #define DRIVE_LID_SENS_REG PORTB //the register with the DATA line and our drive lid sensor line
@@ -42,7 +41,6 @@ void setup() {
   pinMode (PSOneBIOS, INPUT);
   pinMode (DATA, OUTPUT);
   digitalWrite (DATA, LOW);
-  pinMode (P_SENS, INPUT);
   pinMode (DRIVE_LID_SENS, INPUT);
   digitalWrite (mchipregwrite, 0B00001011);
   digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
@@ -145,7 +143,9 @@ void inject() {
 
 void loop() {
   if (digitalRead(DRIVE_LID_SENS) == 1) {
-    Genuine();
+    pinMode (DATA, INPUT);  //revert these lines to inputs to not interfere with genuine disc string
+    pinMode (PSOneBIOS, INPUT);
+    Genuine();              //jump to blinky light status indicating chips in genuine disc mode
   }
   delay (3800); //start-up delay
   inject();
