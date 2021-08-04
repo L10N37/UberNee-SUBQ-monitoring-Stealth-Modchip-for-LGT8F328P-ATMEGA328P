@@ -143,7 +143,7 @@ void inject() {
 
 void loop() {
   if (digitalRead(DRIVE_LID_SENS) == 1) {
-    pinMode (DATA, INPUT);  //revert these lines to inputs to not interfere with genuine disc string
+    pinMode (DATA, INPUT);  //revert these lines to inputs so they don't interfere with the genuine disc string
     pinMode (PSOneBIOS, INPUT);
     Genuine();              //jump to blinky light status indicating chips in genuine disc mode
   }
