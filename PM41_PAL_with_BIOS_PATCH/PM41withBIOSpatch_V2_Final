@@ -98,20 +98,20 @@ void inject() {
 
 
 
-  //888888888888888888888888888888888888==   BIOS STUFF    =888888888888888888888888888888888888//
+ //888888888888888888888888888888888888==   BIOS STUFF    =888888888888888888888888888888888888//
 
-  if (NTSC_FIX > 2 && (NTSC_FIX < 27))                        // No rocket-science here!
+  if (NTSC_FIX > 4 && (NTSC_FIX < 28))                        // No rocket-science here!
   {
     pinMode (PSOneBIOS, OUTPUT);                             // Simply attempt to spoof NTSC console detection by pulling BIOS D2 low between
     digitalWrite (PSOneBIOS, LOW);                           // these string injection iterations
   }
 
 
-  if (NTSC_FIX == 28)
+  if (NTSC_FIX == 29)
   {
-    pinMode (PSOneBIOS, INPUT);                              // Then release the line!
+    pinMode (PSOneBIOS, INPUT);                               // Then release the line!
   }                                                           // This is EXTREMELY touchy! as non-precise as it seems, it's actually quite precise
-
+                                                              //  Disc drive quality matters!
   //888888888888888888888888888888888888==   BIOS STUFF    =888888888888888888888888888888888888//
 
 
