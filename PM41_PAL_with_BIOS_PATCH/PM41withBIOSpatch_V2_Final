@@ -48,7 +48,7 @@ void setup() {
 void NewDisc() {
   if (digitalRead(DRIVE_LID_SENS) == 1) {
     pinMode (LED, OUTPUT);
-    digitalWrite (PSOneBIOS, LOW);
+    digitalWrite (LED, LOW);
   }
   else if (digitalRead(DRIVE_LID_SENS) == 0) {
     pinMode (LED, INPUT);
