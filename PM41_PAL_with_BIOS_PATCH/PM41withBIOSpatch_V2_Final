@@ -1,4 +1,4 @@
-//PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1
+//PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1 - [VajskiDs Consoles 2021]
 // Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with sony entertainment America with this version, but very rarely.
 // You may also get the normal European screen, but very rarely.
 // LED (with appropriate resistor) to 5v on mainboard, Arduino provides path to ground on Digital Pin 2
