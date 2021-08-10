@@ -22,9 +22,6 @@ happening as well as acting like a built in debugger. There are of course stand-
 
 No Audio CD delay- will boot straight to audio CD player
 
-Currently only PAL string bits are included for PU18, the injection routine will be updated to work like the later models and
-the other string characters added to the header of the INO's shortly,
-
 Thanks to all the other open source modchip writers and especially thanks to OldCrows old articles and for
 releasing the first of the mighty PSX modchips!
 
@@ -55,10 +52,13 @@ By installing this chip YOUR DRIVE IS RESTRICTED IN WORKING within the boundarie
 
 Benefits of this:
 Less wires, Discs must be in good shape! If your disc can't load within the parameters of the modchip then you've got a scratched up disc - make a fresh one. Scratched
-discs are only going to wear out your laser faster. Each model has slightly different timing and/ or single bit / full string injections.
+discs are only going to wear out your laser faster. Each model has slightly different timing and counts either full string iterations or increments a counter per bit.
 
 Downfalls:
 Your shitty scratched up discs might not load in time, thus saving your laser from unnecessary wear and tear.
 
 Also, I'm sure you will notice how much healthier the drive sounds with the removed 100k resistor - testing has shown this signal to be nothing but detrimental to the
 drives performance.
+
+
+....It may take a while, but I will eventually port this across to a PIC chip in ASM
