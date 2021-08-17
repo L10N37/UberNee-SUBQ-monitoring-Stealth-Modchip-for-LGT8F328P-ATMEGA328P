@@ -263,7 +263,7 @@ BIOSPATCH
 		bank1				    ;Sw to bank 1 for TRISIO REG
 		BCF	BIOS_TR			    ;Clear BIOS bit in TRISIO (now an output)
 		bcf	BIOS_GP			    ;Make sure D2 is pulled low
-		return	inject			    ;Jump back to Injection cycle
+		return				    ;Jump back to Injection cycle
 		
 		
 		
