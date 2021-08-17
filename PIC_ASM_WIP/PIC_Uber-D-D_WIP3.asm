@@ -221,7 +221,7 @@ stringdelay
 		
 		
 		;reset variables and store 1st injection byte back in 'stringbyte'
-		bsf    nextstring,0 ; 5
+		bsf    nextstring,0 ; 6
 		bsf    nextstring,2 ;
 		
 		movlw	0x95	    
