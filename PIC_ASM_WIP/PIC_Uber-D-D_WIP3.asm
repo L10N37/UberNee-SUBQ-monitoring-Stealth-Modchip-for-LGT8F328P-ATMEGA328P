@@ -124,7 +124,7 @@
    movlw    D'9'		; Full bit by bit byte counter
    movwf    fullbcount
     
-   movlw    0x09		; Store first injection string byte in RAM
+   				; Store first injection string byte in RAM
    movwf    stringbyte
    
    bsf	    StringsPrior,2	; Move 4 into this variable (@22h)
