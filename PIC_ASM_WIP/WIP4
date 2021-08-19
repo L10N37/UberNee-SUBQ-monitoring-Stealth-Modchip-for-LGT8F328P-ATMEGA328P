@@ -343,13 +343,14 @@ continueinject
 		goto	    lowbit
 		
 highbit
-    	
-    bsf	    0x85,4	    ;release (make input)
+    bsf	    0x03,5          ; B1	
+    bsf	    0x85,4	    ; release (make input)
     call    bitdelay	    ; COMMENT FOR DEBUG
     rlf	    stringbyte,1    ; rotate bytes bits left
     goto    maininject
 			    
 lowbit
+    bsf	    0x03,5          ; B1
     bcf	    0x85,4	    ; make output, pull line
     call    bitdelay	    ; COMMENT FOR DEBUG
     rlf	    stringbyte,1    ; rotate bytes bits left once per loop
