@@ -53,7 +53,7 @@ Loopbyte1
 (Call high or low Subroutine)
     Dec bcounter
 (Above counter zero
-Reset counter then Goto loopbyte2)
+Reset counter, RLF x1 (resets) then Goto loopbyte2)
  Else:   Rotate left thru carry 
 Goto  loopbyte1 
 
