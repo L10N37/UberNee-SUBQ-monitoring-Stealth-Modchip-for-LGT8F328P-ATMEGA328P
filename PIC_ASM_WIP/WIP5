@@ -1,0 +1,547 @@
+                                                                                       
+;                                                     ,-.             ,---,                 
+;       ,---.                                     ,--/ /|   ,--,    .'  .' `\               
+;      /__./|                   .--.            ,--. :/ | ,--.'|  ,---.'     \              
+; ,---.;  ; |                 .--,`|  .--.--.   :  : ' /  |  |,   |   |  .`\  |  .--.--.    
+;/___/ \  | |   ,--.--.       |  |.  /  /    '  |  '  /   `--'_   :   : |  '  | /  /    '   
+;\   ;  \ ' |  /       \      '--`_ |  :  /`./  '  |  :   ,' ,'|  |   ' '  ;  :|  :  /`./   
+; \   \  \: | .--.  .-. |     ,--,'||  :  ;_    |  |   \  '  | |  '   | ;  .  ||  :  ;_     
+;  ;   \  ' .  \__\/: . .     |  | ' \  \    `. '  : |. \ |  | :  |   | :  |  ' \  \    `.  
+;   \   \   '  ," .--.; |     :  | |  `----.   \|  | ' \ \'  : |__'   : | /  ;   `----.   \ 
+;    \   `  ; /  /  ,.  |   __|  : ' /  /`--'  /'  : |--' |  | '.'|   | '` ,/   /  /`--'  / 
+;     :   \ |;  :   .'   \.'__/\_: |'--'.     / ;  |,'    ;  :    ;   :  .'    '--'.     /  
+;      '---" |  ,     .-./|   :    :  `--'---'  '--'      |  ,   /|   ,.'        `--'---'   
+;             `--`---'     \   \  /                        ---`-' '---'                     
+;                           `--`-'          
+;	     _   _ _                     ______       ______ 
+;	    | | | | |                    |  _  \      |  _  \
+;	    | | | | |__   ___ _ __ ______| | | |______| | | |
+;	    | | | | '_ \ / _ \ '__|______| | | |______| | | |
+;	    | |_| | |_) |  __/ |         | |/ /       | |/ / 
+;	     \___/|_.__/ \___|_|         |___/        |___/  
+;
+;						     
+;
+;
+;		  __             _____ _____ _____   __ ___  ______ ________ _____ 
+;		 / _|           |  __ \_   _/ ____| /_ |__ \|  ____/ /____  | ____|
+;		| |_ ___  _ __  | |__) || || |       | |  ) | |__ / /_   / /| |__  
+;		|  _/ _ \| '__| |  ___/ | || |       | | / /|  __| '_ \ / / |___ \ 
+;		| || (_) | |    | |    _| || |____   | |/ /_| |  | (_) / /   ___) |
+;		|_| \___/|_|    |_|   |_____\_____|  |_|____|_|   \___/_/   |____/  (c) 2021
+; MPLAB IDE V5.20 / MPASM    
+; FINAL WIP
+; We have a black screen and the D-D, would only need fine tuning from here. 
+; might wait for some 8pin DIP sockets and make a breakout board as im sick of manually soldering this thing in... 
+; this calls for strawberry flavoured tequila Liqueur shots!! (lol)
+                                                                    
+                                                  
+    LIST P=12F675
+   #INCLUDE <P12F675.inc>
+   
+   
+   ; __config 0xF1A4
+ __CONFIG _FOSC_INTRCIO & _WDTE_OFF & _PWRTE_ON & _MCLRE_ON & _BOREN_OFF & _CP_OFF & _CPD_OFF
+
+   
+   cblock 0x20
+	StringsTotal	    ; @20h	   
+	StringsDuring	    ; @21h	   
+	StringsPrior	    ; @22h	   
+	CounterA	    ; @23h	   
+	CounterB	    ; @24h
+	CounterC	    ; @25h
+	CounterD	    ; @26h	
+	
+	stringbyte  ; @27h 0x09 (half a byte, pump exra zeroes in anyway)
+	fullbcount  ; @28h Decimal 9, after first pass it will be at 8 (for full byte counter, bit by bit)
+	
+	byte2	    ; @29h	
+	byte3	    ; @2Ah
+	byte4	    ; @2Bh
+	byte5	    ; @2Ch
+	nextstring  ; @2Dh
+   endc
+   			
+    ORG 0x00					     ;Begin @ start of PROG MEM
+    
+    ;Factory Calibrate OSCCAL
+    bsf	    STATUS, RP0 ;Bank 1
+    call    3FFh ;Get the cal value
+    movwf   OSCCAL ;Calibrate
+    
+   
+   GOTO Setup
+   
+   
+;=============================================================================================================   
+Setup				
+	
+	bcf	0x03,5		; bank 1
+	clrf    0X9F		; clear ANSEL, all pins digital I/O bar reserved
+	bcf	0x83,5		; bank 0		
+	clrf    0x05		; init GPIO
+	movlw	B'111'		; comparator off
+	movwf	0x19		;	    (CMCON)
+	movlw	0x3D		; pin set up as input or output, single byte shift into
+	movwf	0X05		;						    GPIO
+			
+;=============================================================================================================
+	
+	clrf    0x05		
+	movlw	B'111'		
+	movwf	0x19		
+	bsf	0x03,5		
+	clrf    0X9F		
+	movlw	0x3D		
+	movwf	0X85		
+				
+				
+    goto    cont
+		
+
+;/////////////////////////////////////////////////////////////////////////
+Genuine
+    bsf	    0x03,5	; bank 1  
+    bcf	    0x85,0	; set LED pin as output
+    call    LEDON
+    call    _1second	; on for 1s
+    call    LEDOFF
+    call    _10seconds  ; off for 10s
+    goto    Genuine	; Endless loop in this mode, no exit without powerdown / reset
+;/////////////////////////////////////////////////////////////////////////
+	
+	
+cont
+;---------------------------------------------------------------------------------------	
+		; Store integers @ FREG locations set in header
+   
+    bsf	    byte2,1	; 000000010 = D'2'
+    bsf	    byte3,1     ; load decimal '2' into  'switch byte' counters
+    bsf	    byte4,1 
+    bsf	    byte5,1
+    
+   movlw    D'6'
+   movwf    nextstring
+
+   movlw    0x09		; Full bit by bit byte counter
+   movwf    fullbcount		; Store counter and
+   
+   movlw    B'10011010'
+   movwf    stringbyte		; store first injection string byte in RAM
+   
+   movlw    D'5'
+   movwf    StringsPrior	; Move 5 into this variable (@22h)
+   	
+   movlw    D'30'		; 30
+   movwf    StringsDuring	 
+   
+   movlw    D'80'		; 80
+   movwf    StringsTotal	 
+;---------------------------------------------------------------------------------------
+   
+   
+   
+	 ;goto	inject		; DEBUG	
+	 goto	StartUpDelay 
+	
+
+	
+;*******************LED SUBROUTINES******************
+LEDOFF				    
+		bsf	    0x03,5	; bank 1	
+		bsf	    0x85,0	; set LED pin as input
+		bcf	    0x83,5	; bank 0
+		return
+		
+LEDON	
+		bsf	    0x03,5	; bank 1
+		bcf	    0x85,0	; set LED pin as output
+		bcf	    0x83,5	; bank 0
+		return
+;****************************************************	
+		
+
+	
+		
+		
+		
+	
+;*******************DELAY SUBROUTINES****************
+bitdelay		
+;PIC Time Delay = 0.00400000 s with Osc = 4000000 Hz
+		movlw	D'6'
+		movwf	CounterB
+		movlw	D'47'
+		movwf	CounterA
+bloop		decfsz	CounterA,1
+		goto	bloop
+		decfsz	CounterB,1
+		goto	bloop
+		retlw	0
+		return
+
+
+
+_10seconds
+		
+;PIC Time Delay = 10.00000200 s with Osc = 4000000 Hz
+		movlw	D'51'
+		movwf	CounterC
+		movlw	D'187'
+		movwf	CounterB
+		movlw	D'223'
+		movwf	CounterA
+_10loop		decfsz	CounterA,1
+		goto	_10loop
+		decfsz	CounterB,1
+		goto	_10loop
+		decfsz	CounterC,1
+		goto	_10loop
+		retlw	0
+		return
+		
+		
+_1second
+		;PIC Time Delay = 1.00000200 s with Osc = 4000000 Hz
+		movlw	D'6'
+		movwf	CounterC
+		movlw	D'19'
+		movwf	CounterB
+		movlw	D'173'
+		movwf	CounterA
+_1.loop		decfsz	CounterA,1
+		goto	_1.loop
+		decfsz	CounterB,1
+		goto	_1.loop
+		decfsz	CounterC,1
+		goto	_1.loop
+		retlw	0
+		return
+;****************************************************	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+;//////////////////////////////////////////////////////////////////////////////////////////////////		
+stringdelay		
+		
+		;Check Drive Lid Status
+		bcf	    0x03,5	; Bank 0 for lid check
+		btfsc	    0x05,2	; pin 5 high?
+		goto	    _newdisc	; jump here if early exit by interrupting injections with drivelid = open
+					; else just continue
+		;goto	inject; DEBUG
+
+		;PIC Time Delay = 0.16700000 s with Osc = 4000000 Hz
+		movlw	D'217'
+		movwf	CounterB
+		movlw	D'225'
+		movwf	CounterA
+sloop		decfsz	CounterA,1
+		goto	sloop
+		decfsz	CounterB,1
+		goto	sloop
+		goto	inject
+					
+;//////////////////////////////////////////////////////////////////////////////////////////////////			
+					
+		
+				
+;BIOS STUFF**********************************************************************************		
+BIOSPATCH
+		bsf	0x03,5	;bank 1
+		bcf	0x85,5			    ;Clear BIOS bit in TRISIO (now an output)
+		;bcf	0x83,5	 ;bank 0
+		;bcf	0x05,5			    ;Make sure D2 is pulled low
+		return				    ;Jump back to Injection cycle
+		
+		
+		
+		
+RELEASEBIOS
+		bsf	0x03,5	;bank 1		    ;Sw to bank 1 for TRISIO REG
+		BSF	0x85,5			    ;Set BIOS bit in TRISIO (now an input)
+		return
+;********************************************************************************************			
+		
+		
+		
+		
+StartUpDelay
+;PIC Time Delay = 5.49999700 s with Osc = 4000000 Hz
+		movlw	D'28'
+		movwf	CounterC
+		movlw	D'231'
+		movwf	CounterB
+		movlw	D'198'
+		movwf	CounterA
+loop		decfsz	CounterA,1
+		goto	loop
+		decfsz	CounterB,1
+		goto	loop
+		decfsz	CounterC,1
+		goto	loop
+		goto	check_genuine
+
+
+check_genuine		
+		
+;============= GENUINE?? ==============================================================
+	bcf	0x03,5		; Bank 0 for GPIO check
+	btfss   0x05,2		; Modchip Disabled? (check pin5 at boot)
+	goto	inject	
+	goto	Genuine		; Go here if lid's open on boot, else continues, need to check after start up delay!
+;======================================================================================	
+		
+    
+
+		
+		
+		
+;***************************************= INJECTION ROUTINE =******************************************************
+inject			    ; SCEE: 1001 1010 1001 0011 1101 0010 1011 1010 0101 0111 0100
+		bsf	    0x03,5		    ; bank 1
+		decfsz	    StringsPrior,1	    ; Conditional branches
+		goto	    _inject		    
+		call	    BIOSPATCH
+		
+_inject
+
+		decfsz	    StringsDuring,1	    
+		goto	    Total
+		call	    RELEASEBIOS		    
+		
+Total		
+		call	    LEDON
+		decfsz	    StringsTotal,1	    
+		goto	    maininject
+		goto	    StealthMode_
+			    
+maininject			       
+		decfsz	    fullbcount,1
+		goto	    continueinject
+		goto	    setupnextbyte
+continueinject
+		bsf	    0x03,5	 ; bank 1, just in case
+		btfsc	    stringbyte,7 ; bit test FREG byte2, bit 7 (reads from MSB), skip if clear
+		goto	    highbit
+		goto	    lowbit
+		
+highbit
+    bsf	    0x03,5	    ; bank 1	
+    bsf	    0x85,4	    ; release (make input)
+    call    bitdelay	    ; COMMENT FOR DEBUG
+    rlf	    stringbyte,1    ; rotate bytes bits left
+    goto    maininject
+			    
+lowbit
+    bsf	    0x03,5	    ; bank 1
+    bcf	    0x85,4	    ; make output, pull line
+    call    bitdelay	    ; COMMENT FOR DEBUG
+    rlf	    stringbyte,1    ; rotate bytes bits
+    goto    maininject
+ 
+setupnextbyte
+    
+    ;***=next string injection setup=***
+    decfsz  nextstring,1    ;dec 1 per byte, when 0 is hit, call string delay
+    goto    continue
+    call    LEDOFF
+    movlw   D'9'
+    movwf   fullbcount	    ; reset variables for next cycle
+    movwf   stringbyte
+    movlw   D'6'
+    movwf   nextstring
+    bsf	    byte2,1
+    bsf	    byte3,1
+    bsf	    byte4,1 
+    bsf	    byte5,1
+    goto    stringdelay
+    ;************************************
+    
+continue
+    decfsz  byte2	; dec 1, now contains 1, jump to _byte 2 and back to inject
+    goto    _byte2	; next cycle, dec 1 again, hits zero, jumps to _byte3 and back to inject
+    
+    
+    decfsz  byte3	; ***** 3Dh *****
+    goto    _byte3	; continue this algorithm through each byte of the injection string
+    
+    decfsz  byte4	;***** 2Bh *****
+    goto    _byte4
+   
+    
+    decfsz  byte5	;***** A5h *****
+    goto    _byte5
+    
+    goto    _byte6
+    
+    
+_byte2
+    movlw   B'10010011'
+    movwf   stringbyte
+    bsf	    fullbcount,0    ;9 (reset)
+    bsf	    fullbcount,3
+    goto    maininject
+_byte3
+    bsf	    byte2,0 ; with each passing byte injection, set
+    bsf	    byte3,0 ; the already completed 'switch byte' counters back to '1'
+    movlw   B'11010010'
+    movwf   stringbyte
+    bsf	    fullbcount,0    ;9 (reset)
+    bsf	    fullbcount,3
+    goto    maininject
+_byte4
+    bsf	    byte2,0 ; so that they're skipped on further
+    bsf	    byte3,0 ; passes, reset at string delay to initial values
+    bsf	    byte4,0
+    movlw   B'10111010'
+    movwf   stringbyte
+    bsf	    fullbcount,0    ;9 (reset)
+    bsf	    fullbcount,3
+    goto    maininject
+_byte5
+    bsf	    byte2,0
+    bsf	    byte3,0
+    bsf	    byte4,0
+    bsf	    byte5,0
+    movlw   B'01010111'
+    movwf   stringbyte
+    bsf	    fullbcount,0    ;9 (reset)
+    bsf	    fullbcount,3
+    goto    maininject
+_byte6
+    movlw   B'01000000'
+    movwf   stringbyte
+    bsf	    fullbcount,0    ;9 (reset)
+    bsf	    fullbcount,3
+    goto    maininject
+;*******************************************************************************************************************
+    
+
+    
+    
+    
+;Reset all variables prior to StealthMode (copy paste from first pass on boot)
+StealthMode_
+    
+
+   movlw    D'6'
+   movwf    nextstring
+
+   movlw    0x09		; Full bit by bit byte counter
+   movwf    fullbcount		; Store counter and
+   
+   
+   movwf    stringbyte		; store first injection string byte in RAM
+   
+   movlw    D'5'
+   movwf    StringsPrior	; Move 5 into this variable (@22h)
+   	
+   movlw    D'30'		; 30
+   movwf    StringsDuring	 
+   
+   movlw    D'80'		; 80
+   movwf    StringsTotal	 
+   goto	    StealthMode
+   
+   
+    
+    
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+StealthMode
+    bcf	    0x83,5	; Bank 0 for the GPIO checks on GP2 / Pin5
+    call    LEDON
+    btfsc   0x05,2	; drivelid check
+    goto    newdisc	; skip this instruction if lid = closed
+    call    _1second	; LED on for 1s
+    call    LEDOFF
+    call    _1second	; off for 4s with a drivelid check between each
+    btfsc   0x05,2	; 1s delay
+    goto    newdisc
+    call    _1second
+    btfsc   0x05,2
+    goto    newdisc	; If drive lid is open on any check
+    call    _1second	; goto to 'newdisc'
+    btfsc   0x05,2
+    goto    newdisc
+    call    _1second
+    goto    StealthMode ; loop only broken by drive lid = open
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  
+    
+    
+    
+;.........................................................................    
+_newdisc
+		; reset variables and store 1st injection byte back in 'stringbyte'
+		; & make sure we are in bank 0 for access to GPIO in case of early exit routine
+    bcf		0x83,5		; bank 0
+    bsf		nextstring,1 ; 6
+    bsf		nextstring,2 ;
+    
+    movlw	0x09		; = Decimal 9   / 1st byte of string
+    movwf	fullbcount
+    
+    movlw	B'10011010'
+    movwf	stringbyte
+    
+    movlw	D'4'
+    movwf	StringsPrior
+		
+    
+				
+    bsf		byte2,1	
+    bsf		byte3,1     ; load decimal '2' into  'switch byte' counters
+    bsf		byte4,1 
+    bsf		byte5,1
+		
+    ;=====================================================
+    movlw	D'80'	; Reset total injections counter
+    movwf	StringsTotal
+    ;=====================================================
+    
+    goto	    newdisc
+;.........................................................................		
+		
+		
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+newdisc
+		
+    call    LEDON	; leave LED on while lids open
+    bcf	    0x03,5	; bank 0
+    btfss   0x05,2	; check if lids still open
+    goto    inject
+    goto    newdisc	; if it's still open loop the routine, else execute the above
+			; goto instruction and return to the injection routine
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+    
+			
+			
+	
+			
+    end	;   requirement, but never reached
+    
