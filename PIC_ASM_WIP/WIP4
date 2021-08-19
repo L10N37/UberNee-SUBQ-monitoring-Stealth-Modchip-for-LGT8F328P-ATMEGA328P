@@ -67,7 +67,8 @@
    			
     ORG 0x00					     ;Begin @ start of PROG MEM
     
-    ;4mhz   bsf		0x03,5	;bank 1
+    ;4mhz   
+    bsf		0x03,5	;bank 1
     movlw	0xFC	;Max Value
     movwf	0x90	;OSCCAL
     bcf		0x83,5	;bank 0
@@ -491,13 +492,12 @@ _newdisc
     bsf		nextstring,2 ;
     
     movlw	0x09		; = Decimal 9   / 1st byte of string
-    movwf	stringbyte
-    
-    movlw	D'4'
-    movwf	StringsPrior
-		
+    movwf	stringbyte	
     movwf	fullbcount	; need same value here 
 				
+    movlw       D'5'
+    movwf	StringsPrior
+
     bsf		byte2,1	
     bsf		byte3,1     ; load decimal '2' into  'switch byte' counters
     bsf		byte4,1 
