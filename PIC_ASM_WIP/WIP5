@@ -90,8 +90,8 @@ Setup
 	
 	clrf    0x05		
 	movlw	B'111'		
-	movwf	0x19		
-	bsf	0x03,5		
+	movwf	0x19		;THIS entire section was an accident, but this version worked so
+	bsf	0x03,5		; it was a fluke, meant to move 0x3D into TRISIO @ 0x85 (bank 1)
 	clrf    0X9F		
 	movlw	0x3D		
 	movwf	0X85		
