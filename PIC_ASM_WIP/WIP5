@@ -34,8 +34,33 @@
 ; We have a black screen and the D-D, would only need fine tuning from here. 
 ; might wait for some 8pin DIP sockets and make a breakout board as im sick of manually soldering this thing in... 
 ; this calls for strawberry flavoured tequila Liqueur shots!! (lol)
-                                                                    
-                                                  
+        
+
+ New algorithm for final version will be                                                           
+            TotalStringCount (Dec)
+         Bios counter for pull / release 
+
+   All bytes static/const at set location 
+
+
+Turn high and low bit into subroutines to call
+
+
+General algorithm 
+
+Loopbyte1
+    Bang first bit of byte 1 (bit 7) 
+(Call high or low Subroutine)
+    Dec bcounter
+(Above counter zero
+Reset counter then Goto loopbyte2)
+ Else:   Rotate left thru carry 
+Goto  loopbyte1 
+
+Loop byte2 
+Continue algorithm       
+
+                               
     LIST P=12F675
    #INCLUDE <P12F675.inc>
    
