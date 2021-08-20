@@ -446,7 +446,7 @@ lowbit6
     bsf	    0x03,5	    
     bcf	    0x85,4	    
     rlf	    byte6	    
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decfsz  fullbcount      ; branch for this byte (last bit is '0')
     goto    byte6_	    
     bsf	    fullbcount,3    ; reset   
@@ -461,15 +461,15 @@ lowbit6
 StealthMode_
    
     bsf		0x03,5		; bank 1	 	
-    bsf		0x85,4		; DATA input (for early exit of inject)
-    bsf		0x85,5		; BIOS input (early exit of inject during patch)
+    bsf		0x85,4		; DATA input
+    bsf		0x85,5		; BIOS input
     bcf		0x83,5		; bank0
     
    movlw    D'8'		; Full bit by bit byte counter
    movwf    fullbcount		; Store counter and
    
-   movlw    D'6'
-   movwf    StringsPrior	; Move 6 into this variable (@22h)
+   movlw    D'5'
+   movwf    StringsPrior	; Move 5 into this variable (@22h)
    	
    movlw    D'30'		; 30
    movwf    StringsDuring	 
@@ -518,6 +518,9 @@ _newdisc
 
     movlw	D'5'
     movwf	StringsPrior
+
+    movlw    D'30'		; 30
+    movwf    StringsDuring	 
     ;=====================================================
     movlw	D'79'	; Reset total injections counter
     movwf	StringsTotal
