@@ -61,4 +61,12 @@ Also, I'm sure you will notice how much healthier the drive sounds with the remo
 drives performance.
 
 
-....It may take a while, but I will eventually port this across to a PIC chip in ASM
+Uber D D (PM41 bios patch version) is available for PIC12F675
+But the original release had broken multidisc functionality.
+Forgot to reset one variable out of a few.
+Went to fix it and ended up breaking something else.
+
+Just need to release DATA line in bank one / set corresponding trisio bit 
+Prior to jumping to stealth mode routine and good habit to shift straight
+Back to bank zero after that. Will fix soon and release fixed ASM and HEX
+
