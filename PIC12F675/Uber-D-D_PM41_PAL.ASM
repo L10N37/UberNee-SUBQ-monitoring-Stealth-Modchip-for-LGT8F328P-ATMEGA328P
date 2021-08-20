@@ -132,7 +132,7 @@ cont
    movlw    D'8'		; Full bit by bit byte counter
    movwf    fullbcount		; Store counter and
    
-   movlw    D'6'
+   movlw    D'5'
    movwf    StringsPrior	; Move 5 into this variable (@22h)
    	
    movlw    D'30'		; 30
@@ -220,7 +220,7 @@ _1.loop		decfsz	CounterA,1
 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////		
 stringdelay		
-		call	    LEDOFF	; nested subroutine
+		call	    LEDOFF
 		;Check Drive Lid Status
 		bcf	    0x03,5	; Bank 0 for lid check
 		btfsc	    0x05,2	; pin 5 high?
@@ -319,7 +319,7 @@ highbit1
     bsf	    0x03,5	    ; bank 1	
     bsf	    0x85,4	    ; release (make input)
     rlf	    byte1	    ; rotate bits left
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decf    fullbcount    ; Dec bit counter
     goto    byte1_
 			    
@@ -327,7 +327,7 @@ lowbit1
     bsf	    0x03,5	    ; bank 1
     bcf	    0x85,4	    ; make output, pull line
     rlf	    byte1	    ; rotate bits left
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decfsz  fullbcount      ; last bit of first byte is '0'- branch goes here
     goto    byte1_	    ; branch condition unmet, inject next bit
     bsf	    fullbcount,3    ; branch condition met (bcounter=0) so reset to 8 for next byte
@@ -343,7 +343,7 @@ highbit2
     bsf	    0x03,5	    ; bank 1	
     bsf	    0x85,4	    ; release (make input)
     rlf	    byte2	    ; rotate bits left
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decfsz  fullbcount      ; last bit of second byte is '1'- branch goes here
     goto    byte2_
     bsf	    fullbcount,3    ; branch condition met (bcounter=0) so reset to 8 for next byte
@@ -354,7 +354,7 @@ lowbit2
     bsf	    0x03,5	    ; bank 1
     bcf	    0x85,4	    ; make output, pull line
     rlf	    byte2 	    ; rotate bits left
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decf    fullbcount	    
     goto    byte2_	    ; branch condition unmet, inject next bit
 
@@ -367,7 +367,7 @@ highbit3
     bsf	    0x03,5
     bsf	    0x85,4
     rlf	    byte3
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decf    fullbcount	    
     goto    byte3_
 			    
@@ -375,7 +375,7 @@ lowbit3
     bsf	    0x03,5	    
     bcf	    0x85,4	    
     rlf	    byte3	    
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decfsz  fullbcount	    ; branch for this byte (last bit is '0')
     goto    byte3_	    
     bsf	    fullbcount,3    ; reset   
@@ -390,7 +390,7 @@ highbit4
     bsf	    0x03,5
     bsf	    0x85,4
     rlf	    byte4
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decf    fullbcount	    
     goto    byte4_
 			    
@@ -398,7 +398,7 @@ lowbit4
     bsf	    0x03,5	    
     bcf	    0x85,4	    
     rlf	    byte4	    
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decfsz  fullbcount      ; branch for this byte (last bit is '0')
     goto    byte4_	    
     bsf	    fullbcount,3    ; reset   
@@ -438,7 +438,7 @@ highbit6
     bsf	    0x03,5
     bsf	    0x85,4
     rlf	    byte6
-    call    bitdelay	    ; COMMENT FOR DEBUG, nested subroutine
+    call    bitdelay	    ; COMMENT FOR DEBUG
     decf    fullbcount	    
     goto    byte6_
 			    
@@ -484,18 +484,18 @@ StealthMode
     bcf	    0x83,5	; Bank 0 for the GPIO checks on GP2 / Pin5
     call    LEDON
     btfsc   0x05,2	; drivelid check
-    goto    newdisc	; skip this instruction if lid = closed
+    goto    _newdisc	; skip this instruction if lid = closed
     call    _1second	; LED on for 1s
     call    LEDOFF
     call    _1second	; off for 4s with a drivelid check between each
     btfsc   0x05,2	; 1s delay
-    goto    newdisc
+    goto    _newdisc
     call    _1second
     btfsc   0x05,2
-    goto    newdisc	; If drive lid is open on any check
+    goto    _newdisc	; If drive lid is open on any check
     call    _1second	; goto to 'newdisc'
     btfsc   0x05,2
-    goto    newdisc
+    goto    _newdisc
     call    _1second
     goto    StealthMode ; loop only broken by drive lid = open
 ;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  
@@ -516,7 +516,7 @@ _newdisc
     movlw	D'8'		; = Decimal 8   / 1st byte of string
     movwf	fullbcount
 
-    movlw	D'6'
+    movlw	D'5'
     movwf	StringsPrior
     ;=====================================================
     movlw	D'79'	; Reset total injections counter
