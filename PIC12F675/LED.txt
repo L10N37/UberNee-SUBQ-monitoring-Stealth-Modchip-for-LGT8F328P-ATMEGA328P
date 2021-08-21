@@ -1,1 +1,2 @@
-Led in use is 'HLMP-1790, 3mm green / resistor is 270r
+LED in use is 'HLMP-1790, 3mm green / resistor is 270r
+RESET removed (pictured in example), not required. Re-coded to suit.
