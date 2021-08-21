@@ -104,6 +104,7 @@ Setup
 Genuine
     bsf	    0x03,5	; bank 1  
     bcf	    0x85,0	; set LED pin as output
+    bsf	    0x05,	; Release DATA line for this mode
     call    LEDON
     call    _1second	; on for 1s
     call    LEDOFF
@@ -135,10 +136,10 @@ cont
    movlw    D'5'
    movwf    StringsPrior	; Move 5 into this variable (@22h)
    	
-   movlw    D'30'		; 30
+   movlw    D'30'
    movwf    StringsDuring	 
    
-   movlw    D'79'		; 79
+   movlw    D'79'
    movwf    StringsTotal	 
 ;---------------------------------------------------------------------------------------
    
@@ -228,7 +229,8 @@ stringdelay
 					; else just continue
 					
 		decfsz	    StringsTotal,1	    
-		goto	    _stringdelay
+		goto	    _stringdelay	
+		bsf		0x85,4		; release DATA, injections complete (BIOS already released)
 		goto	    StealthMode
 _stringdelay
 		
@@ -320,7 +322,7 @@ highbit1
     bsf	    0x85,4	    ; release (make input)
     rlf	    byte1	    ; rotate bits left
     call    bitdelay	    ; COMMENT FOR DEBUG
-    decf    fullbcount    ; Dec bit counter
+    decf    fullbcount	    ; Dec bit counter
     goto    byte1_
 			    
 lowbit1
