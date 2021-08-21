@@ -196,7 +196,6 @@ _10loop		decfsz	CounterA,1
 		goto	_10loop
 		decfsz	CounterC,1
 		goto	_10loop
-		retlw	0
 		return
 		
 		
