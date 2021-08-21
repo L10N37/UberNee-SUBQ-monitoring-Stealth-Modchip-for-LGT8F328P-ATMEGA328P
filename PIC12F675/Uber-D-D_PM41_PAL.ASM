@@ -208,13 +208,12 @@ _1second
 		movwf	CounterB
 		movlw	D'173'
 		movwf	CounterA
-_1.loop		decfsz	CounterA,1
-		goto	_1.loop
+_1loop		decfsz	CounterA,1
+		goto	_1loop
 		decfsz	CounterB,1
-		goto	_1.loop
+		goto	_1loop
 		decfsz	CounterC,1
 		goto	_1.loop
-		retlw	0
 		return
 ;****************************************************	
 	
