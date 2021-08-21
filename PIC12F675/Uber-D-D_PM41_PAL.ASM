@@ -104,7 +104,7 @@ Setup
 Genuine
     bsf	    0x03,5	; bank 1  
     bcf	    0x85,0	; set LED pin as output
-    bsf	    0x05,	; Release DATA line for this mode
+    bsf	    0x05,4	; Release DATA line for this mode
     call    LEDON
     call    _1second	; on for 1s
     call    LEDOFF
