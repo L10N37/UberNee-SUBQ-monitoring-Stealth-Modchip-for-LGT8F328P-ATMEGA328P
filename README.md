@@ -30,7 +30,7 @@ http://www.psxdev.net/forum/viewtopic.php?t=1266
 PM41 with BIOS patch for PAL consoles Demo: https://youtu.be/Ahy8XMkAvQc 
 The PIC version of this chip is better...!
 
-An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23, PM41 - Assumed to work on PU20/PU8 with PU18 INO - have them on hand ...but CBF installing) with an Arduino Nano (3.3v 16mhz, running @ 8mhz). 
+An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23, PM41 - Assumed to work on PU20/PU8 with PU18 INO (have them on hand ...but CBF installing) with an Arduino Nano (3.3v 16mhz, running @ 8mhz). 
 
 
 Multi-disc support and a full serial monitor output which shows you exactly what's
