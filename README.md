@@ -56,12 +56,6 @@ any interference (later phats) - This is how it remains stealth. It only kicks b
 
 The timing isn't written in stone, but I'd suggest leaving it as is, as I've tested them thoroughly. I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
 
-Tested using 2 lasers across the board, one from a PU20 and one from a PU23 on extension cables, these were the only good lasers I had on hand at the time.
-Tested with about 10 games each, 3 antimods included and a few libcrypts.
-
-anti-mod games :
-
-FF9, UmJammer Lammy, Spyro - Year of the Dragon - no issue with any of them.
 
 By installing this chip YOUR DRIVE IS RESTRICTED IN WORKING within the boundaries of the chips programming!
 
@@ -71,10 +65,6 @@ discs are only going to wear out your laser faster. Each model has slightly diff
 
 Downfalls:
 Your shitty scratched up discs might not load in time, thus saving your laser from unnecessary wear and tear.
-
-Also, I'm sure you will notice how much healthier the drive sounds with the removed 100k resistor - testing has shown this signal to be nothing but detrimental to the
-drives performance.
-
 
 Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675
 ...The others will come eventually
