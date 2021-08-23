@@ -8,7 +8,8 @@
 
 //  Gave it a quick test and it seems there was a slight oversight, like the PM41 version I have added genuine disc mode (start with lid open) as it was only working 
 //  with burnt games
-//  and displaying Sony Computer Entertainment America with the SCEE string on the black Screen for NTSC US games, and the Sony Europe with SCEE string for copied PAL games :) 
+//  and displaying Sony Computer Entertainment America with the SCEE string on the black Screen for NTSC US games, and the Sony Europe with SCEE string for copied PAL games 
+//  and finally, Sony Computer Entertainment Inc. for Japanese games :) 
 
 
 #define DRIVE_LID_SENS 8
