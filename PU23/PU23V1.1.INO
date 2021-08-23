@@ -99,6 +99,12 @@ void inject() {
   DriveLidStatus();
 }
 void loop() {
+  
+  if  (bitcounter >= 3740)
+  {
+    DriveLidStatus();
+  }
+  
  if (digitalRead(DRIVE_LID_SENS) == 1) {
     pinMode (DATA, INPUT);  //revert these lines to inputs so they don't interfere with the genuine disc string
     Genuine();              //jump to blinky light status indicating chips in genuine disc mode
