@@ -3,7 +3,7 @@
 //  VajskiDs Consoles 2021
 //  Refer to Github for install diagrams @ https://github.com/L10N37/tehUberChip_Another_PSX_Modchip
 //  V1.1:
-//  A slight oversight my mean this wouldn't have allowed Genuine Discs to boot, refer to PU23 INO for notes
+//  A slight oversight may mean this wouldn't have allowed Genuine Discs to boot, refer to PU23 INO for notes
 //  Added Genuine Disc Mode (boot with lid open, wait for white screen then close the lid)
 
 #define DRIVE_LID_SENS 8
