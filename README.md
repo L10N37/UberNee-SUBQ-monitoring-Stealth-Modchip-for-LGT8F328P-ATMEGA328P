@@ -7,6 +7,8 @@
 
 The Supreme PSX Modchip (C) 2021 
 VajskiDs Consoles
+
+'The Black Screen of Injection Acception'
 ===================================================
 For 3.3v compatible Arduino / clones & PIC 12F675
 
