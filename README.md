@@ -48,7 +48,7 @@ Without this, you can reset but you'd have to open the drive lid and close it ag
 
 
 How it works: Precise timing of injections on each model then either stopping the injections but keeping the gate
-held low (earlier phats) or stopping the injections then reverting the DATA line to an input thus letting the original signal in without
+held low (earlier phats) or stopping the injections then reverting the DATA line to an input, thus letting the original signal in without
 any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on. The chip basically chops up the line signal to mimic the string, then disappears, it does however collide with the genuine string on later models, hence having a 'genuine' mode. To boot a genuine disc on PU22 / PU23 / PM41, turn the console on with the lid open - wait for the white screen - then close the lid. 
 
 The timing isn't written in stone, but I'd suggest leaving it as is, as I've tested them thoroughly. I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
