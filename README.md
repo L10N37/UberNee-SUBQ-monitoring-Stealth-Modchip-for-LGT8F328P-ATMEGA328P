@@ -30,7 +30,7 @@ http://www.psxdev.net/forum/viewtopic.php?t=1266
 PM41 with BIOS patch for PAL consoles Demo: https://youtu.be/Ahy8XMkAvQc 
 The PIC version of this chip is better...!
 
-An Open Source arduino [full stealth] modchip developed for each model of PS1. The PU18 is assumed working with PU8 / PU20 revisions. 
+An Open Source arduino [full stealth] modchip developed for each model of PS1. The PU18 version is assumed working with PU8 / PU20 revisions. 
 The chips include multi-disc support and initially started with a full serial monitor output which shows you exactly what's
 happening, as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
