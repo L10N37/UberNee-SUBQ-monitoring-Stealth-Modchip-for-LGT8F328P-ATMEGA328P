@@ -30,11 +30,10 @@ http://www.psxdev.net/forum/viewtopic.php?t=1266
 PM41 with BIOS patch for PAL consoles Demo: https://youtu.be/Ahy8XMkAvQc 
 The PIC version of this chip is better...!
 
-An Open Source arduino full stealth modchip developed for each model of PS1 (so far PU18, PU22, PU23, PM41 - Assumed to work on PU20/PU8 with PU18 INO (have them on hand ...but CBF installing) with an Arduino Nano (3.3v 16mhz, running @ 8mhz). 
+An Open Source arduino [full stealth] modchip developed for each model of PS1. The PU18 is assumed working with PU8 / PU20 revisions. 
+The chips include multi-disc support and initially started with a full serial monitor output which shows you exactly what's
+happening, as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
-
-Multi-disc support and a full serial monitor output which shows you exactly what's
-happening as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
 No Audio CD delay- will boot straight to audio CD player
 
@@ -42,21 +41,17 @@ Thanks to all the other open source modchip writers and especially thanks to Old
 releasing the first of the mighty PSX modchips!
 
 A clone arduino nano will set you back a whopping 6.60AUD free post at the moment, please check compatible arduinos folder.
-This will be updated when possible, but as of now I only purchase the cheap nano clones, this should work on MANY arduinos though.
+This will be updated when possible, but should work with many (if not all) 3.3v arduinos.
 
-Optional reset: connection 4 off MM3 diagrams to the RST on the arduino.
+Optional reset: PIC leg 4 off MM3 diagrams to the RST on the arduino.
 Without this, you can reset but you'd have to open the drive lid and close it again to get the game disc to boot again. 
-
-Just checked this connection and it has a logic high of 3.xxV and gets pulled low on reset which should trigger the arduinos reset
-pin simultaneously without an issue.
 
 
 How it works: Precise timing of injections on each model then either stopping the injections but keeping the gate
 held low (earlier phats) or stopping the injections then reverting the DATA line to an input thus letting the original signal in without
-any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on. On the later models it's only working @ a 50% load i.e. it's only 'injecting' the low bits of the string, then releasing for the high bits. (it basically chops up the original signal to mimic the string, then disappears)
+any interference (later phats) - This is how it remains stealth. It only kicks back into an injection cycle when the drive lid is opened / closed again, or if it's reset (optional wire) or powered off/ on. The chip basically chops up the line signal to mimic the string, then disappears, it does however collide with the genuine string on later models, hence having a 'genuine' mode. To boot a genuine disc on PU22 / PU23 / PM41, turn the console on with the lid open - wait for the white screen - then close the lid. 
 
 The timing isn't written in stone, but I'd suggest leaving it as is, as I've tested them thoroughly. I use solely Verbatim AZO these days as Taiyo Yuden (That's! CDR) have become too expensive.
-
 
 By installing this chip YOUR DRIVE IS RESTRICTED IN WORKING within the boundaries of the chips programming!
 
