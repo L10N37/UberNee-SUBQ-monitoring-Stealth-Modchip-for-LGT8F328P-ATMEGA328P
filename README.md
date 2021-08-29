@@ -65,4 +65,5 @@ Your shitty scratched up discs might not load in time, thus saving your laser fr
 Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675
 ...The others will come eventually
 
+ATTINY85 version coming too
 
