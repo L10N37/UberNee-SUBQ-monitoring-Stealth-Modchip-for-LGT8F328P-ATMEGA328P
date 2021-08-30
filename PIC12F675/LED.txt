@@ -1,2 +1,3 @@
 LED in use is 'HLMP-1790, 3mm green / resistor is 270r
 RESET removed (pictured in example), not required. Re-coded to suit.
+Install diagram in Arduino PM41-PAL folder - Pin reference on top of ASM source code.
