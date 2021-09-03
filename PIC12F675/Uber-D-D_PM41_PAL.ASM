@@ -64,7 +64,7 @@
 	CounterD	    ; @26h
 	
 	
-	fullbcount  ; @27h Decimal 9, after first pass it will be at 8 (for full byte counter, bit by bit)
+	fullbcount  ; @27h
 	vacant	    ; @28h
 	byte1	    ; @29h  ;10011010
 	byte2	    ; @2Ah  ;10010011
@@ -89,10 +89,7 @@
 ;=============================================================================================================   
 Setup				
 	clrf    0X9F		; clear ANSEL, all pins digital I/O bar reserved
-	;bsf	0x85,2		; make GP2 / Pin5 (drivelid) an input
-	;bsf	0x85,0		; make GP0 / Pin7 start as an input
-	;bsf	0x85,5		; make GP5 / Pin2 BIOS start as input
-	movlw	B'00101101'     ; As above in single line
+	movlw	0x2D     	; set pin states
 	movwf	0x85
 	bcf	0x83,5		; bank 0		
 	clrf    0x05		; init GPIO
@@ -122,17 +119,17 @@ cont
 ;---------------------------------------------------------------------------------------	
 		; Store integers @ FREG locations set in header
    
-    movlw   B'10011010'		; Store SCEE string in RAM
+    movlw   0x9A		; Store SCEE string in RAM
     movwf   byte1
-    movlw   B'10010011'
+    movlw   0x93
     movwf   byte2
-    movlw   B'11010010'
+    movlw   0xD2
     movwf   byte3
-    movlw   B'10111010'
+    movlw   0xBA
     movwf   byte4
-    movlw   B'01010111'
+    movlw   0x57
     movwf   byte5
-    movlw   B'01000000'
+    movlw   0x40
     movwf   byte6
     
    movlw    D'8'		; Full bit by bit byte counter
