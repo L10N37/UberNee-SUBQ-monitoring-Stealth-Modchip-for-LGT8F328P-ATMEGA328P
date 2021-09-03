@@ -43,7 +43,6 @@
 ; Pin 4 tied internally to 3.5v so it's not a floating input
 ; Pin 6 is set as an output and safe to leave floating
 ; Tested all modes good, very reliable, many games, same modes as Arduino Version / same LED indicator statuses
-; Without the optional LED, this is a 4 wire stealth with BIOS patch!
 ; Test bench video: https://youtu.be/FBDzuQ1uaGw
 
    
