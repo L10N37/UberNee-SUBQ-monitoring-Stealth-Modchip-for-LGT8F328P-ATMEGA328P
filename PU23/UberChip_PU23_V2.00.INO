@@ -9,9 +9,8 @@
 //  with burnt games
 //  and displaying Sony Computer Entertainment America with the SCEE string on the black Screen for NTSC US games, and the Sony Europe with SCEE string for copied PAL games
 //  and finally, Sony Computer Entertainment Inc. for Japanese games :)
-//  V2.00 Used some lower level type code for reading and changing pin states and some general optimisation, added link wire diagram needed for genuine imports
-//  at this stage, haven't been able to use software to produce this signal from an arduino. If you use the link wire you won't need genuine mode, but its still there to disable
-//  the chip regardless
+//  V2.00 Used some lower level type code for reading and changing pin states and some general optimisation, added link wire needed for genuine imports
+//  at this stage, haven't been able to use software to produce this signal from an arduino.
 
 
 #define GATE 11
@@ -50,7 +49,7 @@ void NewDisc() {
 
 void DriveLidStatus() {
 
-  pinMode (DATA, INPUT);
+ bitClear (DATAIO, databit);  // OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT
   injectcounter = 0;
 
   if (bitRead (DATAPORT, lidbit) == 0) {
@@ -78,7 +77,6 @@ void inject() {
       else if (SCEE[i] == '1')
       {
         bitClear (DATAIO, databit);     // OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT
-        //bitWrite (DATAPORT, databit,1); // PULLUP
         delayMicroseconds(bitdelay);
       }
       else if (bitRead (DATAPORT, lidbit) == 1)
