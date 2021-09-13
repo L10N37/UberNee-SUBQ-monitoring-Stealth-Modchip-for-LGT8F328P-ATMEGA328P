@@ -26,7 +26,7 @@ int bitdelay (3794); //delay between bits sent to drive controller (MS)
 int stringdelay (160); //delay between string injections
 char SCEE[] = "10011010100100111101001010111010010101110100S";
 char SCEA[] = "10011010100100111101001010111010010111110100S";
-char SCEI[] = "10011010100100111101001010111010010110110100";
+char SCEI[] = "10011010100100111101001010111010010110110100S";
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
