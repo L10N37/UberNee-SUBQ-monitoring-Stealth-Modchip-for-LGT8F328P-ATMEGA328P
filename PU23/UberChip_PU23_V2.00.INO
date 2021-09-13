@@ -9,7 +9,7 @@
 //  with burnt games
 //  and displaying Sony Computer Entertainment America with the SCEE string on the black Screen for NTSC US games, and the Sony Europe with SCEE string for copied PAL games
 //  and finally, Sony Computer Entertainment Inc. for Japanese games :)
-//  V2.00 Used some lower level type code for reading and changing pin states and some general optimisation, added link wire needed for genuine imports
+//  V2.00 Used some lower level type code for reading and changing pin states and some general optimisation, added link wire diagram needed for genuine imports
 //  at this stage, haven't been able to use software to produce this signal from an arduino.
 
 
