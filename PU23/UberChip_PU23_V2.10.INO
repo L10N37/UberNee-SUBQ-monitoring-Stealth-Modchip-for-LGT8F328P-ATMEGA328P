@@ -11,7 +11,7 @@
 //  and finally, Sony Computer Entertainment Inc. for Japanese games :)
 //  V2.00 Used some lower level type code for reading and changing pin states and some general optimisation, added link wire needed for genuine imports
 //  at this stage, haven't been able to use software to produce this signal from an arduino.
-//  V2.10 Added support for Genine and Genuine imports without a genuine mode. The ability to disable the chip still remains.
+//  V2.10 Added support for Genuine and Genuine imports without a genuine mode. The ability to disable the chip still remains.
 //  The program used to make the calculations spits out a lot of broken code, used a pocket oscilliscope and uploaded a bunch of different settings and desired clock speeds until
 //  I had something on the scope that was almost a 1:1 match of the WFCK signal. This signal gets turned off once injections are complete.
 
