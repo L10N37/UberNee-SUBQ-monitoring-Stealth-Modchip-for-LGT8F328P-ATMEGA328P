@@ -61,11 +61,14 @@ discs are only going to wear out your laser faster. Each model has slightly diff
 
 Downfalls:
 Your shitty scratched up discs might not load in time, thus saving your laser from unnecessary wear and tear.
-The later models with no gate frequency injection won't run genuine imports, only burnt imports ...unless you add a wire link (like you would if you install
-an old crow in those models)
 
 Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675
 ...The others will come eventually
 
 ATTINY85 version coming too
 
+
+Update: Wire link will not be required, the chip originally needed to run in "genuine mode" to boot genuine discs of the consoles region and wouldn't boot 
+genuine imports without the old WFCK link (like if you used an oldcrow on PU22+)
+
+A simulated WFCK signal has being added (D9 or D10) and will be added to the console folders in time.
