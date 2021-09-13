@@ -72,3 +72,4 @@ Update: Wire link will not be required, the chip originally needed to run in "ge
 genuine imports without the old WFCK link (like if you used an oldcrow on PU22+)
 
 A simulated WFCK signal has being added (D9 or D10) and will be added to the console folders in time.
+'Genuine Mode' still exists if you wish to disable the chip for any reason.
