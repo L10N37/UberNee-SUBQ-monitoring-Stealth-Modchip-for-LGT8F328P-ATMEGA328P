@@ -49,7 +49,7 @@ void NewDisc() {
 
 void DriveLidStatus() {
 
- bitClear (DATAIO, databit);  // OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT
+  bitClear (DATAIO, databit);  // OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT
   injectcounter = 0;
 
   if (bitRead (DATAPORT, lidbit) == 0) {
@@ -90,10 +90,13 @@ void inject() {
       }
   }
   while (injectcounter < 86);
-  DriveLidStatus();
 }
 
-void loop() {
+void loop()
+{
+  if (injectcounter >= 86) {
+    DriveLidStatus();
+  }
 
   if (bitRead (DATAPORT, lidbit) == 1) {
     pinMode (DATA, INPUT);
