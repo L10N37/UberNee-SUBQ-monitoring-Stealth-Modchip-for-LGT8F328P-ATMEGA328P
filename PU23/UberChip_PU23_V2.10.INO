@@ -17,11 +17,9 @@
 
 #define DATA 12
 #define databit 4
-#define gatebit 2
 #define lidbit 0
 #define DATAPORT PORTB
 #define DATAIO DDRB
-#define GATEINPUT PINB
 int injectcounter = 0x00;
 int bitdelay (3794); //delay between bits sent to drive controller (MS)
 int stringdelay (160); //delay between string injections
