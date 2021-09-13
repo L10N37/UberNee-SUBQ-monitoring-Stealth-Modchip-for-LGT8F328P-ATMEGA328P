@@ -68,7 +68,7 @@ Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for P
 ATTINY85 version coming too
 
 
-This only applies to PU22+
+This only applies to PU22+ | 
 Update: Wire link will not be required, the chip originally needed to run in "genuine mode" to boot genuine discs of the consoles region and wouldn't boot 
 genuine imports without the old WFCK link (like if you used an oldcrow on PU22+)
 
