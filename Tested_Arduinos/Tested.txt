@@ -3,3 +3,6 @@ Just a folder for tested arduinos, check images
 The clone version with the Atmega 168 pictured doesn't seem to be very trust worthy, I've had one erase itself over night and then require reflashing. No issues with the 368.
 
 I'd recommend removing the LED lights that are onboard the Arduino, if you want to add a flashing LED light to blink during injection or what not, this would be easily done by using one of the many spare pins and adding a few lines of code.
+
+
+There are red PCB's that look just like the 368 clone, but are 168's, most of these haven't worked. They flash properly everytime but just don't seem to go. I've had 1 in 5 work. Strangely for another project they've been ok.
