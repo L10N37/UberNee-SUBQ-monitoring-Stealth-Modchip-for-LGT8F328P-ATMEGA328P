@@ -1,0 +1,6 @@
+Uberchip V2.1 generates the signal from the left hand side of the link  wire photo by software and injects it in the red point for D10, the yellow link wire isn't needed.
+That wire is for previous versions that didn't output a (close to) wfck signal. That old link wire method requires the link wire to be permanently tied, unless you 
+installed a switch. 
+
+V2.1 switches this signal off after injections so that there is zero detrimental affect to the laser and only switches it on again after closing the lid for 
+multidisc games, then back off again.
