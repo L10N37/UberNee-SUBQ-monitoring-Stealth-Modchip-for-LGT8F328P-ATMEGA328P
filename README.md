@@ -74,3 +74,12 @@ genuine imports without the old WFCK link (like if you used an oldcrow on PU22+)
 
 A simulated WFCK signal has being added (D9 or D10) and will be added to the console folders in time.
 'Genuine Mode' still exists if you wish to disable the chip for any reason.
+
+
+
+
+Source: https://pic-microcontroller.com/pic12f675-pwm-code-and-proteus-simulation/
+" Then PWM is initialized using InitPWM() function. After that, PWM variable is assigned a value of 127, which corresponds to a duty cycle of 50% (as shown in figure 1). You can change duty cycle of PWM by just changing the value of PWM variable.
+You can change PWM frequency by changing the CPU frequency of PIC12F675 microcontroller. In other words, currently I am using internal oscillator of 4MHz value which generates a PWM frequency of 1.8KHz. But you can use external crystal of upto 20MHz value to generate a maximum PWM frequency of 9KHz. Also, you can change PWM frequency by changing the frequency Pre-Scalar of timer0 in the code."
+
+So I can't generate the WFCK frequency without an external XTAL on the PIC12F675 version,  PIC12F1822 should be able to do it, and priced reasonably well. Maybe at a later date. The Arduino version can do it as seen on V2.1, I haven't bothered adding the code to the PSONE version yet. 
