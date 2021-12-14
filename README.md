@@ -64,6 +64,10 @@ If disc is scratched, disc maybe not load in time for injection.
 ## To do
 - Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675 ...The others will come eventually
 - ATTINY85 version coming too
+- May have identified a bug in PAL PSOne version, multidisc swap doesn't like BIOS patch routine. For arduino version, likely a separate injection routine to call, minus the BIOS patch after lid open/ close. For PIC version, simply not resetting the BIOS patch routine counters after the initial injection routine should fix it. The counters should just count backwards from 255, minus 1 per injection- after hitting zero. The counters hitting zero trigger the BIOS patch routine to kick in and to end.
+- May be able to drive the PIC off the reference clock in the clock gen circuit on later phat models, this should allow the 7.22khz WFCK output on the PIC version of Uber-D-D
+
+
 
 ## This only applies to PU22+ 
 Update: Wire link will not be required, the chip originally needed to run in "genuine mode" to boot genuine discs of the consoles region and wouldn't boot 
