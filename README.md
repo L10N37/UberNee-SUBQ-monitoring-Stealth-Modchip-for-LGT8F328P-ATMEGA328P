@@ -12,7 +12,6 @@ The Supreme PSX Modchip (C) 2021
 VajskiDs Consoles
 
 **'The Black Screen of Injection Acception'**
----
 **For 3.3v compatible Arduino / clones & PIC 12F675**
 
 ## Credit where it's Due
@@ -60,22 +59,18 @@ Less wires, Discs must be in good shape! If your disc can't load within the para
 discs are only going to wear out your laser faster. Each model has slightly different timing and counts either full string iterations or increments a counter per bit.
 
 ### Downfalls
-Your shitty scratched up discs might not load in time, thus saving your laser from unnecessary wear and tear.
-
+If disc is scratched, disc maybe not load in time for injection.
 
 ## To do
 - Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675 ...The others will come eventually
 - ATTINY85 version coming too
 
-
-
-## This only applies to PU22+ | 
+## This only applies to PU22+ 
 Update: Wire link will not be required, the chip originally needed to run in "genuine mode" to boot genuine discs of the consoles region and wouldn't boot 
 genuine imports without the old WFCK link (like if you used an oldcrow on PU22+)
 
 A simulated WFCK signal has being added (D9 or D10) and will be added to the console folders in time.
 'Genuine Mode' still exists if you wish to disable the chip for any reason.
-
 
 Source: https://pic-microcontroller.com/pic12f675-pwm-code-and-proteus-simulation/
 " Then PWM is initialized using InitPWM() function. After that, PWM variable is assigned a value of 127, which corresponds to a duty cycle of 50% (as shown in figure 1). You can change duty cycle of PWM by just changing the value of PWM variable.
