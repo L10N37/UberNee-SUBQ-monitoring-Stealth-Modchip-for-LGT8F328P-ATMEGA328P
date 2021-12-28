@@ -1,5 +1,5 @@
 //UberChip 4 wire stealth for PU23
-//  V2.00
+//  V2.10
 //  VajskiDs Consoles 2021
 //  Refer to Github for install diagrams @ https://github.com/L10N37/tehUberChip_Another_PSX_Modchip
 //  V1.1, Installed one today to ship off in this model, why wouldn't I? Spare arduinos on hand, doesn't interfere with the laser after boot and it takes 5 minutes to install.
@@ -25,7 +25,7 @@ int bitdelay (3794);    //delay between bits sent to drive controller (MS)
 int stringdelay (160);  //delay between string injections
 char SCEE[] = "10011010100100111101001010111010010101110100S";
 char SCEA[] = "10011010100100111101001010111010010111110100S";
-char SCEI[] = "10011010100100111101001010111010010110110100";
+char SCEI[] = "10011010100100111101001010111010010110110100S";
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
