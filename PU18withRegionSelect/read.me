@@ -18,15 +18,15 @@ Then you could have an all in one modchip, detecting what its installed in, and 
   unsigned int highs = 0, lows = 0;
   unsigned long now = millis();
   do {
-    if (digitalRead(gate_wfck) == 1) highs++;
-    if (digitalRead(gate_wfck) == 0) lows++;
-    delayMicroseconds(200);   // good for ~5000 reads in 1s
+    if (digitalRead(gate_wfck) == 1) highs++;                 //HE is incrementing a counter on each high read of this pin
+    if (digitalRead(gate_wfck) == 0) lows++;                 //he is incrementing another counter for the lows on the reads of this pin
+    delayMicroseconds(200);   // good for ~5000 reads in 1s //his delay between reads on the pin
   }
-  while ((millis() - now) < 1000); // sample 1s
+  while ((millis() - now) < 1000); // sample 1s             //the condition of the do loop, breaks when it hits target
 
   // typical readouts
   // PU-22: highs: 2449 lows: 2377
-  if (lows > 100) {
+  if (lows > 100) {                                       //now he sets the mode (WFCK frequency or pull gate low??
     pu22mode = 1;
   }
   else {
