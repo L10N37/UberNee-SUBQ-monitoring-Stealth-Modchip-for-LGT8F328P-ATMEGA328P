@@ -43,6 +43,7 @@ void setup() {
 
 // 13/07/2022; ^Because I want to confuse people more nooby than me, and it's lower level code (that's always more efficient)
 // I am simply setting the I/O port bits to set the pins to Input/Output instead the high level way on previous versions
+// I also used a port to set the pins hight or low, instead of the high level way.
 // After that, i simply converted it from bits to hex, just to be an asshole ...and once again, confuse the shit out of nooblets (I am a noob too :P )
   
 }
