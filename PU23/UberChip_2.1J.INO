@@ -27,7 +27,7 @@
 #define databit 4       // Because the 4th bit (well 5th, we start on '0') corresponds to the data pin (D12) in the port.
 #define lidbit 0        // Because the the zero'eth bit  in PORTB corresponds to the lid sensing pin (D8), Make sure you check if it's little or big endian.
 #define DATAPORT PORTB  // Renamed PORTB to DATAPORT as it's more project specific and makes more sense when I was reading/ writing code.
-#define DATAIO DDRB     // Simple Renamed DDRB port to DATAIO (Data Input/ Output), now i can refer to the DDRB register as DATAIO, Cos i felt like it :P
+#define DATAIO DDRB     // Simply Renamed DDRB port to DATAIO (Data Input/ Output), now i can refer to the DDRB register as DATAIO, Cos i felt like it :P
 int injectcounter = 0x00; //I initialised this in hex cos it's fancy :D
 int bitdelay (3794);    //delay between bits sent to drive controller (MS)
 int stringdelay (160);  //delay between string injections
