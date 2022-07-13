@@ -31,8 +31,8 @@
 int injectcounter = 0x00; //I initialised this in hex cos it's fancy :D
 int bitdelay (3794);    //delay between bits sent to drive controller (MS)
 int stringdelay (160);  //delay between string injections
-char SCEE[] = "10011010100100111101001010111010010101110100S"; 
-char SCEA[] = "10011010100100111101001010111010010111110100S";
+char SCEE[] = "10011010100100111101001010111010010101110100S"; // Because these are the region strings when inverted (1's and Zero's are switched) and the endian is swapped
+char SCEA[] = "10011010100100111101001010111010010111110100S"; // I just use the 's'character as an indication of hitting the end of the magic key and calling the delay between strings, before restarting next key injection.
 char SCEI[] = "10011010100100111101001010111010010110110100S";
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
@@ -40,6 +40,11 @@ void setup() {
   //Set up the used pins
   DATAIO = 0xFE;        // 0B11111110;         OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT 13/07/22 (These comments are only here because I'd just finished porting across to PIC ASM and it uses the opposite, after all that debugging I kept mixing these up)
   DATAPORT = 0x00;      // write all port b outputs low
+
+// 13/07/2022; ^Because I want to confuse people more nooby than me, and it's lower level code (that's always more efficient)
+// I am simply setting the I/O port bits to set the pins to Input/Output instead the high level way on previous versions
+// After that, i simply converted it from bits to hex, just to be an asshole ...and once again, confuse the shit out of nooblets (I am a noob too :P )
+  
 }
 void Genuine() {              //Genuine disc mode (start PSX with lid open, then close)
   Genuine();
