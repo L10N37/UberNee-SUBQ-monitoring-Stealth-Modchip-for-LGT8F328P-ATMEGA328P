@@ -21,23 +21,24 @@
 //  I had something on the scope that was almost a 1:1 match of the WFCK signal. This signal gets turned off once injections are complete.
 
 //  V2.1J:  Small timing change, fixes: Legend of Mana (JP), was getting antimod flag 50% of the time.
+//  13/07/2022 I realised some people might be trying to learn some basic coding using this, so added some more comments
 
-#define DATA 12
-#define databit 4
-#define lidbit 0
-#define DATAPORT PORTB
-#define DATAIO DDRB
-int injectcounter = 0x00;
+#define DATA 12         // Because we are using pin 12 to send the wuns and zewos, you could use a global integer as well.
+#define databit 4       // Because the 4th bit (well 5th, we start on '0') corresponds to the data pin (D12) in the port.
+#define lidbit 0        // Because the the zero'eth bit  in PORTB corresponds to the lid sensing pin (D8), Make sure you check if it's little or big endian.
+#define DATAPORT PORTB  // Renamed PORTB to DATAPORT as it's more project specific and makes more sense when I was reading/ writing code.
+#define DATAIO DDRB     // Simple Renamed DDRB port to DATAIO (Data Input/ Output), now i can refer to the DDRB register as DATAIO, Cos i felt like it :P
+int injectcounter = 0x00; //I initialised this in hex cos it's fancy :D
 int bitdelay (3794);    //delay between bits sent to drive controller (MS)
 int stringdelay (160);  //delay between string injections
-char SCEE[] = "10011010100100111101001010111010010101110100S";
+char SCEE[] = "10011010100100111101001010111010010101110100S"; 
 char SCEA[] = "10011010100100111101001010111010010111110100S";
 char SCEI[] = "10011010100100111101001010111010010110110100S";
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
   //Set up the used pins
-  DATAIO = 0xFE;        // 0B11111110;         OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT
+  DATAIO = 0xFE;        // 0B11111110;         OPPOSITE OF TRISIO! set to ZERO for input, ONE for OUTPUT 13/07/22 (These comments are only here because I'd just finished porting across to PIC ASM and it uses the opposite, after all that debugging I kept mixing these up)
   DATAPORT = 0x00;      // write all port b outputs low
 }
 void Genuine() {              //Genuine disc mode (start PSX with lid open, then close)
