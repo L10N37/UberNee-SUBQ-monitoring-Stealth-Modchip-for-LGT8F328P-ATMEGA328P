@@ -47,7 +47,7 @@ void Genuine() {              //Genuine disc mode (start PSX with lid open, then
 void NewDisc() {
   do
   {
-    delay (1500);
+    delay (1500); //This delay isn't actually necessary, it just checks whether you've closed the drive lid every 1.5 seconds.
   }
   while (bitRead (DATAPORT, lidbit) == 1);
   inject();
