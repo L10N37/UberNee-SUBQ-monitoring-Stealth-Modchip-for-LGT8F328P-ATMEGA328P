@@ -33,7 +33,7 @@ int bitdelay (3794);    //delay between bits sent to drive controller (MS)
 int stringdelay (160);  //delay between string injections
 char SCEE[] = "10011010100100111101001010111010010101110100S"; // Because these are the region strings when inverted (1's and Zero's are switched) and the endian is swapped
 char SCEA[] = "10011010100100111101001010111010010111110100S"; // I just use the 's'character as an indication of hitting the end of the magic key and calling the delay between strings, before restarting next key injection.
-char SCEI[] = "10011010100100111101001010111010010110110100S";
+char SCEI[] = "10011010100100111101001010111010010110110100S"; // Note, the start and stop bits were removed when doing the conversions, then replaced. This won't read out as the strings when converted back, you need to remove the start and stop bits.
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
