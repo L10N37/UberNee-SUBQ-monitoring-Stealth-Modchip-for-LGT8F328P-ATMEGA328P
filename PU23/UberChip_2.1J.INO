@@ -23,7 +23,7 @@
 //  V2.1J:  Small timing change, fixes: Legend of Mana (JP), was getting antimod flag 50% of the time.
 //  13/07/2022 I realised some people might be trying to learn some basic coding using this, so added some more comments
 
-#define DATA 12         // Because we are using pin 12 to send the wuns and zewos, you could use a global integer as well.
+#define DATA 12         // Because we are using pin 12 to send the wuns and zewos, you could use a global integer as well. In fact, this line might not be necessary at all, as i switched to port bits. It's probably safe to delete.
 #define databit 4       // Because the 4th bit (well 5th, we start on '0') corresponds to the data pin (D12) in the port.
 #define lidbit 0        // Because the the zero'eth bit  in PORTB corresponds to the lid sensing pin (D8), Make sure you check if it's little or big endian.
 #define DATAPORT PORTB  // Renamed PORTB to DATAPORT as it's more project specific and makes more sense when I was reading/ writing code.
