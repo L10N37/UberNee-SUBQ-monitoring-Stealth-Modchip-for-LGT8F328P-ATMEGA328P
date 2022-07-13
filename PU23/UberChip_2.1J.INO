@@ -59,10 +59,10 @@ void DriveLidStatus() {
   injectcounter = 0;
 
   if (bitRead (DATAPORT, lidbit) == 0) {
-    delay (1350) ;
+    delay (1350) ; //This delay isn't actually necessary, it just checks whether the lid is closed every 1.35s
   }
   else if (bitRead (DATAPORT, lidbit) == 1) {
-    delay (1350);
+    delay (1350); //This delay isn't actually necessary, it there's just a 1.35s gap between finding out the lid is now open, to jumping to NewDisc()
     NewDisc();
   }
   DriveLidStatus();                           //forms a conditional if loop
