@@ -78,6 +78,7 @@ void DriveLidStatus() {
   injectcounter = 0;
 
   if (bitRead (LIDPORT, lidbit) == 0) {
+    ;
   }
   else if (bitRead (LIDPORT, lidbit) == 1) {
     NewDisc();
