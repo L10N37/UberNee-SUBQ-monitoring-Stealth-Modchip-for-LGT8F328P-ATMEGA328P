@@ -77,13 +77,15 @@ void DriveLidStatus() {
   bitClear (LIDIO, wfckbit);   // high-z wfck line
   injectcounter = 0;
 
-  if (bitRead (LIDPORT, lidbit) == 0) {
-    ;
-  }
-  else if (bitRead (LIDPORT, lidbit) == 1) {
+ // if (bitRead (LIDPORT, lidbit) == 0) { // don't really need to keep checking if the lids still closed, only check if it gets opened.
+ //   ;                                   // so commented out
+ //}
+   
+   if (bitRead (LIDPORT, lidbit) == 1) {  //
     NewDisc();
   }
-  DriveLidStatus();                           //forms a conditional if loop
+   
+  DriveLidStatus();                           //Keep checking if the lids being opened (multi-disc games), if not loop this function infinitely.
 }
 
 void inject() {
