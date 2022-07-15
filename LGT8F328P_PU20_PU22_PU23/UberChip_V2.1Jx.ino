@@ -61,7 +61,7 @@ void setup() {
 }
 
 
-void NewDisc() {
+void NewDisc() {                                // Do 'nothing' while the lids open between disc swap, once closed again, jump into inject routine.
   do
   {
     ;
@@ -81,11 +81,11 @@ void DriveLidStatus() {
  //   ;                                   // so commented out
  //}
    
-   if (bitRead (LIDPORT, lidbit) == 1) {  //
+   if (bitRead (LIDPORT, lidbit) == 1) {  
     NewDisc();
   }
    
-  DriveLidStatus();                           //Keep checking if the lids being opened (multi-disc games), if not, loop this function infinitely.
+  DriveLidStatus();                        //Keep checking if the lids being opened (multi-disc games), if not, loop this function infinitely.
 }
 
 void inject() {
