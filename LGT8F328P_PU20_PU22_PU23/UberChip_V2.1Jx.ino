@@ -85,7 +85,7 @@ void DriveLidStatus() {
     NewDisc();
   }
    
-  DriveLidStatus();                           //Keep checking if the lids being opened (multi-disc games), if not loop this function infinitely.
+  DriveLidStatus();                           //Keep checking if the lids being opened (multi-disc games), if not, loop this function infinitely.
 }
 
 void inject() {
