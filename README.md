@@ -145,7 +145,7 @@ What got me super interested in modchips? Besides being the first mod I ever ins
 
 This article: http://www.oldcrows.net/mcc2.html
 
-I've read quite a few times.
+I've read it quite a few times.
 
 
 
