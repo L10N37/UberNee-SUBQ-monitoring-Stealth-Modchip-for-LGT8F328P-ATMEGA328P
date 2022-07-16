@@ -118,7 +118,7 @@ I was using a wire to one of the Arduino I/O pins as a ‘sense wire’ whilst b
 V1.5 (Stand-Alone): Still Devving on PU18... Basically stripped all the debug stuff out of the above version and had it power off the console as a proper installed modchip. No serial monitor stuff. Not sure what I was thinking at the time, but I was running power to the chip, then linking the power wire across to the sense I/O pin from when I was debugging to get the code running when the console was powered on.
 
 
-V1.5.1 (Stand-Alone): As above but added drive lid status check during magic key injections. This would monitor for a drive lid opening during the key injections and allow a halt and re-injection after closing the lid.
+V1.5.1 (Stand-Alone): As above, but added drive lid status check during magic key injections. This would monitor for a drive lid opening during the key injections and allow a halt and re-injection after closing the lid.
 
 V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get the code running. I can just power the console on, and that switches the Nano on – then the code runs – DERP. That’s all that was changed.
 
