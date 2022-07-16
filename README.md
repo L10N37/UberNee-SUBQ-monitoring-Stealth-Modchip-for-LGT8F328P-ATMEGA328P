@@ -92,11 +92,7 @@ This would only be useful in PU8/ PU18 machines - The sub carrier is not step lo
 
 
 
-What got me super interested in modchips? Besides being the first mod I ever installed when I was 14 years old with a cheap iron from a local store?
 
-This article: http://www.oldcrows.net/mcc2.html
-
-I've read quite a few times.
 
 
 
@@ -142,6 +138,14 @@ V2.1J: I discovered a genuine JP game (legend of mana) that was flagging for ant
 V2.1Jx: I purchased a small bulk amount of LTG8F328P nano clones that run at twice the clock speed (32Mhz instead of 16Mhz). These chips were useless to me for about a year. It was annoying me that I had no use for them! Timing stays the same, but I had to alter the WFCK frequency code to suit the new MCU’s speed. I had to move the start up delay from the main loop to prior to set-up. The chip sits there dead for about 5 seconds before ANYTHING initialises. Not sure what’s going on there, but if setup runs straight away at boot on these MCU’s,  it doesn’t high-z the data line and kills the consoles ability to boot anything at all. Removed the chip disable mode altogether. There isn’t really any high level BS digital code left at all by now. I think i started of as C++ for arduino and sort of naturally went more towards a C programming language by the time I was finished. This should get other boards like the TT-GO-Z that use the same MCUI IC working as well. Moving the delay on older versions might fix 168P compatiblity too?
 
 
+
+
+##
+What got me super interested in modchips? Besides being the first mod I ever installed when I was 14 years old with a cheap iron from a local store?
+
+This article: http://www.oldcrows.net/mcc2.html
+
+I've read quite a few times.
 
 
 
