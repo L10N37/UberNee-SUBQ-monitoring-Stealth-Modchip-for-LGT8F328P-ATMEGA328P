@@ -26,7 +26,7 @@ The WFCK Frequency was calculated with RTM Timer Calculator
 - http://www.psxdev.net/forum/viewtopic.php?t=1265&start=20
 - https://www.obscuregamers.com/threads/playstation-scph-7502-pu-22-pcb-modchip-question-and-modchip-diagrams-request.1311/
 - http://www.psxdev.net/forum/viewtopic.php?t=1266
-- PM41 with BIOS patch for PAL consoles Demo: https://youtu.be/Ahy8XMkAvQc 
+- PM41 with BIOS patch for PAL PSOne consoles - Demo: https://youtu.be/Ahy8XMkAvQc 
 
 ## Descriptions
 
@@ -88,3 +88,26 @@ This would be like the old crow chips (I have amassed a small collection) that h
 circuitry) and act as a 2 in one by forcing NTSC games to use PAL Sub Carrier (and play in colour on PAL machines) and by injecting magic key to get your CD-R's and Imports to run.
 
 This would only be useful in PU8/ PU18 machines - The sub carrier is not step locked to the GPU frequency in later revisions, it is a separate rail altogether off the onboard clock synth. It already outputs a fixed sub carrier regardless of game region (so don't even ask me why people were doing the link wire hacks back in the day).
+
+
+## Project History
+## PU8 / PU18 Revision History
+V1.00: Developed on a PU18 (SCPH-5502), would work on PU8 as well. I was an ABSOLUTE noob to programming, having only written a few apps in Visual Basic 6 in high school. I still remember going to the book store and grabbing the “how to VB6” book! Other than that, I had attempted MANY times to write new missions for Command and Conquer Red Alert on my Pentium 1, 133Mhz beast with a 2Mb graphics card and 500Mb hard drive. I had extremely basic batch knowledge having being introduced to 286, 386 and 486 PC’s when I was 14 (Prior to this, just consoles!)and having to learn how to automate things in DOS as best as possible.
+
+This version has the 1’s and 0’s for the PAL magic key string (SCEE) all written as individual ‘digital writes’ as this was all I knew.
+ 
+V1.5 (DEBUG): Still Developing on a PU18 (SCPH-5502). Program flow was doing my head in, I made this into a debug version. I would power it off USB from the PC and It would print on the serial monitor lots of random information. 
+
+Basically this was to relay to me where the in the program it was up to at all times.  This way I could tell if the program never made it to a function that was meant to be called. I Found out you could add a delay at boot and have the console jump straight into CD player – there was absolutely no point starting magic key injections from the Get Go at power on. This delay would give the console just enough time to detect an Audio CD as an Audio CD before the magic key injections confused it, and you were hit with a massive waiting time before the Audio CD player on the console would launch. There were other minor timing tweaks as well.
+
+I was using a wire to one of the Arduino I/O pins as a ‘sense wire’ whilst being powered off USB on the PC. When I switched the console on, it would sense the pin as ‘high/ true/ 1’. This would then let the code run. This was required, or the code would just start running as soon as it was plugged into the USB.
+
+
+V1.5 (Stand-Alone): Still Devving on PU18) Basically stripped all the debug stuff out of the above version and had it power off the console as proper installed modchip. No serial monitor stuff. Not sure what I was thinking at the time, but I was running power to the chip, then linking the power wire across to the sense I/O pin from when I was debugging to get the code running when the console was powered on.
+
+
+V1.5.1 (Stand-Alone): As above but added drive lid status check during magic key injections. This would monitor for a drive lid opening during the key injections and allow a halt and re-injection after closing the lid.
+
+V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get the code running. I can just power the console on, and that switches the Nano on – then the code runs – DERP. That’s all that was changed.
+
+
