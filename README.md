@@ -90,11 +90,17 @@ circuitry) and act as a 2 in one by forcing NTSC games to use PAL Sub Carrier (a
 This would only be useful in PU8/ PU18 machines - The sub carrier is not step locked to the GPU frequency in later revisions, it is a separate rail altogether off the onboard clock synth. It already outputs a fixed sub carrier regardless of game region (so don't even ask me why people were doing the link wire hacks back in the day).
 
 
+
+
 What got me super interested in modchips? Besides being the first mod I ever installed when I was 14 years old with a cheap iron from a local store?
 
 This article: http://www.oldcrows.net/mcc2.html
 
 I've read quite a few times.
+
+
+
+
 
 
 ## PU8 / PU18 Revision History
