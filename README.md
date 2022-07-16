@@ -90,6 +90,12 @@ circuitry) and act as a 2 in one by forcing NTSC games to use PAL Sub Carrier (a
 This would only be useful in PU8/ PU18 machines - The sub carrier is not step locked to the GPU frequency in later revisions, it is a separate rail altogether off the onboard clock synth. It already outputs a fixed sub carrier regardless of game region (so don't even ask me why people were doing the link wire hacks back in the day).
 
 
+What got me super interested in modchips? Besides being the first mod I ever installed when I was 14 years old with a cheap iron from a local store?
+
+This article: http://www.oldcrows.net/mcc2.html
+
+I've read quite a few times.
+
 
 ## PU8 / PU18 Revision History
 V1.00: Developed on a PU18 (SCPH-5502), would work on PU8 as well. I was an ABSOLUTE noob to programming, having only written a few apps in Visual Basic 6 in high school. I still remember going to the book store and grabbing the “how to VB6” book! Other than that, I had attempted MANY times to write new missions for Command and Conquer Red Alert on my Pentium 1, 133Mhz beast with a 2Mb graphics card and 500Mb hard drive. I had extremely basic batch knowledge having being introduced to 286, 386 and 486 PC’s when I was 14 (Prior to this, just consoles!)and having to learn how to automate things in DOS as best as possible.
@@ -112,3 +118,29 @@ V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get 
 
 
 ## PU20 + Revision History
+
+V1.00: By now, I’d gotten my head around a ‘for’ loop. Basic C++ for Arduino was starting to click for me.The Injection routine was switched to a nice tidy ‘for’loop. No more digital writing each bit manually, though on this version, the console is making the 1’s and UberChip is only pulling the data line low for 0’s. A ‘for’ loop also made it incredibly easy to change which regions Key was being Injected.
+
+V1.1: All this time, I’d only being trying back up CD-R games. I had never even considered whether a genuine disc would run. I figured if a burnt game works, a genuine one definitely does. I was wrong!
+
+A quick work around was adding a quick drive lid check at boot. If the drive lid was open, the program would high-z it’s lines and lock itself into an infinite loop of nothing-ness, thus, completely disabling the chips functionality and allowing genuine discs to work. This doesn’t apply to PU8 / PU18 revision code. The consoles function quite differently and it looks like Sony made an attempt on killing piracy on the console with these later revisions. Too bad that in 2021, the amount of information on the internet re: how traditional chips function insane. There are HEAPS of forums full of information.
+
+
+V2.00: I started learning some lower level code – flipping register bits instead of digital writes, port manipulation and so forth. I started moving across to lower level code and optimising and neatening everything up. I also discovered some really old diagrams from Old-Crow installs showing how to get these chips working on PU20+ with a link wire. I decided the link wire was a good fix, but from what I read – it wasn’t really ideal having this WFCK signal perma wired. You still have the ability to disable the chip in this version, not that it’s required.
+
+V2.1: I’d discovered how to ouput the WFCK signal using PWM on a CLK out pin on the arduino. This gives me complete control on when the signal is output and it’s duration. I was able to get rid of the perma-link. You still have the chip disable mode on this version.
+
+V2.1J: I discovered a genuine JP game (legend of mana) that was flagging for antimod about 50% of the time on a PU23. I made a small timing change that seemed to increase it’s chance of booting. For some reason though, i can’t get this to boot at all on a PU22. I haven’t tried a PU20, though I’ve accumulated a large pile of these systems. Note: UniRom 8J using nocash unlock method also gets flagged.
+
+
+V2.1Jx: I purchased a small bulk amount of LTG8F328P nano clones that run at twice the clock speed (32Mhz instead of 16Mhz). These chips were useless to me for about a year. It was annoying me that I had no use for them! Timing stays the same, but I had to alter the WFCK frequency code to suit the new MCU’s speed. I had to move the start up delay from the main loop to prior to set-up. The chip sits there dead for about 5 seconds before ANYTHING initialises. Not sure what’s going on there, but if setup runs straight away at boot on these MCU’s,  it doesn’t high-z the data line and kills the consoles ability to boot anything at all. Removed the chip disable mode altogether. There isn’t really any high level BS digital code left at all by now. I think i started of as C++ for arduino and sort of naturally went more towards a C programming language by the time I was finished. This should get other boards like the TT-GO-Z that use the same MCUI IC working as well. Moving the delay on older versions might fix 168P compatiblity too?
+
+
+
+
+
+
+
+
+
+
