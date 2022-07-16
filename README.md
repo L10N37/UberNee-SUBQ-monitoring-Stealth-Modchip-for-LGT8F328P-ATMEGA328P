@@ -99,7 +99,7 @@ This would only be useful in PU8/ PU18 machines - The sub carrier is not step lo
 
 
 
-## PU8 / PU18 Revision History
+## PU8 / PU18 Revision History (I found some weird code on these versions, they were never 'polished' like PU20+)
 V1.00: Developed on a PU18 (SCPH-5502), would work on PU8 as well. I was an ABSOLUTE noob to programming, having only written a few apps in Visual Basic 6 in high school. I still remember going to the book store and grabbing the “how to VB6” book! Other than that, I had attempted MANY times to write new missions for Command and Conquer Red Alert on my Pentium 1, 133Mhz beast with a 2Mb graphics card and 500Mb hard drive. I had extremely basic batch knowledge having being introduced to 286, 386 and 486 PC’s when I was 14 (Prior to this, just consoles!)and having to learn how to automate things in DOS as best as possible.
 
 This version has the 1’s and 0’s for the PAL magic key string (SCEE) all written as individual ‘digital writes’ as this was all I knew.
