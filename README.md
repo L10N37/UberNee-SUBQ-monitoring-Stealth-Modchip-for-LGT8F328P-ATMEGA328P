@@ -137,7 +137,12 @@ V2.1J: I discovered a genuine JP game (legend of mana) that was flagging for ant
 ##
 V2.1Jx: I purchased a small bulk amount of LGT8F328P nano clones that run at twice the clock speed (32Mhz instead of 16Mhz). These chips were useless to me for about a year. It was annoying me that I had no use for them! Timing stays the same, but I had to alter the WFCK frequency code to suit the new MCU’s speed. I had to move the start up delay from the main loop to prior to set-up. The chip sits there dead for about 5 seconds before ANYTHING initialises. Not sure what’s going on there, but if setup runs straight away at boot on these MCU’s,  it doesn’t high-z the data line and kills the consoles ability to boot anything at all. Removed the chip disable mode altogether. There isn’t really any high level BS digital code left at all by now. I think i started off as C++ for arduino and sort of naturally went more towards a C programming language by the time I was finished. This should get other boards like the TT-GO-Z that use the same MCU IC working as well. Moving the delay on older versions might fix 168P compatiblity too?
 
+## PAL PsOne versions
+Uber-D-D: This uses a rough timing implementation for a single wire BIOS patch to allow other region games to also boot (CD-R or genuine) on a PAL PSone which has additional region lock outs. Though it's a rough implementation, I'd give it a good 75% success rate! It should be noted that NTSC PSOnes don't have the addional region check and would work fine with PU20+ versions of UberChip. The ONLY other modchip that can do this patch on a PIC chip is OneChip, these use 2 wires for the BIOS patch and are also known as a bit hit and miss. The full size arduino board version of PSNEE can do the patch as well.
 
+## PIC versions
+V1.00: I decided to go with the hardest chip first and ported Uber-DD (For PAL PSOne with addional BIOS patch) across to 12F675 using MPLab / PIC-ASM. 
+I watched a youtube video on PIC Programming by 'Çreel' and away I went. Debugging was a nightmare. The Algorithm for the magic key injections though, is rock solid!
 
 
 ##
