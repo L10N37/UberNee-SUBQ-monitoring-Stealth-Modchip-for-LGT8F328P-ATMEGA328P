@@ -92,6 +92,6 @@ These run @ 32Mhz so we should be able to output up to 8Mhz.
 PAL Sub Carrier Target = 4.43361875 Mhz
 
 
-This would be easy to get close to if you spent some time next a scope with a tiny sample of code and a calculator.
+This would be easy to get close to if you spent some time next to a scope with a tiny sample of code and a calculator.
 This would be like the old crow chips (I have amassed a small collection) that have the colour burst crystal (not the oscillator, just the small xtal that need supporting
-circuitry) and act as a 2 in one by forcing NTSC games to use PAL Sub Carrier (and play in colour) and by injecting magic key to get your CD-R's and Imports to run.
+circuitry) and act as a 2 in one by forcing NTSC games to use PAL Sub Carrier (and play in colour on PAL machines) and by injecting magic key to get your CD-R's and Imports to run.
