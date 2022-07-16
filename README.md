@@ -103,38 +103,38 @@ This would only be useful in PU8/ PU18 machines - The sub carrier is not step lo
 V1.00: Developed on a PU18 (SCPH-5502), would work on PU8 as well. I was an ABSOLUTE noob to programming, having only written a few apps in Visual Basic 6 in high school. I still remember going to the book store and grabbing the “how to VB6” book! Other than that, I had attempted MANY times to write new missions for Command and Conquer Red Alert on my Pentium 1, 133Mhz beast with a 2Mb graphics card and 500Mb hard drive. I had extremely basic batch knowledge having being introduced to 286, 386 and 486 PC’s when I was 14 (Prior to this, just consoles!)and having to learn how to automate things in DOS as best as possible.
 
 This version has the 1’s and 0’s for the PAL magic key string (SCEE) all written as individual ‘digital writes’ as this was all I knew.
- 
+ ##
 V1.5 (DEBUG): Still Developing on a PU18 (SCPH-5502). Program flow was doing my head in, I made this into a debug version. I would power it off USB from the PC and It would print on the serial monitor lots of random information. 
 
 Basically, this was to relay to me where in the the program it was up to at all times.  This way I could tell if the program never made it to a function that was meant to be called. I Found out you could add a delay at boot and have the console jump straight into CD player – there was absolutely no point starting magic key injections from the Get Go at power on. This delay would give the console just enough time to detect an Audio CD as an Audio CD before the magic key injections confused it, and you were hit with a massive waiting time before the Audio CD player on the console would launch. There were other minor timing tweaks as well.
 
 I was using a wire to one of the Arduino I/O pins as a ‘sense wire’ whilst being powered off USB on the PC. When I switched the console on, it would sense the pin as ‘high/ true/ 1’. This would then let the code run. This was required, or the code would just start running as soon as it was plugged into the USB.
 
-
+##
 V1.5 (Stand-Alone): Still Devving on PU18... Basically stripped all the debug stuff out of the above version and had it power off the console as a proper installed modchip. No serial monitor stuff. Not sure what I was thinking at the time, but I was running power to the chip, then linking the power wire across to the sense I/O pin from when I was debugging to get the code running when the console was powered on.
 
-
+##
 V1.5.1 (Stand-Alone): As above, but added drive lid status check during magic key injections. This would monitor for a drive lid opening during the key injections and allow a halt and re-injection after closing the lid.
-
+##
 V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get the code running. I can just power the console on, and that switches the Nano on – then the code runs – DERP. That’s all that was changed.
 
 
 ## PU20 + Revision History
 
 V1.00: By now, I’d gotten my head around a ‘for’ loop. Basic C++ for Arduino was starting to click for me. The Injection routine was switched to a nice tidy ‘for’ loop. No more digital writing each bit manually, though on this version, the console is making the 1’s and UberChip is only pulling the data line low for 0’s. A ‘for’ loop also made it incredibly easy to change which regions Key was being Injected.
-
+##
 V1.1: All this time, I’d only being trying back up CD-R games. I had never even considered whether a genuine disc would run. I figured if a burnt game works, a genuine one definitely does. I was wrong!
 
 A quick work around was adding a quick drive lid check at boot. If the drive lid was open, the program would high-z it’s lines and lock itself into an infinite loop of nothing-ness, thus, completely disabling the chips functionality and allowing genuine discs to work. This doesn’t apply to PU8 / PU18 revision code. The consoles function quite differently and it looks like Sony made an attempt on killing piracy on the console with these later revisions. Too bad that in 2021, the amount of information on the internet re: how traditional chips function insane. There are HEAPS of forums full of information.
-
+##
 
 V2.00: I started learning some lower level code – flipping register bits instead of digital writes, port manipulation and so forth. I started moving across to lower level code and optimising and neatening everything up. I also discovered some really old diagrams from Old-Crow installs showing how to get these chips working on PU20+ with a link wire. I decided the link wire was a good fix, but from what I read – it wasn’t really ideal having this WFCK signal perma wired. You still have the ability to disable the chip in this version, not that it’s required.
-
+##
 V2.1: I’d discovered how to ouput the WFCK signal using PWM on a CLK out pin on the arduino. This gives me complete control on when the signal is output and it’s duration. I was able to get rid of the perma-link. You still have the chip disable mode on this version.
-
+##
 V2.1J: I discovered a genuine JP game (legend of mana) that was flagging for antimod about 50% of the time on a PU23. I made a small timing change that seemed to increase it’s chance of booting. For some reason though, i can’t get this to boot at all on a PU22. I haven’t tried a PU20, though I’ve accumulated a large pile of these systems. Note: UniRom 8J using nocash unlock method also gets flagged.
 
-
+##
 V2.1Jx: I purchased a small bulk amount of LTG8F328P nano clones that run at twice the clock speed (32Mhz instead of 16Mhz). These chips were useless to me for about a year. It was annoying me that I had no use for them! Timing stays the same, but I had to alter the WFCK frequency code to suit the new MCU’s speed. I had to move the start up delay from the main loop to prior to set-up. The chip sits there dead for about 5 seconds before ANYTHING initialises. Not sure what’s going on there, but if setup runs straight away at boot on these MCU’s,  it doesn’t high-z the data line and kills the consoles ability to boot anything at all. Removed the chip disable mode altogether. There isn’t really any high level BS digital code left at all by now. I think i started of as C++ for arduino and sort of naturally went more towards a C programming language by the time I was finished. This should get other boards like the TT-GO-Z that use the same MCUI IC working as well. Moving the delay on older versions might fix 168P compatiblity too?
 
 
