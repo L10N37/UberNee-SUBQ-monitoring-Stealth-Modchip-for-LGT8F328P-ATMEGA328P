@@ -140,9 +140,13 @@ V2.1Jx: I purchased a small bulk amount of LGT8F328P nano clones that run at twi
 ## PAL PsOne versions
 Uber-D-D: This uses a rough timing implementation for a single wire BIOS patch to allow other region games to also boot (CD-R or genuine) on a PAL PSone which has additional region lock outs. Though it's a rough implementation, I'd give it a good 75% success rate! It should be noted that NTSC PSOnes don't have the addional region check and would work fine with PU20+ versions of UberChip. The ONLY other modchip that can do this patch on a PIC chip is OneChip, these use 2 wires for the BIOS patch and are also known as a bit hit and miss. The full size arduino board version of PSNEE can do the patch as well.
 
+I got Fancy on this version with an LED. it blinks with each magic key injection, it stays solid when the lid is open, it blinks once every 7s or something when it's in stealth mode and injections are complete.
+
 ## PIC versions
 V1.00: I decided to go with the hardest chip first and ported Uber-DD (For PAL PSOne with addional BIOS patch) across to 12F675 using MPLab / PIC-ASM. 
 I watched a youtube video on PIC Programming by 'Çreel' and away I went. Debugging was a nightmare. The Algorithm for the magic key injections though, is rock solid!
+
+It uses the same blinking LED statuses as the Arduino version! LED sinks on the PIC, as oppose to being driven by the PIC.
 
 
 ##
