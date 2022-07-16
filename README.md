@@ -72,7 +72,7 @@ Source: https://pic-microcontroller.com/pic12f675-pwm-code-and-proteus-simulatio
 You can change PWM frequency by changing the CPU frequency of PIC12F675 microcontroller. In other words, currently I am using internal oscillator of 4MHz value which generates a PWM frequency of 1.8KHz. But you can use external crystal of upto 20MHz value to generate a maximum PWM frequency of 9KHz. Also, you can change PWM frequency by changing the frequency Pre-Scalar of timer0 in the code."
 
 
-##  PU22+ notes
+##  PU20+ notes
 A 'Genuine Mode' (Chip disable) originally existed for early revision of the chip. You would start the console with the Lid open, then close it a few seconds later to boot genuine games. This would disable the chip completely as the magic keys would collide and genuine discs would not orginally boot.
 Chip disable mode was left in place up to V2.1J though, it would never be required. Later versions output the WFCK frequency required. Chip disable mode was removed on the LGT8F328P version (V2.1Jx)  & the Data pin moved from D12 to D7 on this version.
 
