@@ -125,7 +125,7 @@ V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get 
 
 ## PU20 + Revision History
 
-V1.00: By now, I’d gotten my head around a ‘for’ loop. Basic C++ for Arduino was starting to click for me.The Injection routine was switched to a nice tidy ‘for’loop. No more digital writing each bit manually, though on this version, the console is making the 1’s and UberChip is only pulling the data line low for 0’s. A ‘for’ loop also made it incredibly easy to change which regions Key was being Injected.
+V1.00: By now, I’d gotten my head around a ‘for’ loop. Basic C++ for Arduino was starting to click for me. The Injection routine was switched to a nice tidy ‘for’loop. No more digital writing each bit manually, though on this version, the console is making the 1’s and UberChip is only pulling the data line low for 0’s. A ‘for’ loop also made it incredibly easy to change which regions Key was being Injected.
 
 V1.1: All this time, I’d only being trying back up CD-R games. I had never even considered whether a genuine disc would run. I figured if a burnt game works, a genuine one definitely does. I was wrong!
 
