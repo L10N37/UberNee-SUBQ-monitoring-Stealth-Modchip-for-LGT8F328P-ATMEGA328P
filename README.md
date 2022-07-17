@@ -121,7 +121,7 @@ V1.5.1 (Stand-Alone): As above, but added drive lid status check during magic ke
 V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get the code running. I can just power the console on, and that switches the Nano on – then the code runs – DERP. That’s all that was changed.
 
 
-## PU20 + Revision History
+## PU22 + Revision History
 
 V1.00: By now, I’d gotten my head around a ‘for’ loop. Basic C++ for Arduino was starting to click for me. The Injection routine was switched to a nice tidy ‘for’ loop. No more digital writing each bit manually, though on this version, the console is making the 1’s and UberChip is only pulling the data line low for 0’s. A ‘for’ loop also made it incredibly easy to change which regions Key was being Injected.
 ##
