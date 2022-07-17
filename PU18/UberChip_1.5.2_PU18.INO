@@ -52,9 +52,9 @@ int stringdelay (67); //delay between string injections
 const int Lid_Open = (0B000001); //so we don't have to refer to the states in bits further on
 const int Lid_Closed = (0B000000);
 int bitcounter = 0; //variable for injection loop storage
-char SCEE[] = "S10011010100100111101001010111010010101110100";
-char SCEA[] = "S10011010100100111101001010111010010111110100";
-char SCEI[] = "S10011010100100111101001010111010010110110100";
+char SCEE[] = "S10011010100100111101001010111010010101110100S";
+char SCEA[] = "S10011010100100111101001010111010010111110100S";
+char SCEI[] = "S10011010100100111101001010111010010110110100S";
 //DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
