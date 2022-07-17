@@ -17,6 +17,7 @@
                 I have given up on this for now, when it's not broken i will remove the WIP and it will be a proper release.
                 I don't have the motivation to get my logic analyser out and start probing points with meters and scopes.
                 All the new ideas are here, these LGT8F328P's are a pain in the dick
+                Even though there's more code and logic its down to 3% of program space
 
 */
 
