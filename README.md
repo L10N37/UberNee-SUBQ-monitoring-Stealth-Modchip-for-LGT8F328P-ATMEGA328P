@@ -74,7 +74,7 @@ Source: https://pic-microcontroller.com/pic12f675-pwm-code-and-proteus-simulatio
 You can change PWM frequency by changing the CPU frequency of PIC12F675 microcontroller. In other words, currently I am using internal oscillator of 4MHz value which generates a PWM frequency of 1.8KHz. But you can use external crystal of upto 20MHz value to generate a maximum PWM frequency of 9KHz. Also, you can change PWM frequency by changing the frequency Pre-Scalar of timer0 in the code."
 
 
-##  PU20+ notes
+##  PU22+ notes
 A 'Genuine Mode' (Chip disable) originally existed for early revision of the chip. You would start the console with the Lid open, then close it a few seconds later to boot genuine games. This would disable the chip completely as the magic keys would collide and genuine discs would not orginally boot.
 Chip disable mode was left in place up to V2.1J though, it would never be required. Later versions output the WFCK frequency required. Chip disable mode was removed on the LGT8F328P version (V2.1Jx)  & the Data pin moved from D12 to D7 on this version.
 
@@ -101,7 +101,7 @@ This would only be useful in PU8/ PU18 machines - The sub carrier is not step lo
 
 
 
-## PU8 / PU18 Revision History (I found some weird code on these versions, they were never 'polished' like PU20+, it works fine though :P)
+## PU8 / PU18/ PU20 Revision History (I found some weird code on these versions, they were never 'polished' like PU20+, it works fine though :P)
 V1.00: Developed on a PU18 (SCPH-5502), would work on PU8 as well. I was an ABSOLUTE noob to programming, having only written a few apps in Visual Basic 6 in high school. I still remember going to the book store and grabbing the “how to VB6” book! Other than that, I had attempted MANY times to write new missions for Command and Conquer Red Alert on my Pentium 1, 133Mhz beast with a 2Mb graphics card and 500Mb hard drive. I had extremely basic batch knowledge having being introduced to 286, 386 and 486 PC’s when I was 14 (Prior to this, just consoles!)and having to learn how to automate things in DOS as best as possible.
 
 This version has the 1’s and 0’s for the PAL magic key string (SCEE) all written as individual ‘digital writes’ as this was all I knew.
