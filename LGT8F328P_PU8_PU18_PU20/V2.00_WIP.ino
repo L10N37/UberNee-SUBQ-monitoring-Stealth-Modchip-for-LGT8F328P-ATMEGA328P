@@ -18,6 +18,7 @@
                 I don't have the motivation to get my logic analyser out and start probing points with meters and scopes.
                 All the new ideas are here, these LGT8F328P's are a pain in the dick
                 Even though there's more code and logic its down to 3% of program space
+                Using PU20 (SCPH-7002) atm
 
 */
 
