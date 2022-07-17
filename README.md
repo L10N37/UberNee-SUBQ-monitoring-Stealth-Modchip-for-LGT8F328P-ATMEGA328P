@@ -9,7 +9,7 @@
 
 The Supreme PSX Modchip (C) 2021
 
-LGT8F328P PU20/ PU22/ PU23 version (c) 2022
+LGT8F328P PU22/ PU23/ NTSC-PM41 [PSOne] version (c) 2022
 
 VajskiDs Consoles
 
