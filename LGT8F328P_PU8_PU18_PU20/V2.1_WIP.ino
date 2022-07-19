@@ -15,7 +15,7 @@
                 Even though there's more code and logic its down to 3% of program space
                 Using PU20 (SCPH-7002) atm
 
-  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tied up the code for easy adjustments in defines.           
+  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tidied up the code for easy adjustments in defines.           
 */
 
 
