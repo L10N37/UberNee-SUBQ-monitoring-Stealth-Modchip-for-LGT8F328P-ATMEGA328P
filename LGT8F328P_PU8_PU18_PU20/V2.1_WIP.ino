@@ -15,18 +15,19 @@
                 Even though there's more code and logic its down to 3% of program space
                 Using PU20 (SCPH-7002) atm
 
-  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tidied up the code for easy adjustments in defines.           
+  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tied up the code for easy adjustments in defines. Combined all keys into a define selection
+                which allows a single FOR loop.
 */
 
 
 
 
 
-//*****************REGION SELECT****************************
-// EUROPE / AUSTRALIA / NEWZEALAND = 1    (SCEE)
-// USA = 2                                (SCEA)
-// JP = 3                                 (SCEI)
-int MAGICKEY = 1;                                               //   <----------------------------------------------------------------------------------REGION SELECT!!
+//***************** MAGIC KEYS *****************************
+// EUROPE / AUSTRALIA / NEWZEALAND = SCEE
+// USA = SCEA
+// JP = SCEI
+//
 //**********************************************************
 
 
@@ -35,6 +36,8 @@ int MAGICKEY = 1;                                               //   <----------
 
 
 //#define F_CPU 1600000UL          // Run @ 16mhz, FLASH @ 32mhz setting!
+
+#define SELECT_MAGICKEY SCEE                                                //<----------------------------------------------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
 #define LidOpenedProcess do{;}while (bitRead (LIDPORT, lidbit) == 1);
 #define LidClosedProcess do{;}while (bitRead (LIDPORT, lidbit) == 0);
@@ -50,6 +53,7 @@ int MAGICKEY = 1;                                               //   <----------
 #define LIDIO DDRB
 #define DATAPORT PORTD
 #define DATAIO DDRD
+
 
 boolean LoadAtBoot = true;
 
@@ -79,7 +83,7 @@ void setup() {
 void NewDisc() {
 
   LidOpenedProcess       // Do 'nothing'while the lid is open between disc swaps
-  Region();             // Then jump to corresponding inject routine via switch case in Region()
+  Inject();             // Then jump to corresponding inject routine via switch case in Region()
 
 }
 
@@ -95,18 +99,18 @@ void DriveLidStatus() {
 }
 
 
-void injectSCEE() {
+void Inject() {
 
   do
   {
 
-    for (byte i = 0; i < sizeof(SCEE) - 1; i++)
+    for (byte i = 0; i < sizeof(SELECT_MAGICKEY) - 1; i++)
 
-      if (SCEE[i] == '0')
+      if (SELECT_MAGICKEY [i] == '0')
       {
         LowBit
       }
-      else if (SCEE[i] == '1')
+      else if (SELECT_MAGICKEY[i] == '1')
       {
         HighBit
       }
@@ -114,7 +118,7 @@ void injectSCEE() {
       {
         DriveLidStatus();
       }
-      else if (SCEE[i] == 'S')
+      else if (SELECT_MAGICKEY[i] == 'S')
       {
         EndOfMagicKey
       }
@@ -122,82 +126,6 @@ void injectSCEE() {
   while StealthModeNotActive;
 }
 
-
-
-void injectSCEA() {
-
-  do
-  {
-
-    for (byte i = 0; i < sizeof(SCEA) - 1; i++)
-
-      if (SCEA[i] == '0')
-      {
-        LowBit
-      }
-      else if (SCEA[i] == '1')
-      {
-        HighBit
-      }
-      else if (DriveLidOpen) // Magic Key injection broken by drive lid being opened?
-      {
-        DriveLidStatus();
-      }
-      else if (SCEA[i] == 'S')
-      {
-        EndOfMagicKey
-      }
-  }
-  while StealthModeNotActive;
-}
-
-
-
-void injectSCEI() {
-
-  do
-  {
-
-    for (byte i = 0; i < sizeof(SCEI) - 1; i++)
-
-      if (SCEI[i] == '0')
-      {
-        LowBit
-      }
-      else if (SCEI[i] == '1')
-      {
-        HighBit
-      }
-      else if (DriveLidOpen) // Magic Key injection broken by drive lid being opened?
-      {
-        DriveLidStatus();
-      }
-      else if (SCEI[i] == 'S')
-      {
-        EndOfMagicKey
-      }
-  }
-  while StealthModeNotActive;
-}
-
-
-
-void Region() {
-
-  switch (MAGICKEY) {
-    case 1:
-      injectSCEE();
-      break;
-    case 2:
-      injectSCEA();
-      break;
-    case 3:
-      injectSCEI();;
-      break;
-
-  }
-
-}
 
 
 void loop()
@@ -206,6 +134,6 @@ void loop()
     DriveLidStatus();
   }
 
-  Region();
+  Inject();
 
 }
