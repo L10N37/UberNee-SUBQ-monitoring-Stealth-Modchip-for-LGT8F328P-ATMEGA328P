@@ -17,6 +17,18 @@
   v2.1 [WIP]    Still broken, haven't touched the hardware ...just tied up the code for easy adjustments in defines. Combined all keys into a define selection
                 which allows a single FOR loop.
   v2.2 [WIP]    Just some late night relaxation, changed the inject routine to a switch case. Maybe, eventually, it might even be looked at properly with                 a logic analyser and get it diagnosed / fixed, also added ALLREGIONS Injection.
+
+Update: So i hooked this up to a logic analyzer and well ...nothing happens. It just sits there - doing *nothing*
+I'm not even sure how the heck the other version for this MCU works (for PU22+) because that was blind coded with no signal analysis - I just worked out why it wasn't working with a switch. 
+
+this MCU isn't liking having it's pins set up directly with the lower level bitwrite functions that directly manipulate the pin registers , but once again, how is the other version working?
+
+When using 
+    pinMode(7, OUTPUT);    
+    digitalWrite(7, HIGH); 
+
+As the first part of setup, I get some action, D7 actually goes high for 7.2 seconds.
+Anyway, I'm still stumped on how the other version possibly works. I'm in no rush to fix this, I just wanted to know why it wasn't working.
 */
 
 
