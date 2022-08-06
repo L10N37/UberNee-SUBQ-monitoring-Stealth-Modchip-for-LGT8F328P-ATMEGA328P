@@ -78,8 +78,6 @@ char SCEA[] = "10011010100100111101001010111010010111110100S";
 char SCEI[] = "10011010100100111101001010111010010110110100S";
 
 
-
-
 void setup() {
 
   bitWrite (DATAIO, databit, 1);    // Data as output
@@ -95,7 +93,7 @@ void setup() {
 void NewDisc() {
 
   LidOpenedProcess;       // Do 'nothing'while the lid is open between disc swaps
-  Inject();             // Then jump to corresponding inject routine via switch case in Region()
+  Inject();               // Then jump to corresponding inject routine via switch case in Region()
 
 }
 
@@ -105,8 +103,8 @@ void DriveLidStatus() {
   bitClear (DATAIO, databit);  // high-z data line
   injectcounter = 0;           // reset magic key inject counter
   LoadAtBoot = false;          // False the LoadAtBoot flag, the lids being opened. We aren't booting a disc from cold boot.
-  LidClosedProcess;             //Do 'nothing'while the lid is closed
-  NewDisc();                   //Jump to NewDisc() once the lid is opened
+  LidClosedProcess;            // Do 'nothing'while the lid is closed
+  NewDisc();                   // Jump to NewDisc() once the lid is opened
 
 }
 
@@ -136,7 +134,6 @@ void Inject() {
   }
   while StealthModeNotActive;
 }
-
 
 
 
