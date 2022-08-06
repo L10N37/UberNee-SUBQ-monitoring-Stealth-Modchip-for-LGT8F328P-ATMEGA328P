@@ -14,7 +14,7 @@
                 All the new ideas are here, these LGT8F328P's are a pain in the dick
                 Even though there's more code and logic its down to 3% of program space
                 Using PU20 (SCPH-7002) atm
-  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tied up the code for easy adjustments in defines. Combined all keys into a define selection
+  v2.1 [WIP]    Still broken, haven't touched the hardware ...just tidied up the code for easy adjustments in defines. Combined all keys into a define selection
                 which allows a single FOR loop.
   v2.2 [WIP]    Just some late night relaxation, changed the inject routine to a switch case. Maybe, eventually, it might even be looked at properly with                 a logic analyser and get it diagnosed / fixed, also added ALLREGIONS Injection.
 
