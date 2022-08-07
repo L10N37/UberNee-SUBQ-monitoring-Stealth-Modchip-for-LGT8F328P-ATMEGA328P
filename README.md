@@ -119,7 +119,8 @@ V1.5 (Stand-Alone): Still Devving on PU18... Basically stripped all the debug st
 V1.5.1 (Stand-Alone): As above, but added drive lid status check during magic key injections. This would monitor for a drive lid opening during the key injections and allow a halt and re-injection after closing the lid.
 ##
 V1.5.2:  I realised it was dumb to have a link wire to a ‘sense pin’ to get the code running. I can just power the console on, and that switches the Nano on – then the code runs – DERP. That’s all that was changed.
-
+##
+V2.00: This version was re-written for LGT8F328P (QFP32), there are a lot of changes and they are outlined in the INO file.
 
 ## PU22 + Revision History
 
