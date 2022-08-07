@@ -35,7 +35,9 @@
 
 
   2022
-  V2.1Jx    Re-Wrote to suit LGT8F328P QFP32 Mini-EVB - may suit other boards with the same IC. Uses: https://github.com/dbuezas/lgt8fx/discussions/207, DATA is now D7, not D12 (needless, but CBF changing it back)
+  V2.1Jx    
+            Re-Wrote to suit LGT8F328P QFP32 Mini-EVB - may suit other boards with the same IC, DATA is now D7, not D12 (needless, but CBF changing it back)
+            Uses: 'https://github.com/dbuezas/lgt8fx/discussions/207'
             I haven't bothered adjusting this for the simple region changes, but it's still easy to change regions. Just change the SCEE to your region in all the references in inject(). Managed to shave off 1%, 
             so this uses 5% of storage space :P
             Devved on a PU22 with full wire installation (Reset, Data, DriveLid, WFCK, GND, 3.3v). Removed chip disable mode, there's no reason to ever disable the chip.
