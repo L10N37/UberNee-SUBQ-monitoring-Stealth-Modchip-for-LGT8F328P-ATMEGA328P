@@ -35,6 +35,8 @@
                 only pulls the data line down for the zero's.
 
                 Identified a line of useless code for the low bits, when going between high-z and output, output defaults to LOW, so now, just switching between high-z and output (not telling it to pull down).
+
+                No longer uses if/else statements for the injection. Injection still uses a for loop but now contains a switch statement.
                                 
  */
 
