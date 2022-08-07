@@ -32,8 +32,7 @@ Anyway, I'm still stumped on how the other version possibly works. I'm in no rus
 
   v2.3        Looks like i forgot to put the ' ' around the 1's and 0's. Case statement was searching for integers instead of characters.
               It's looking good on the logic analyzer. Screenshot attached. No reason it wouldn't work in the console. I may make slight
-              changes to this and not update the version number (injection quantity with LoadAtBoot Flag falsed). You also can't use the 
-              ALL regions injection without dividing the inject counter by 3 or you will get flagged on anti mod games.
+              changes to this and not update the version number (injection quantity with LoadAtBoot Flag falsed). 
 */
 
 
