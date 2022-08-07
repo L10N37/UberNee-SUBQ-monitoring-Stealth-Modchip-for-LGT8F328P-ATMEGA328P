@@ -10,8 +10,8 @@
    
    Revision History:
 
-   V2.1J
-   VajskiDs Consoles 2021
+   
+   2021
 
 
    Refer to Github for install diagrams @ https://github.com/L10N37/tehUberChip_Another_PSX_Modchip
