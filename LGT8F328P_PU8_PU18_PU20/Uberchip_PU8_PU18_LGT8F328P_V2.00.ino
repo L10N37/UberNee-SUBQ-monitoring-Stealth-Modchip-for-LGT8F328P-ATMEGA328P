@@ -19,7 +19,7 @@
                 though this didn't seem to affect the later models PS1's at all for the LG8F328P version written for those. This delay was adjusted until I hit exactly 4ms between magic- 
                 key bits in DSVIEW (slight upgrade on the analyser used originally). I had no luck with getting to the black screen (key acception) at all, until this adjustment was made.
                 
-                Added a flag to adjust magic key injection quantity between cold boot, or boot with lid open then closing lid (boot from BIOS menu)/ multi-disc games (extra injections-
+                Added a flag to adjust magic key injection quantity between cold boot, or boot with lid open then closing lid (boot from BIOS menu / multi-disc games - extra injections-
                 in those cases). The console can now reliably boot from a stand still (from BIOS screen), tested with anti-mod games, and games that take a long time to load (like RE3).
                
                 The original initial 7.2s delay (original timing used in arduino nano versions) ends up being around 10seconds.
@@ -49,7 +49,7 @@
 // ALL= ALLREGIONS
 //**********************************************************
 
-#define SELECT_MAGICKEY SCEE                                                //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
+#define SELECT_MAGICKEY ALLREGIONS                                                //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
 
 #define databit 7
