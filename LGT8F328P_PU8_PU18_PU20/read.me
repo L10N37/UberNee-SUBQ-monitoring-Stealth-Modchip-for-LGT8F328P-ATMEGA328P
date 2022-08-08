@@ -2,7 +2,7 @@ Modified code to suit LGT8F328P (QFP32) for PU8 to PU20 consoles.
 
 You can cross reference the MM3 pinouts for installation.
 
-It won't hurt to use the same points.
+It won't hurt to use the same points other than making sure you confirm you're grabbing the 3.xx volt point off the mainboard to wire to 3.3v on the chip.
+I have seen traditional points wired to any of the 3 rails. Confirmed PU20 MM3 guide is using a 3.5v point.
 
-Though on PU20, reset doesn't seem correct. I used an alternate reset which actually resets the modchip with the console. When you press reset on the MCU, it should reset
-the console at the same time if wired correctly. The MM3 reset point for PU20 doesn't do this (pin 4 of traditional PIC chip).
+Though on PU20, reset doesn't seem correct. I used an alternate reset which actually resets the modchip with the console. When you press reset on the MCU, it should reset the console at the same time if wired correctly. The MM3 reset point for PU20 doesn't do this (pin 4 of traditional PIC chip).
