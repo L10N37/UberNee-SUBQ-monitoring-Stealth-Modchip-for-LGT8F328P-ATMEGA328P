@@ -46,10 +46,10 @@
 // EUROPE / AUSTRALIA / NEWZEALAND = SCEE
 // USA = SCEA
 // JP = SCEI
-// ALL= ALLREGIONS
+// ALL= ALLREGIONS (this breaks warm boot, but cold boots reliably)
 //**********************************************************
 
-#define SELECT_MAGICKEY ALLREGIONS                                                //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
+#define SELECT_MAGICKEY SCEE                                              //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
 
 #define databit 7
