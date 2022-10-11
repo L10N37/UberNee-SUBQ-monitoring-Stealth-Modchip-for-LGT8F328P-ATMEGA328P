@@ -133,7 +133,7 @@ void loop() {
 
 if (digitalRead(8) == HIGH) {RESET}
 else if StealthModeNotActive Inject();
-else StealthMode();  //Injections finished, dissappear into StealthMode
+else StealthMode();  //Injections finished, disappear into StealthMode
 
   
 }
