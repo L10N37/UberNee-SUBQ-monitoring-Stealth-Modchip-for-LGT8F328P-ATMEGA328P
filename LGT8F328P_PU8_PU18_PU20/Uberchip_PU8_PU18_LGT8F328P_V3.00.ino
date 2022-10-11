@@ -41,7 +41,8 @@ V3.00           MULTI-DISC WAS BROKEN!!! Some pretty big changes, so V3 it is. M
 
                 This version is basically wired to pull it's own reset pin low upon sensing the drive lid being opened, the chip literally externally suicides itself. It quite literally presses it's own reset button :P
                 This has the cool effect of the Blue LED flashing on each reset, the additional bonus is multi-disk games now work. You can wire the Chip to run off 5 volts instead of the 3.6v on the MM3 diagram and
-                Then it will flash nice and bright through the corner of the console while the drive lids open. 
+                Then it will flash nice and bright through the corner of the console while the drive lids open. I am also going to recommend hardwiring the Gate connection to ground. Though I've used the prior
+                Version on a few PU20s with no issue, this one wouldn't ground out the gate input reliably and genuine games wouldn't boot. I will provide a diagram.
                        
                                 
  */
