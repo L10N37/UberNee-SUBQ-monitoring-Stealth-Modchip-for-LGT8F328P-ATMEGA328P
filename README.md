@@ -65,7 +65,7 @@ The timing isn't written in stone, but I'd suggest leaving it as is, as I've tes
 - Uber-D-D (PM41 bios patch version) has being ported across in raw assembly for PIC12F675. 
 It would be nice to port the others across as well, though the WFCK frequency can’t be generated on the PIC chips without an external 20Mhz clock. You might be able to drive the PIC off the reference clock in the clock gen circuit on later phat models, this should allow the 7.22khz WFCK output on the PIC 12F675 version of Uber-D-D
 
-- It would be cool to have every version able to boot from cold boot with lid open, i.e. turn on console without a disc, then close the lid after. Not really required but you could set a boolean TRUE/FALSE flag, AND that TRUE flag with the conditional break of the injection routine and OR the FALSE flag then AND it with a different amount of injections (it would require a new quantity of injections on each version, its different when you close the lid after because it doesn't have the start up delay involved)
+- It would be cool to have every version able to boot from cold boot with lid open, i.e. turn on console without a disc, then close the lid after. Not really required but you could set a boolean TRUE/FALSE flag, AND that TRUE flag with the conditional break of the injection routine and OR the FALSE flag then AND it with a different amount of injections (it would require a new quantity of injections on each version, its different when you close the lid after because it doesn't have the start up delay involved) --> this was done and then dusted due to a change in V3.00 made to support multidisc.
 
 ## Some notes from the listed source in relation to WFCK frequency on PIC version
 
