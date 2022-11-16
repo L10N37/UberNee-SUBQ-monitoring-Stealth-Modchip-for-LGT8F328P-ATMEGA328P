@@ -58,7 +58,7 @@
 #define multiBIT 5
 #define databit 7
 #define lidbit 0
-#define wfckbit 1
+#define wfckbit 2
 #define LIDPORT PORTB
 #define LIDIO DDRB
 #define DATAPORT PORTD
@@ -83,9 +83,10 @@ char SCEI[] = "10011010100100111101001010111010010110110100S";
 
 void setup() {
 
+  delay(4500);
   bitClear (DATAPORT, multiBIT);              // High-Z MultiDisc self reset on lid open 
   bitClear(LIDIO, lidbit);                    // Lid sensor as high-z input
-  bitWrite(LIDPORT, wfckbit, 1);                // Gate as output, required for WFCK freq. output, high-z after injections
+  bitWrite(LIDIO, wfckbit, 1);                // Gate as output, required for WFCK freq. output, high-z after injections
 
 }
 
@@ -111,13 +112,12 @@ void Inject() {
   OCR1B = (int) (ICR1 * 0.50);
   TCNT1 = 0x0;
   TCCR1B |= 1; // Prescale=1, Enable Timer
+  
     //
 
-
+  delay (4700);
   bitWrite(DATAIO, databit, 1);  // Data as output
   bitClear(DATAPORT, databit);   // Tie Data Low
-  delay(4500);
-
 
 
   do {
