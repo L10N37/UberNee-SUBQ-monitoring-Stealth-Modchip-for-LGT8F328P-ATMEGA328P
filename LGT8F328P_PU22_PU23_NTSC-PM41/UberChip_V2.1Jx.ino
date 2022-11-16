@@ -31,31 +31,8 @@
             I haven't bothered adjusting this for the simple region changes, but it's still easy to change regions. Just change the SCEE to your region in all the references in inject(). Managed to shave off 1%, 
             so this uses 5% of storage space :P
             Devved on a PU22 with full wire installation (Reset, Data, DriveLid, WFCK, GND, 3.3v). Removed chip disable mode, there's no reason to ever disable the chip.
-            
-  V3.00     As per the notes for the version to suit mainboards prior to PU22, multidisc support has being added. The source code for that version is now used as it was neater so
-            have just made the adjustments to suit PU22+. Grabbed a smaller batch of LGT8F328P's that were pin compatible with the USB->Serial adapter I had on hand. These are tiny and fit on the mainboard. Reset is 
-            no longer optional (the chip would reset along with the console) as it's now tied to D5 with a link wire (D5 to reset on the MCU), don't tie reset to the PS1 mainboard or you won't have multidisc support. 
-            The chip locks into a reset loop when the drive lid is open, this was for multi-disc support.
 */
 
-
-
-
-
-//***************** MAGIC KEYS *****************************
-// EUROPE / AUSTRALIA / NEWZEALAND = SCEE
-// USA = SCEA
-// JP = SCEI
-// ALL= ALLREGIONS
-//**********************************************************
-
-
-#define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
-
-
-
-
-#define multiBIT 5
 #define databit 7
 #define lidbit 0
 #define wfckbit 2
@@ -63,89 +40,108 @@
 #define LIDIO DDRB
 #define DATAPORT PORTD
 #define DATAIO DDRD
-#define DriveLidClosed (bitRead(LIDPORT, lidbit) == LOW)
-#define LowBit bitWrite(DATAIO, databit, 1), delayMicroseconds(bitdelay)
-#define HighBit bitClear(DATAIO, databit), delayMicroseconds(bitdelay)
-#define EndOfMagicKey injectcounter++, delay(stringdelay)
-#define StealthModeNotActive (injectcounter < 75 && DriveLidClosed)
-#define RESET pinMode(5, OUTPUT); digitalWrite(5, LOW);
+
 
 int injectcounter = 0x00;
-int bitdelay(3970);   //delay between bits sent to drive controller (MS)
-int stringdelay(160);  //delay between string injections
-
-
-char ALLREGIONS[] = "S10011010100100111101001010111010010101110100S10011010100100111101001010111010010111110100S10011010100100111101001010111010010110110100";
+int bitdelay (3794);    //delay between bits sent to drive controller (MS)
+int stringdelay (160);  //delay between string injections
 char SCEE[] = "10011010100100111101001010111010010101110100S";
 char SCEA[] = "10011010100100111101001010111010010111110100S";
 char SCEI[] = "10011010100100111101001010111010010110110100S";
-
+//DEFAULT 'SCEE' INJECTION, CHANGE IN INJECT() TO SUIT YOUR REGION (x 3 references to character string)
 
 void setup() {
 
-  delay(4500);
-  bitClear (DATAPORT, multiBIT);              // High-Z MultiDisc self reset on lid open 
-  bitClear(LIDIO, lidbit);                    // Lid sensor as high-z input
-  bitWrite(LIDIO, wfckbit, 1);                // Gate as output, required for WFCK freq. output, high-z after injections
+  //    Set up the used pins
+
+  delay (4700);                    //start-up delay (these need a few seconds to wake up for some reason, i've just moved this from main loop to here, it broke compatiblity.
+  bitClear(LIDIO, lidbit);         // Lid sensor as high-z input
+  bitWrite (DATAIO, databit, 1);   // Data starts as output
+  bitClear (DATAPORT, databit);    // Data starts tied low (very temporary)
+  bitClear (LIDIO, wfckbit);       // WFCK starts as high-z input, Equivalant of 'bitWrite (LIDIO, wfckbit, 0)'
 
 }
 
 
-void StealthMode() {
+void NewDisc() {                                // Do 'nothing' while the lids open between disc swap, once closed again, jump into inject routine.
+  do
+  {
+    ;
+  }
+  while (bitRead (LIDPORT, lidbit) == 1);
 
+  inject();
+}
+
+void DriveLidStatus() {
   TCCR1B = 0x18;               // 0001 1000, Disable Timer Clock
   bitClear (DATAIO, databit);  // high-z data line
-  bitClear (LIDPORT, wfckbit);   // high-z wfck line
-  
-  if (digitalRead(8) == LOW) {StealthMode();}       // Lock into a StealthMode loop
+  bitClear (LIDIO, wfckbit);   // high-z wfck line
+  injectcounter = 0;
+
+ // if (bitRead (LIDPORT, lidbit) == 0) { // don't really need to keep checking if the lids still closed, only check if it gets opened.
+ //   ;                                   // so commented out
+ //}
+   
+   if (bitRead (LIDPORT, lidbit) == 1) {  
+    NewDisc();
   }
+   
+  DriveLidStatus();                        //Keep checking if the lids being opened (multi-disc games), if not, loop this function infinitely.
+}
+
+void inject() {
 
 
-void Inject() {
-
-
-    //Gate Wire output for WFCK frequency, 7.342Khz out of D2 for duration of magic key injections
+  // ****************GATE WIRE SETUP***********************
+  // RTM_TimerCalc 1.31,  RuntimeMicro.com (this is written for 16mhz MCU's, but you can still work with it, this MCU approximately doubles the calculations)
+  // = 7.342Khz
   TCCR1B = 0x18; // 0001 1000, Disable Timer
   TCCR1A = 0xA2; // 1010 0010
+
   ICR1 = 4334 - 1;
   OCR1A = (int) (ICR1 * 0.25);
   OCR1B = (int) (ICR1 * 0.50);
   TCNT1 = 0x0;
+  bitWrite (LIDIO, wfckbit, 1);      //Unlike the 328P clones I was using, you have to set this pin as an output on this MCU, we will high-z this after injections.
   TCCR1B |= 1; // Prescale=1, Enable Timer
-  
-    //
 
-  delay (4700);
-  bitWrite(DATAIO, databit, 1);  // Data as output
-  bitClear(DATAPORT, databit);   // Tie Data Low
+  //********************************************************
 
 
-  do {
+  do
+  {
 
-    for (byte i = 0; i < sizeof(SELECT_MAGICKEY) - 1; i++)
+    for (byte i = 0; i < sizeof(SCEE) - 1; i++)
 
-      switch (SELECT_MAGICKEY[i]) {
-        case '1':
-          HighBit;
-          break;
-        case '0':
-          LowBit;
-          break;
+      if (SCEE[i] == '0')
+      {
+        bitWrite (DATAIO, databit, 1);  // Set DataPin as Output
+        bitClear (DATAPORT, databit);   // Pull Data line Low for zero's
+        delayMicroseconds (bitdelay);
       }
-
-    EndOfMagicKey;
-  } while StealthModeNotActive;
-
-  
+      else if (SCEE[i] == '1')
+      {
+        bitClear (DATAIO, databit);     // Set Datapin as input, releases data line for 1's
+        delayMicroseconds(bitdelay);
+      }
+      else if (bitRead (LIDPORT, lidbit) == 1) // Magic Key injection broken by drive lid being opened?
+      {
+        DriveLidStatus();
+      }
+      else if (SCEE[i] == 'S')
+      {
+        injectcounter++;
+        delay (stringdelay);
+      }
+  }
+  while (injectcounter < 75);
 }
 
-
-
-void loop() {
-
-if (digitalRead(8) == HIGH) {RESET}
-else if StealthModeNotActive Inject();
-else StealthMode();  //Injections finished, disappear into StealthMode
-
-  
+void loop()
+{
+  if (injectcounter >= 75) {
+    DriveLidStatus();
+  }
+  inject();
 }
