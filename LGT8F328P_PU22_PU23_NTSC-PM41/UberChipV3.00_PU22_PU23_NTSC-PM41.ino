@@ -58,7 +58,7 @@
 #define multiBIT 5
 #define databit 7
 #define lidbit 0
-#define wfckbit 2
+#define wfckbit 1
 #define LIDPORT PORTB
 #define LIDIO DDRB
 #define DATAPORT PORTD
