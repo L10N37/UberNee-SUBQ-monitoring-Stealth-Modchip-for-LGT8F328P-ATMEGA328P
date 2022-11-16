@@ -31,6 +31,8 @@
             I haven't bothered adjusting this for the simple region changes, but it's still easy to change regions. Just change the SCEE to your region in all the references in inject(). Managed to shave off 1%, 
             so this uses 5% of storage space :P
             Devved on a PU22 with full wire installation (Reset, Data, DriveLid, WFCK, GND, 3.3v). Removed chip disable mode, there's no reason to ever disable the chip.
+
+**accidental commit with V3.00 overwriting this version from August 7 2022, so went through history and put it back here for revision history sake.
 */
 
 #define databit 7
