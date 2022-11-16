@@ -83,7 +83,6 @@ char SCEI[] = "10011010100100111101001010111010010110110100S";
 
 void setup() {
 
-  delay(4500);
   bitClear (DATAPORT, multiBIT);              // High-Z MultiDisc self reset on lid open 
   bitClear(LIDIO, lidbit);                    // Lid sensor as high-z input
   bitWrite(LIDIO, wfckbit, 1);                // Gate as output, required for WFCK freq. output, high-z after injections (WFCK is required for Genuine discs)
