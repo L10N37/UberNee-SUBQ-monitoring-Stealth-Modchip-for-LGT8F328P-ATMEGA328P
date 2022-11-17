@@ -94,7 +94,7 @@ void StealthMode() {
 
   TCCR1B = 0x18;               // 0001 1000, Disable Timer Clock
   bitClear (DATAIO, databit);  // high-z data line
-  bitClear (LIDPORT, wfckbit);   // high-z wfck line
+  bitClear (LIDIO, wfckbit);   // high-z wfck line
   
   if (digitalRead(8) == LOW) {StealthMode();}       // Lock into a StealthMode loop
   }
