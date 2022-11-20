@@ -12,7 +12,7 @@ Optional back up of old files:
 
 
 Installation:
--Deleted and replace or Overwrite all files in ...\LGT8fx Boards\hardware\avr\1.0.6 with the files in the lgt8f-1.0.7-alpha.1.zip archive (extract the files!)
+-Delete and replace or Overwrite all files in ...\LGT8fx Boards\hardware\avr\1.0.6 with the files in the lgt8f-1.0.7-alpha.1.zip archive (extract the files!)
 in the lgt8f subfolder.
 
 
