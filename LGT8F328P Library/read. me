@@ -18,3 +18,9 @@ in the lgt8f subfolder.
 
 Ready to go:
 -Start Arduino IDE.
+
+
+Please note the tested boards are the LGT8F328P QFP32 including the miniature version with no USB port (you need a serial to USB, the part# XC4464 from Jaycar is pin
+compatible / plug in as is, then remove, though I have mine modified to output 3.3v and hardwired for 3.3v logic levels).
+
+There is a new 20 pin SSOP version floating about which is yet to be tested, but should work.
