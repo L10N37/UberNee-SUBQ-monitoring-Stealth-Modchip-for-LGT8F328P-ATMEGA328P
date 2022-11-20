@@ -1,3 +1,20 @@
 From:
  https://github.com/dbuezas/lgt8fx/discussions/207
 Created local repository
+
+
+Insallation:
+
+-Shut down Arduino IDE.
+
+Optional back up of old files:
+-Save files from C:\Users\<your username>\AppData\Local\Arduino15\packages\LGT8fx Boards\hardware\avr\1.0.6 folder to somewhere else.
+
+
+Installation:
+-Deleted and replace or Overwrite all files in ...\LGT8fx Boards\hardware\avr\1.0.6 with the files in the lgt8f-1.0.7-alpha.1.zip archive (extract the files!)
+in the lgt8f subfolder.
+
+
+Ready to go:
+-Start Arduino IDE.
