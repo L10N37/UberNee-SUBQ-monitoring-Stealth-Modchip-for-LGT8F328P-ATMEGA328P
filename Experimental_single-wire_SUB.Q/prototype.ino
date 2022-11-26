@@ -1,5 +1,5 @@
 #define subqislow (PIND == 0B000000000)
-int bitdelay(3700);
+int bitdelay(3970);
 #define wait delayMicroseconds(bitdelay);
 int capturetime = 0;
 int fallingedges = 0;
