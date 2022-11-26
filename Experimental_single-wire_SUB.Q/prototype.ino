@@ -5,7 +5,6 @@ int capturetime = 0;
 int fallingedges = 0;
 int risingedges = 0;
 int timer = 0;
-int subqlowcount = 0;
 
 
 void setup() {
@@ -94,7 +93,7 @@ void loop() {
   }
 
 
-  if (capturetime == 8 || capturetime >= 10) {
+  if (capturetime >= 10) {
     noInterrupts();
     resetvariables();
   }
