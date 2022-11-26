@@ -1,3 +1,7 @@
+// experimental WIP
+// seems to reliably detect laserhead in TOC area
+// no black screen yet
+
 #define subqislow (PIND == 0B00000000)
 #define wait delayMicroseconds(bitdelay);
 #define LowBit bitWrite(DDRD, 4, 1), delayMicroseconds(bitdelay)
