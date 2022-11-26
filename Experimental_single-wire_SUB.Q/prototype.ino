@@ -1,7 +1,3 @@
-// experimental
-// stupid MCU's have a lot of weird quirks
-// seems to detect TOC area reliably, injections happen (as it's monitored) but no black screen.
-// 
 #define subqislow (PIND == 0B00000000)
 #define wait delayMicroseconds(bitdelay);
 #define LowBit bitWrite(DDRD, 4, 1), delayMicroseconds(bitdelay)
@@ -131,7 +127,7 @@ void inject() {
 void loop() {
 
   
-  if (capturetime >=10 ) {capturetime = 0; noInterrupts(); wait}
+  if (capturetime >=11 ) {capturetime = 0; noInterrupts(); resetvariables(); wait}
   attachinterrupts();  //attach interrupts to D2 and enable interrupts
 
 
@@ -157,9 +153,4 @@ void loop() {
     
   }
 
-
-  if (capturetime >= 10) {
-    noInterrupts();
-    resetvariables();
-  }
 }
