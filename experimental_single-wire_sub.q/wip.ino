@@ -1,4 +1,6 @@
-//#define subqislow (PIND == 0B00000000)
+// experimental, needs testing
+// works
+
 #define wait delayMicroseconds(bitdelay);
 #define LowBit bitWrite(DDRD, 4, 1), delayMicroseconds(bitdelay)
 #define HighBit bitClear(DDRD, 4), delayMicroseconds(bitdelay)
@@ -285,7 +287,7 @@ void inject() {
 
     EndOfMagicKey;
 
-  } while (injectcounter <= 3);
+  } while (injectcounter <= 16);
 }
 
 void loop() {
@@ -295,7 +297,6 @@ void loop() {
     capturetime = 0;
     noInterrupts();
     resetvariables();
-    wait
   }
   attachinterrupts();  //attach interrupts to D2 and enable interrupts
 
@@ -303,9 +304,9 @@ void loop() {
 
   // 0xA0
   if (byte3 == true && byte1 == true && capturetime == 8 && risingedges == 4 && fallingedges == 4) {
-    noInterrupts();
+    
     resetvariables();
-    print();
+    // print();
     inject();
     monitorpinstates();
 
@@ -315,9 +316,9 @@ void loop() {
 
   // 0xA1 and 0xA2
   else if (byte3 = true && byte1 == true && capturetime == 10 && risingedges == 5 && fallingedges == 5) {
-    noInterrupts();
+    
     resetvariables();
-    print();
+    // print();
     inject();
     monitorpinstates();
   }
