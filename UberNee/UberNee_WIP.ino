@@ -4,7 +4,7 @@
 // TO DO: WFCK PWM output, connect on PU22+, else tie gate to ground on PS1 mainboard on (PS1 < PU22)
 // TO DO: fine Tune hysteresis, get injections working - have had them working on many revisions prior but something wrong here.
 // Increasing injection quantity doesn't help so it's safe to say the actual injections are somehow broken
-
+// FOR LGT8F328P (big POS)
 
 #define injectpin 4
 #define badread (sqb[0] == 0x00 && sqb[1] == 0x00 && sqb[2] == 0x00 && sqb[3] == 0x00)
