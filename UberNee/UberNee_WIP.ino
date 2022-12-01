@@ -146,11 +146,11 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
 
   if (
-      (sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2 || sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2))
+      (sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2 || sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2)) //FIX THIS
 
           hysteresisflag = true;
 
-              else if (hysteresis < 0 && (sqb[0] == 0x41 || sqb[0] == 0x61 || sqb[0] == 0x01) && (sqb[1] == 0x00 && sqb[6] == 0x00) && hysteresis > 0x00)
+              else if (hysteresis < 0 && (sqb[0] == 0x41 || sqb[0] == 0x61 || sqb[0] == 0x01) && (sqb[1] == 0x00 && sqb[6] == 0x00) && hysteresis > 0x00) 
     
                   hysteresisflag = true;
 
