@@ -2,10 +2,23 @@
 // Possibly WIP
 // Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
 // IN TESTING
-// TO DO: WFCK PWM output, connect on PU22+, else tie gate to ground on PS1 mainboard on (PS1 < PU22)
-// TO DO: ??
 
 
+/* PU22+ -            DATA / SCEx output = DIGITAL PIN 4
+                      SUBQ DATA          = DIGITAL PIN 8
+                      SUBQ CLOCK         = DIGITAL PIN 9 
+                      WFCK / GATE        = DIGITAL PIN 10
+*/  
+
+/* Mainboard < PU20   DATA / SCEx output = DIGITAL PIN 4
+                      SUBQ DATA          = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
+                      SUBQ CLOCK         = DIGITAL PIN 9 
+                      WFCK / GATE        = DIGITAL PIN 10
+*/  
+
+
+
+#define wfckpin 2
 #define injectpin 4
 #define yes true;
 #define no false;
@@ -41,24 +54,28 @@ uint8_t hysteresis = 0x00;
 
 //***************** Debug Mode *****************************
 //      yes / no ? 
-bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning 
-
+bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning      
 //**********************************************************
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
+int TWEAK_DRIVE = 100;         //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
+
+
+
+
 
 void setup() {
 
-  DDRB = 0x00;                // Direction register for port B all high-z inputs
-  
-  bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
+  DDRB = 0x00;                    // Direction register for port B all high-z inputs
+  bitClear(DDRD, injectpin);      // ensure datapin (injectpin) is high-z
+  bitWrite(DDRD, 3,1);            // If using mainboard < PU22 and INSIST on using the MCU to pull gate to ground.
 
     if (DEBUG_MODE) {
       Serial.begin(115200);       // enable serial monitor as a type of debug console
         Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
           Serial.print("\n");
-            Serial.flush();  // Finish saying hi before moving on :P
+            Serial.flush();       // Finish saying hi before moving on :P
               }
 }
 
@@ -82,8 +99,22 @@ void print() {  // subq byte capture debug serial printing, also resets the arra
 void inject() {
 
 
+    bitWrite(DDRB, wfckpin, 1);    // Gate as output, required for WFCK freq. output, high-z after injections (WFCK is required for Genuine discs- ONLY USED ON PU22+)
     bitWrite(DDRD, injectpin, 1);  // data pin for injections as output
     bitClear(PORTD, injectpin);    // likely not necessary but want to ensure it defaults to low on toggle (it's meant to)
+
+    
+    //Gate Wire output for WFCK frequency, 7.342Khz out of D10 for duration of magic key injections
+    TCCR1B = 0x18; // 0001 1000, Disable Timer
+    TCCR1A = 0xA2; // 1010 0010
+    ICR1 = 4334 - 1;
+    OCR1A = (int) (ICR1 * 0.25);
+    OCR1B = (int) (ICR1 * 0.50);
+    TCNT1 = 0x0;
+    TCCR1B |= 1; // Prescale=1, Enable Timer
+    //
+
+
 
   do {
 
@@ -184,7 +215,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 }
 
 
-  if (hysteresis >= 100) {
+  if (hysteresis >= TWEAK_DRIVE) {
     interrupts();
 
       if (DEBUG_MODE){
@@ -194,6 +225,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
     inject();
     bitClear(DDRD, injectpin);  // keys end in '0' so will return as output, ensure we high-z it again
+    bitClear(DDRB, wfckpin);    // also high-z WFCK freq. output pin
     hysteresis = 0x00;
     injectcounter = 0x00;
   }
