@@ -4,12 +4,6 @@
 // IN TESTING
 // FOR LGT8F328P
 
-// Based off PSNEE V7 by Rama
-// Possibly WIP
-// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
-// IN TESTING
-// FOR LGT8F328P
-
 /* PU22+ -            DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
@@ -65,7 +59,7 @@ bool DEBUG_MODE = yes         //<---------------------------------------------De
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-int TWEAK_DRIVE = 100;         //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
+int TWEAK_DRIVE = 100;        //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
 
 
 
