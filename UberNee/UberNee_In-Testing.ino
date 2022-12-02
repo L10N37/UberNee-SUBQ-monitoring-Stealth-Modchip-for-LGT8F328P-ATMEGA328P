@@ -9,6 +9,7 @@
 //                                                                      
 //
 // IN TESTING - Devved on PU20, haven't checked PU22+, though it was basically copy paste the WFCK stuff from UberChip. Hopefully the library change didn't effect. To confirm.
+// hardly ever works when not in debug mode (i.e connected to the PC)
 // FOR LGT8F328P
 
 
@@ -24,7 +25,7 @@ Based loosely off PSNEE V7 by Rama
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
   \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$
-                                                                        V1.00
+                                                                        V1.00 (changes will be made and it will keep this version until out of WIP)
 
   By VajskiDs Consoles                                                                    
                                                                       
