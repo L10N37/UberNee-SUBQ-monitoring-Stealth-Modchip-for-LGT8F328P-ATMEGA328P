@@ -3,7 +3,7 @@
 // Purely WIP and will be deleted
 // TO DO: WFCK PWM output, connect on PU22+, else tie gate to ground on PS1 mainboard on (PS1 < PU22)
 // TO DO: fine Tune hysteresis, get injections working - have had them working on many revisions prior but something wrong here.
-// Increasing injection quantity doesn't help so it's safe to say the actual injections are somehow broken
+// Increasing injection quantity doesn't help so it's safe to say the actual injections are somehow broken, (CHECKED with scope, they are good, maybe i killed this PU20)
 // FOR LGT8F328P (big POS)
 
 #define injectpin 4
@@ -99,7 +99,7 @@ void inject() {
 
     EndOfMagicKey;
 
-  } while (injectcounter < 200);
+  } while (injectcounter < 12);
 }
 
 
