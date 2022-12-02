@@ -5,6 +5,7 @@
 //                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
 //                                                                     PopoRogue JP    100% (anti-mod, told on twitter by someone who devved a modchip years back. Active regardless of mecha region)
 //                                                           Spyro -Year of the Dragon (can't confirm, was told this hard locks at boot if a chip is flagged, cranked up quantity of injections, no flag, possibly no check on PAL mecha)
+//
 // IN TESTING
 // FOR LGT8F328P
 
@@ -176,9 +177,11 @@ void capturepackets() {
 
   sqbp = 0x00;    // reset the captured byte array index for the next run
         if (badread) {  // reset array index counter and restart capture on a bad read
-              Serial.print("   bad read");
-                  Serial.flush();
-                      capturepackets();
+             if (DEBUG_MODE) { 
+                  Serial.print("   bad read");
+                      Serial.flush();
+                            }
+                          capturepackets();
                                         }
 }
 
