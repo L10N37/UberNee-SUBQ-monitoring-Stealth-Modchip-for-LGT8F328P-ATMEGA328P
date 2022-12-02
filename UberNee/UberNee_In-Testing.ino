@@ -131,7 +131,7 @@ void inject() {
 
     EndOfMagicKey;
 
-  } while (injectcounter < 6);
+  } while (injectcounter < 3);
 }
 
 
