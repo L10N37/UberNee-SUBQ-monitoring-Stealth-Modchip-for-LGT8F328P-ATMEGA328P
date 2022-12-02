@@ -208,7 +208,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
   if (hysteresisflag) hysteresis++;
   else if (hysteresisflag_ && hysteresis > 0x00) hysteresis--;
-  else hysteresis = hysteresis =0x00;
+  else hysteresis =0x00;
   
 
   if (DEBUG_MODE) {
