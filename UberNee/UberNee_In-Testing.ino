@@ -4,6 +4,12 @@
 // IN TESTING
 // FOR LGT8F328P
 
+// Based off PSNEE V7 by Rama
+// Possibly WIP
+// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
+// IN TESTING
+// FOR LGT8F328P
+
 /* PU22+ -            DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
@@ -225,6 +231,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
     inject();
     bitClear(DDRD, injectpin);  // keys end in '0' so will return as output, ensure we high-z it again
+    TCCR1B = 0x18;              // 0001 1000, Disable Timer (disable WFCK output)
     bitClear(DDRB, wfckpin);    // also high-z WFCK freq. output pin
     hysteresis = 0x00;
     injectcounter = 0x00;
