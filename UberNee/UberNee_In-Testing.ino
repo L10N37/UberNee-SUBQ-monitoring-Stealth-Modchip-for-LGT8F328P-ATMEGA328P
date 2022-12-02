@@ -1,4 +1,4 @@
-// Based off PSNEE V7 by Rama
+
 // Boots the hardest game I know of with the most brutal anti-mod -    Legend Of Mana JP. 100% (anti-mod)
 //                                                                     Um Jammer Lammy 100% (anti-mod)
 //                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
