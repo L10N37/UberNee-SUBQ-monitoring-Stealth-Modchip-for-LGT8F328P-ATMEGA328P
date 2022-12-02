@@ -1,5 +1,5 @@
 // Based off PSNEE V7 by Rama
-// Possibly WIP
+// TO DO: Fine tune the hysteresis algorithm , injection quantity, spacing between SCEx strings etc.
 // Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
 // IN TESTING
 // FOR LGT8F328P
