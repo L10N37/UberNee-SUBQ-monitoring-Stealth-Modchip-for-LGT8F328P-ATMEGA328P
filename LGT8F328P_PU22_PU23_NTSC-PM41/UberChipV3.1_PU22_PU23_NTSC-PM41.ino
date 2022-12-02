@@ -111,7 +111,7 @@ void StealthMode() {
 void Inject() {
 
 
-    //Gate Wire output for WFCK frequency, 7.342Khz out of D2 for duration of magic key injections
+    //Gate Wire output for WFCK frequency, 7.342Khz out of D10 for duration of magic key injections
   TCCR1B = 0x18; // 0001 1000, Disable Timer
   TCCR1A = 0xA2; // 1010 0010
   ICR1 = 4334 - 1;
