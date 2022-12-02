@@ -2,7 +2,7 @@
 // Possibly WIP
 // Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
 // IN TESTING
-
+// FOR LGT8F328P
 
 /* PU22+ -            DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
