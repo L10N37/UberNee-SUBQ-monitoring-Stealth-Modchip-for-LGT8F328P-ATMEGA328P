@@ -1,6 +1,7 @@
 // Based off PSNEE V7 by Rama
 // Possibly WIP
-// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
+// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP. 100%
+//                                                                     Um Jammer Lammy 100%
 // IN TESTING
 // FOR LGT8F328P
 
