@@ -3,6 +3,7 @@
 // Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP. 100% (anti-mod)
 //                                                                     Um Jammer Lammy 100% (anti-mod)
 //                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
+//                                                                     PopoRogue JP    100% (anti-mod, told on twitter by someone who devved a modchip years back. Active regardless of mecha region)
 // IN TESTING
 // FOR LGT8F328P
 
