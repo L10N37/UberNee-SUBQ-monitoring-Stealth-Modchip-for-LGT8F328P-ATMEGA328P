@@ -1,21 +1,40 @@
 // Based off PSNEE V7 by Rama
-// Possibly WIP
-// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP. 100% (anti-mod)
+// Boots the hardest game I know of with the most brutal anti-mod -    Legend Of Mana JP. 100% (anti-mod)
 //                                                                     Um Jammer Lammy 100% (anti-mod)
 //                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
 //                                                                     PopoRogue JP    100% (anti-mod, told on twitter by someone who devved a modchip years back. Active regardless of mecha region)
-//                                                           Spyro -Year of the Dragon (can't confirm, was told this hard locks at boot if a chip is flagged, cranked up quantity of injections, no flag, possibly no check on PAL mecha)
+//                                                                     Spyro -Year of the Dragon (can't confirm, was told this hard locks at boot if a chip is flagged, cranked up quantity of injections, no flag, possibly no check on PAL mecha)
+//                                                                     Lots of random games, all good :P
+//                                                                     Staring at a serial monitor and making sure there are no false flags to inject, all good :P
+//                                                                      
 //
-// IN TESTING
+// IN TESTING - Devved on PU20, haven't checked PU22+, though it was basically copy paste the WFCK stuff from UberChip. Hopefully the library change didn't effect. To confirm.
 // FOR LGT8F328P
 
-/* PU22+ -            DATA / SCEx output = DIGITAL PIN 4
+
+
+/*
+Based loosely off PSNEE V7 by Rama
+ __    __  __                            __    __                     
+|  \  |  \|  \                          |  \  |  \                    
+| $$  | $$| $$____    ______    ______  | $$\ | $$  ______    ______  
+| $$  | $$| $$    \  /      \  /      \ | $$$\| $$ /      \  /      \ 
+| $$  | $$| $$$$$$$\|  $$$$$$\|  $$$$$$\| $$$$\ $$|  $$$$$$\|  $$$$$$\
+| $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
+| $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
+ \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$
+                                                                        V1.00
+
+  By VajskiDs Consoles                                                                    
+                                                                      
+
+ PU22+ -              DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
-                      WFCK / GATE        = DIGITAL PIN 10
-*/  
+                      WFCK / GATE        = DIGITAL PIN 10 
 
-/* Mainboard < PU20   DATA / SCEx output = DIGITAL PIN 4
+ Mainboard < PU20   DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
