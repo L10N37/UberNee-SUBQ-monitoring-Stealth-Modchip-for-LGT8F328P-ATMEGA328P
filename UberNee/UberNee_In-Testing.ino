@@ -69,7 +69,7 @@ void setup() {
 
   DDRB = 0x00;                    // Direction register for port B all high-z inputs
   bitClear(DDRD, injectpin);      // ensure datapin (injectpin) is high-z
-  bitWrite(DDRD, 3,1);            // If using mainboard < PU22 and INSIST on using the MCU to pull gate to ground.
+  bitClear(DDRD, 3);              // If using mainboard < PU22 and INSIST on using the MCU to pull gate to ground.
 
     if (DEBUG_MODE) {
       Serial.begin(115200);       // enable serial monitor as a type of debug console
