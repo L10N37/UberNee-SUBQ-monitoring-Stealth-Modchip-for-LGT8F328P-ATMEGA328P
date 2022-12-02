@@ -184,7 +184,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 }
 
 
-  if (hysteresis >= 80) {
+  if (hysteresis >= 100) {
     interrupts();
 
       if (DEBUG_MODE){
