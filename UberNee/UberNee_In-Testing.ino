@@ -1,5 +1,5 @@
 // Based off PSNEE V7 by Rama
-// TO DO: Fine tune the hysteresis algorithm , injection quantity, spacing between SCEx strings etc.
+// Possibly WIP
 // Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
 // IN TESTING
 // FOR LGT8F328P
@@ -59,7 +59,7 @@ bool DEBUG_MODE = yes         //<---------------------------------------------De
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-int TWEAK_DRIVE = 100;        //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
+int TWEAK_DRIVE = 5;         //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
 
 
 
@@ -131,7 +131,7 @@ void inject() {
 
     EndOfMagicKey;
 
-  } while (injectcounter < 3);
+  } while (injectcounter !=4);
 }
 
 
@@ -189,22 +189,27 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
   interrupts();
   bool hysteresisflag = false;
-
+   bool hysteresisflag_ = false;
 
   if (
-      (sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2) || ((sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0x02))
+          (sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2)) 
 
-          hysteresisflag = true;
+                    hysteresisflag = true;
 
-              else if (hysteresis < 0 && (sqb[0] == 0x41 || sqb[0] == 0x61 || sqb[0] == 0x01) && (sqb[1] == 0x00 && sqb[6] == 0x00) && hysteresis > 0x00)
+                            else if (sqb[0] == 0x41 && sqb[2] == 0x01 && (sqb[3] >= 0x98 || sqb[3] <= 0x02))
+
+                                hysteresisflag_ = true;
+
+                                    else if ((sqb[0] == 0x41 || sqb[0] == 0x61 || sqb[2] == 0x01) && (sqb[1] == 0x00 && sqb[6] == 0x00))
     
-                  hysteresisflag = true;
+                                        hysteresisflag_ = true;
 
 
 
   if (hysteresisflag) hysteresis++;
-  else if (!hysteresisflag && hysteresis > 0x00) hysteresis--;
-  else hysteresis = 0x00;
+  else if (hysteresisflag_ && hysteresis > 0x00) hysteresis--;
+  else hysteresis = hysteresis =0x00;
+  
 
   if (DEBUG_MODE) {
       Serial.print("\n");
