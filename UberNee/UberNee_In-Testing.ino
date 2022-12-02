@@ -51,14 +51,15 @@ bool DEBUG_MODE = yes         //<---------------------------------------------De
 void setup() {
 
   DDRB = 0x00;                // Direction register for port B all high-z inputs
-  Serial.begin(115200);       // enable serial monitor as a type of debug console
+  
   bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
 
     if (DEBUG_MODE) {
-      Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
-        Serial.print("\n");
-          Serial.flush();  // Finish saying hi before moving on :P
-            }
+      Serial.begin(115200);       // enable serial monitor as a type of debug console
+        Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
+          Serial.print("\n");
+            Serial.flush();  // Finish saying hi before moving on :P
+              }
 }
 
 
