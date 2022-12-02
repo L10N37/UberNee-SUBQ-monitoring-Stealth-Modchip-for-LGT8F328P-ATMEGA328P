@@ -1,10 +1,10 @@
 // Based off PSNEE V7 by Rama
-//  WIP, not tuned, not anything
-// Purely WIP and will be deleted
+// Possibly WIP
+// Boots the hardest game I know of with the most brutal anti-mod - Legend Of Mana JP.
+// IN TESTING
 // TO DO: WFCK PWM output, connect on PU22+, else tie gate to ground on PS1 mainboard on (PS1 < PU22)
-// TO DO: fine Tune hysteresis, get injections working - have had them working on many revisions prior but something wrong here.
-// Increasing injection quantity doesn't help so it's safe to say the actual injections are somehow broken, (CHECKED with scope, they are good, maybe i killed this PU20)
-// FOR LGT8F328P (big POS)
+// TO DO: ??
+
 
 #define injectpin 4
 #define yes true;
@@ -19,13 +19,13 @@
 #define EndOfMagicKey injectcounter++, delay(stringdelay)
 
 
-int bitdelay(3970);
-int stringdelay(67);  //delay between string injections
+int bitdelay(5150);     // Using a different library on this version, totally forgot. Threw all the timings out, had to adjust bitwidths etc.
+int stringdelay(160);   //delay between string injections
 int injectcounter = 0x00;
 
-const char SCEE[] PROGMEM= "10011010100100111101001010111010010101110100";
-const char SCEA[] PROGMEM= "10011010100100111101001010111010010111110100";
-const char SCEI[] PROGMEM= "10011010100100111101001010111010010110110100";
+const char SCEE[] = "10011010100100111101001010111010010101110100";
+const char SCEA[] = "10011010100100111101001010111010010111110100";
+const char SCEI[] = "10011010100100111101001010111010010110110100";
 
 uint8_t sqb[12] = { 0xFF };
 uint8_t sqbp = 0;
@@ -51,14 +51,14 @@ bool DEBUG_MODE = yes         //<---------------------------------------------De
 void setup() {
 
   DDRB = 0x00;                // Direction register for port B all high-z inputs
-    bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
+  Serial.begin(115200);       // enable serial monitor as a type of debug console
+  bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
 
     if (DEBUG_MODE) {
-      Serial.begin(115200);       // enable serial monitor as a type of debug console
-        Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
-          Serial.print("\n");
-            Serial.flush();  // Finish saying hi before moving on :P
-              }
+      Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
+        Serial.print("\n");
+          Serial.flush();  // Finish saying hi before moving on :P
+            }
 }
 
 
@@ -99,7 +99,7 @@ void inject() {
 
     EndOfMagicKey;
 
-  } while (injectcounter < 12);
+  } while (injectcounter < 6);
 }
 
 
@@ -193,7 +193,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
     inject();
     bitClear(DDRD, injectpin);  // keys end in '0' so will return as output, ensure we high-z it again
-    hysteresis = hysteresis/3;
+    hysteresis = 0x00;
     injectcounter = 0x00;
   }
 }
