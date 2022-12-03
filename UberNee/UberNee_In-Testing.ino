@@ -58,7 +58,7 @@ Based off PSNEE V7 by Rama
 #define EndOfMagicKey injectcounter++, delay(stringdelay)
 
 
-const int bitdelay(3970);     //  Specific to this library, 3.99us bitwidth on scope
+const int bitdelay(3790);     //  Specific to this library, 3.99us bitwidth on scope
 const int stringdelay(160);   //  delay between string injections
 uint8_t injectcounter = 0x00;
 
@@ -84,7 +84,7 @@ bool DEBUG_MODE = yes         //<---------------------------------------------De
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
+int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
 
 
