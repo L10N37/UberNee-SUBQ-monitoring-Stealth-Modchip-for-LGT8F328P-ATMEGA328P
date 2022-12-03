@@ -1,4 +1,4 @@
-
+// Based off PSNEE V7 by Rama
 // Boots the hardest game I know of with the most brutal anti-mod -    Legend Of Mana JP. 100% (anti-mod)
 //                                                                     Um Jammer Lammy 100% (anti-mod)
 //                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
@@ -8,14 +8,15 @@
 //                                                                     Staring at a serial monitor and making sure there are no false flags to inject, all good :P
 //                                                                      
 //
-// IN TESTING - Devved on PU20, haven't checked PU22+, though it was basically copy paste the WFCK stuff from UberChip. Hopefully the library change didn't effect. To confirm.
-// hardly ever works when not in debug mode (i.e connected to the PC)
+// IN TESTING - Devved on PU20, haven't checked PU22+, though it was basically copy paste the WFCK stuff from UberChip.
+// Went back to the original library and remembered how bad the timing was in dbuezas library (inject bitwidth needs to be ~5150 for example)
 // FOR LGT8F328P
-
+// Current stage - none of the pages offering sketches to turn an arduino into an ISP flasher (to flash LGT8xxxxP with) for bootload-less sketch flashes are working, even though there are reports of success.
+// Basically the code is taking too long to kick in due to the bootloader, but is fine in debug mode (i.e. connected to the PC so you can see the debug screen)
 
 
 /*
-Based loosely off PSNEE V7 by Rama
+Based off PSNEE V7 by Rama
  __    __  __                            __    __                     
 |  \  |  \|  \                          |  \  |  \                    
 | $$  | $$| $$____    ______    ______  | $$\ | $$  ______    ______  
@@ -25,9 +26,8 @@ Based loosely off PSNEE V7 by Rama
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
   \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$
-                                                                        V1.00 (changes will be made and it will keep this version until out of WIP)
 
-  By VajskiDs Consoles                                                                    
+  VajskiDs Consoles                                                                    
                                                                       
 
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
@@ -57,13 +57,13 @@ Based loosely off PSNEE V7 by Rama
 #define EndOfMagicKey injectcounter++, delay(stringdelay)
 
 
-int bitdelay(5150);     // Using a different library on this version, totally forgot. Threw all the timings out, had to adjust bitwidths etc.
-int stringdelay(160);   //delay between string injections
-int injectcounter = 0x00;
+const int bitdelay(3970);     //  Specific to this library, 3.99us bitwidth on scope
+const int stringdelay(160);   //  delay between string injections
+uint8_t injectcounter = 0x00;
 
-const char SCEE[] = "10011010100100111101001010111010010101110100";
-const char SCEA[] = "10011010100100111101001010111010010111110100";
-const char SCEI[] = "10011010100100111101001010111010010110110100";
+const char SCEE[] = "1001101010010011110100101011101";   // EE 0010101110100
+const char SCEA[] = "1001101010010011110100101011101";   // EA 0010111110100
+const char SCEI[] = "1001101010010011110100101011101";   // EI 0010110110100
 
 uint8_t sqb[12] = { 0xFF };
 uint8_t sqbp = 0;
@@ -79,12 +79,12 @@ uint8_t hysteresis = 0x00;
 
 //***************** Debug Mode *****************************
 //      yes / no ? 
-bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning (leave this on as it forms part of the timing)     
+bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning      
 //**********************************************************
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-int TWEAK_DRIVE = 5;         //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
+int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 100.
 
 
 
@@ -94,13 +94,19 @@ void setup() {
 
   DDRB = 0x00;                    // Direction register for port B all high-z inputs
   bitClear(DDRD, injectpin);      // ensure datapin (injectpin) is high-z
-  bitClear(DDRD, 3);              // If using mainboard < PU22 and INSIST on using the MCU to pull gate to ground.
+
+
+  // If using mainboard < PU22 and INSIST on using the MCU to pull gate to ground //
+  bitWrite(DDRD, 3, 1);           
+  bitClear(PORTD, 3);         
+  //                                                                              //
+
 
     if (DEBUG_MODE) {
-      Serial.begin(115200);       // enable serial monitor as a type of debug console
+      Serial.begin(115200);                 // enable serial monitor as a type of debug console
         Serial.print("UberNEe is awake!");  // Say hello, confirms reboot
           Serial.print("\n");
-            Serial.flush();       // Finish saying hi before moving on :P
+            Serial.flush();                 // Finish saying hi before moving on :P
               }
 }
 
