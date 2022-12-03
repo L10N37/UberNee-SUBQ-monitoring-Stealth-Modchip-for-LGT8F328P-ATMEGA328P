@@ -72,10 +72,9 @@ uint8_t hysteresis = 0x00;
 
 
 //***************** MAGIC KEYS *****************************
-// EUROPE / AUSTRALIA / NEWZEALAND = SCEE
+// EUROPE / AUSTRALIA / NEWZEALAND/ UK = SCEE
 // USA = SCEA
 // JP = SCEI
-
 //**********************************************************
 
 //***************** Debug Mode *****************************
