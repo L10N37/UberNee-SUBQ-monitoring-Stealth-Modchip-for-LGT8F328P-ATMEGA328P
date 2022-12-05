@@ -79,12 +79,12 @@ uint8_t hysteresis = 0x00;
 
 //***************** Debug Mode *****************************
 //      yes / no ? 
-bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning      
+const bool DEBUG_MODE = yes         //<---------------------------------------------Debug Mode / Fine Tuning      
 //**********************************************************
 
-#define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
+#define SELECT_MAGICKEY SCEE        //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+int TWEAK_DRIVE = 5;                //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
 
 
