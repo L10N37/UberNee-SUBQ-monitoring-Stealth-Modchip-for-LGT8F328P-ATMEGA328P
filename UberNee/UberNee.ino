@@ -12,8 +12,7 @@
 // Went back to the original library and remembered how bad the timing was in dbuezas library (inject bitwidth needs to be ~5150 for example)
 // Other libraries won't work at all and just crash out
 // FOR LGT8F328P
-// Current stage - none of the pages offering sketches to turn an arduino into an ISP flasher (to flash LGT8xxxxP with) for bootload-less sketch flashes are working, even though there are reports of success.
-// Basically the code is taking too long to kick in due to the bootloader, but is fine in debug mode (i.e. connected to the PC so you can see the debug screen)
+
 
 
 /*
