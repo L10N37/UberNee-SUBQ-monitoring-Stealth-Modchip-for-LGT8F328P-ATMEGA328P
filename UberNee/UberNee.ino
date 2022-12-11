@@ -26,14 +26,13 @@ Based off PSNEE V7 by Rama
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
   \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$
-
   VajskiDs Consoles                                                                    
                                                                       
-
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
-                      WFCK / GATE        = DIGITAL PIN 10 
+                      WFCK / GATE        = DIGITAL PIN 10
+
 
  Mainboard <= PU20    DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
@@ -66,7 +65,6 @@ const char SCEA[] = "10011010100100111101001010111010010111110100";
 const char SCEI[] = "10011010100100111101001010111010010110110100";
 
 uint8_t sqb[12] = { 0xFF };
-uint8_t sqbp = 0;
 uint8_t hysteresis = 0x00;
 
 
@@ -167,11 +165,10 @@ void inject() {
 
 
 void capturepackets() {
-
+  uint8_t sqbp = 0;
 
   while (sqbp < 12) {
 
-    //noInterrupts();  ////start critical timing section////
     uint8_t TOC = 0x00;
 
     for (int TOCpos = 0; TOCpos < 8; TOCpos++) {  //capture 8 bits, bits valid as subq clock is high when captured
@@ -200,8 +197,7 @@ void capturepackets() {
     sqbp++;           // Subq storage byte position in the array, increment one byte per 8 bits captured above until 12 bytes are captured.
   }
 
-  sqbp = 0x00;    // reset the captured byte array index for the next run
-        if (badread) {  // reset array index counter and restart capture on a bad read
+          if (badread) {  // reset array index counter and restart capture on a bad read
              if (DEBUG_MODE) { 
                   Serial.print("   bad read");
                       Serial.flush();
