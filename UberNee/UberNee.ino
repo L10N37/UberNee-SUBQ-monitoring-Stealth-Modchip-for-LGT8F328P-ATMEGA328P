@@ -33,7 +33,7 @@ Based off PSNEE V7 by Rama
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 10
 
-
+                      
  Mainboard <= PU20    DATA / SCEx output = DIGITAL PIN 4
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
@@ -55,9 +55,6 @@ Based off PSNEE V7 by Rama
 #define HighBit bitClear(DDRD, 4), delayMicroseconds(bitdelay)
 #define EndOfMagicKey injectcounter++, delay(stringdelay)
 
-
-const int bitdelay(3970);     //  Specific to this library, 4ms bitwidth on scope
-const int stringdelay(160);   //  delay between string injections
 
 const char SCEE[] = "10011010100100111101001010111010010101110100";
 const char SCEA[] = "10011010100100111101001010111010010111110100";
@@ -125,6 +122,8 @@ void print() {  // subq byte capture debug serial printing, also resets the arra
 
 void inject() {
 
+    const int bitdelay(3970);     //  Specific to this library, 4ms bitwidth on scope
+    const int stringdelay(160);   //  delay between string injections
     uint8_t injectcounter = 0x00;
     bitWrite(DDRB, wfckpin, 1);    // Gate as output, required for WFCK freq. output, high-z after injections (WFCK is required for Genuine discs- ONLY USED ON PU22+)
     bitWrite(DDRD, injectpin, 1);  // data pin for injections as output
