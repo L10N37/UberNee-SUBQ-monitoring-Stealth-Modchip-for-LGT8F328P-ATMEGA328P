@@ -58,7 +58,6 @@ Based off PSNEE V7 by Rama
 
 const int bitdelay(3970);     //  Specific to this library, 4ms bitwidth on scope
 const int stringdelay(160);   //  delay between string injections
-uint8_t injectcounter = 0x00;
 
 const char SCEE[] = "10011010100100111101001010111010010101110100";
 const char SCEA[] = "10011010100100111101001010111010010111110100";
@@ -126,7 +125,7 @@ void print() {  // subq byte capture debug serial printing, also resets the arra
 
 void inject() {
 
-
+    uint8_t injectcounter = 0x00;
     bitWrite(DDRB, wfckpin, 1);    // Gate as output, required for WFCK freq. output, high-z after injections (WFCK is required for Genuine discs- ONLY USED ON PU22+)
     bitWrite(DDRD, injectpin, 1);  // data pin for injections as output
     bitClear(PORTD, injectpin);    // likely not necessary but want to ensure it defaults to low on toggle (it's meant to)
@@ -261,8 +260,7 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
     TCCR1B = 0x18;              // 0001 1000, Disable Timer (disable WFCK output)
     bitClear(DDRB, wfckpin);    // also high-z WFCK freq. output pin
     hysteresis = 0x00;
-    injectcounter = 0x00;
-  }
+   }
 }
 
 
