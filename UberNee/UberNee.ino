@@ -248,10 +248,11 @@ indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0
 
   if (hysteresis >= TWEAK_DRIVE) {
     
-      if (DEBUG_MODE){
-        Serial.print("INJECT!");
-            Serial.flush();
-            }
+          if (DEBUG_MODE){
+             Serial.print("\n");
+                Serial.print("!!!!!!!!!!!!! INJECT !!!!!!!!!!!!!");
+                   Serial.flush();
+                         }
 
     inject();
     bitClear(DDRD, injectpin);  // keys end in '0' so will return as output, ensure we high-z it again
