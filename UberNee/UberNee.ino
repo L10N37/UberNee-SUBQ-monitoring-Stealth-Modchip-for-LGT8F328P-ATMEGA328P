@@ -124,7 +124,6 @@ void inject() {
 
     const int bitdelay(3970);     //  Specific to this library, 4ms bitwidth on scope
     const int stringdelay(160);   //  delay between string injections
-    uint8_t injectcounter = 0x00;
     bitWrite(DDRB, wfckpin, 1);    // Gate as output, required for WFCK freq. output, high-z after injections (WFCK is required for Genuine discs- ONLY USED ON PU22+)
     bitWrite(DDRD, injectpin, 1);  // data pin for injections as output
     bitClear(PORTD, injectpin);    // likely not necessary but want to ensure it defaults to low on toggle (it's meant to)
