@@ -203,13 +203,6 @@ noInterrupts();
 
 void _hysteresis() {
 
-  /*
-wobble (sqb[0] == 0x01 || datasector) && (sqb[1] == 0x00 && sqb[6] == 0x00))
-datasector (sqb[0] == 0x41 || sqb[0] == 0x61)
-indicator (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2)
-indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0x02))
-*/
-
   bool hysteresisflag = false;
   bool hysteresisflag_ = false;
 
