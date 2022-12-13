@@ -16,7 +16,6 @@
 // The overboard clock sync stuff has being removed, it's being simplified and this version seems to be ok as a stand-alone ISP flashed.
 
 /*
-Based off PSNEE V7 by Rama
  __    __  __                            __    __                     
 |  \  |  \|  \                          |  \  |  \                    
 | $$  | $$| $$____    ______    ______  | $$\ | $$  ______    ______  
