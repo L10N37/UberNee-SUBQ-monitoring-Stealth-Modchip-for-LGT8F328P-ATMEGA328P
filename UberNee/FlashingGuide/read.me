@@ -1,5 +1,13 @@
 When using debug mode to monitor the chip, best to common the grounds from MCU and PS1 together. Just leave the power wire d/c
 Alternatively use the 3.3v point instead of VIN on the ISP flasher across to UberNee
+When using either the larger or smaller version of the LGT8F328P
+by using the 3.xxV Rail into VIN the regulator drops this 
+to about 2.4V. Best to use 3.3v pin (large model) or the RAW pin (small model)
+to bypass the onboard LDO which isn't required.
+that's basically there to step 5v down to 3.3v.
+
+The rail straight from the PS1 is good here.
+Might update the flashing guide eventually.
 
 Example capture over debug mode:
 
