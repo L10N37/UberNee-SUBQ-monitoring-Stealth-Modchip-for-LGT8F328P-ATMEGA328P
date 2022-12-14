@@ -13,9 +13,10 @@
 // Other libraries won't work at all and just crash out
 // FOR LGT8F328P
 // Still in testing - issues with stand-alone version going through large bouts of working fine, then being completely and utterly dead - always 100% working in debug mode connected to PC though.
-// The overboard clock sync stuff has being removed, it's being simplified and this version seems to be ok as a stand-alone ISP flashed.
+
 
 /*
+Based off PSNEE V7 by Rama
  __    __  __                            __    __                     
 |  \  |  \|  \                          |  \  |  \                    
 | $$  | $$| $$____    ______    ______  | $$\ | $$  ______    ______  
@@ -44,9 +45,8 @@
 #define injectpin 4
 #define yes true;
 #define no false;
-#define clockishigh (bitRead(PINB, clk) == HIGH)
-#define badread (sqb[1] == 0x00 && sqb[2] == 0x00 && sqb[3] == 0x00)
-#define sqdatastate (bitRead(PINB, sqdatapin) == 1)
+#define clockishigh bitRead(PINB, clk) == HIGH
+#define sqdatastate bitRead(PINB, sqdatapin) == 1
 #define clk 1
 #define sqdatapin 0
 #define NOP __asm__ __volatile__("nop\n\t")
@@ -55,11 +55,28 @@
 #define EndOfMagicKey injectcounter++, delay(stringdelay)
 
 
+
+
+////////////////////////////////  Avoid printing dud captures ////////////////////////////////
+//  zero field (byte 6) should always be 0x00 for valid captures, but we don't want to discard the read until all 12 bytes are captured (so byte 11 is not of the initialised value)
+#define badread (sqb[6] != 0x00 && sqb[11] !=0x00 || sqb[0] == 0x00 || sqb[10] == 0x00 || sqb[11] == 0x00 || sqb[0] == 0x83)
+// Also's 
+// control/ADR (byte 0) shouldn't read zero
+// CRC fields shouldn't read zero
+// Upon a reset, we always seem to catch 0x83  as byte zero, then it re-aligns to correct positions for the next capture onwards, so lets skip that.
+// Basically, it's extremely easy to lose alignment, as we leave the capture process for injections and then when program returns, it can start capturing anywhere in the clock pulse
+// we can really only eliminate the printing of bad reads, as they will still be captured, some dud reads will still leak through - it doesn't affect reliability in anyway
+////////////////////////////////  Avoid printing dud captures ////////////////////////////////
+
+
+
+
+
 const char SCEE[] = "10011010100100111101001010111010010101110100";
 const char SCEA[] = "10011010100100111101001010111010010111110100";
 const char SCEI[] = "10011010100100111101001010111010010110110100";
 
-uint8_t sqb[12] = { 0xFF };
+uint8_t sqb[12] = { 0x00 };
 uint8_t hysteresis = 0x00;
 
 
@@ -174,11 +191,12 @@ noInterrupts();
     for (int TOCpos = 0; TOCpos < 8; TOCpos++) {  //capture 8 bits, bits valid as subq clock is high when captured
 
 
-      // Clock Sync - Do nothing while the clocks high, continue once it's pulled low to start the transmission pulse.
-      while (clockishigh) {
-        if (!clockishigh) break;
+      // Clock Sync - Make sure the clocks high! IF it's high, pause until it goes low - else restart captures as we've lost sync. (sort of a soft reset/re-init of the chip)
+      // recalling this function at this point causes a crashout of the MUC, so heading back to setup instead.
+      if (clockishigh) {
+      while (clockishigh);
       }
-      
+      else setup();
 
 
         while (!clockishigh)
@@ -193,7 +211,9 @@ noInterrupts();
 
   if (badread) {  // reset array index counter and restart capture on a bad read
     if (DEBUG_MODE) {
+      Serial.print("\n");
       Serial.print("   bad read");
+      Serial.print("\n");
       Serial.flush();
     }
     capturepackets();
@@ -201,6 +221,13 @@ noInterrupts();
 }
 
 void _hysteresis() {
+
+  /*
+wobble (sqb[0] == 0x01 || datasector) && (sqb[1] == 0x00 && sqb[6] == 0x00))
+datasector (sqb[0] == 0x41 || sqb[0] == 0x61)
+indicator (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2)
+indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0x02))
+*/
 
   bool hysteresisflag = false;
   bool hysteresisflag_ = false;
