@@ -64,7 +64,7 @@ Based off PSNEE V7 by Rama
 // control/ADR (byte 0) shouldn't read zero
 // CRC fields shouldn't read zero
 // Upon a reset, we always seem to catch 0x83  as byte zero, then it re-aligns to correct positions for the next capture onwards, so lets skip that.
-// Basically, it's extremely easy to lose alignment, as we leave the capture process for injections and then when program returns, it can start capturing anywhere in the clock pulse
+// Basically, it's extremely easy to lose alignment as we leave the capture process for injections and then when program returns, it can start capturing anywhere in the clock pulse
 // we can really only eliminate the printing of bad reads, as they will still be captured, some dud reads will still leak through - it doesn't affect reliability in anyway
 ////////////////////////////////  Avoid printing dud captures ////////////////////////////////
 
@@ -192,7 +192,7 @@ noInterrupts();
 
 
       // Clock Sync - Make sure the clocks high! IF it's high, pause until it goes low - else restart captures as we've lost sync. (sort of a soft reset/re-init of the chip)
-      // recalling this function at this point causes a crashout of the MUC, so heading back to setup instead.
+      // recalling this function at this point causes a crashout of the MCU, so heading back to setup instead.
       if (clockishigh) {
       while (clockishigh);
       }
