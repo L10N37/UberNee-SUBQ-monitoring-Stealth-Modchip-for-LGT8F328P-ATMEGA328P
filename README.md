@@ -157,7 +157,7 @@ Though I can't really find any games that won't work with UberChip (timing based
 Some NTSC games have their anti-mod disabled when used on PAL region consoles (different mechacon). 
 
 This chip is based on PSNEE V7 and only fires off it's injections of the key when it knows the laser head is in the position of the disc where
-they key is located on a genuine disc. This makes it 100% stealth and multi-disc compatible.
+the key is located on a genuine disc. This makes it 100% stealth and multi-disc compatible. It's runs on dirt cheap LTG8F328P MCU's!
 
 
 ##
