@@ -5,11 +5,21 @@
 ║╚═╝║╚═╝║╚══╣║║╚╣╚═╝║║░║╠╣╠╣║░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ╚═══╩═══╩═══╩╝╚═╩═══╩╝░╚╩══╩╝░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
-# UberChip
+ __    __  __                            __    __                     
+|  \  |  \|  \                          |  \  |  \                    
+| $$  | $$| $$____    ______    ______  | $$\ | $$  ______    ______  
+| $$  | $$| $$    \  /      \  /      \ | $$$\| $$ /      \  /      \ 
+| $$  | $$| $$$$$$$\|  $$$$$$\|  $$$$$$\| $$$$\ $$|  $$$$$$\|  $$$$$$\
+| $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
+| $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
+ \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$
+
+# UberChip & UberNee
 
 The Supreme PSX Modchip (C) 2021
 
-LGT8F328P PU22/ PU23/ NTSC-PM41 [PSOne] version (c) 2022
+LGT8F328P PU22/ PU23/ NTSC-PM41 [PSOne] / UberNee version (c) 2022
 
 VajskiDs Consoles
 
@@ -150,6 +160,14 @@ V1.00: I decided to go with the hardest chip first and ported Uber-DD (For PAL P
 I watched a youtube video on PIC Programming by 'Çreel' and away I went. Debugging was a nightmare. The Algorithm for the magic key injections though, is rock solid!
 
 It uses the same blinking LED statuses as the Arduino version! LED sinks on the PIC, as oppose to being driven by the PIC.
+
+
+## UberNee
+Though I can't really find any games that won't work with UberChip (timing based) bar Legend Of Mana, I haven't tested on NTSC consoles.
+Some NTSC games have their anti-mod disabled when used on PAL region consoles (different mechacon). 
+
+This chip is based on PSNEE V7 and only fires off it's injections of the key when it knows the laser head is in the position of the disc where
+they key is located on a genuine disc. This makes it 100% stealth and multi-disc compatible.
 
 
 ##
