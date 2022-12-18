@@ -1,20 +1,3 @@
-// Based off PSNEE V7 by Rama
-// Boots the hardest game I know of with the most brutal anti-mod -    Legend Of Mana JP. 100% (anti-mod)
-//                                                                     Um Jammer Lammy 100% (anti-mod)
-//                                                                     Resident Evil 3 100% (Multiple queries, Long load time! final query after you hear the laser skim over a large portion of the disc)
-//                                                                     PopoRogue JP    100% (anti-mod, told on twitter by someone who devved a modchip years back. Active regardless of mecha region)
-//                                                                     Spyro -Year of the Dragon (can't confirm, was told this hard locks at boot if a chip is flagged, cranked up quantity of injections, no flag, possibly no check on PAL mecha)
-//                                                                     Lots of random games, all good :P
-//                                                                     Staring at a serial monitor and making sure there are no false flags to inject, all good :P
-//
-//
-// IN TESTING - Devved on PU20, haven't checked PU22+, though it was basically copy paste the WFCK stuff from UberChip.
-// Went back to the original library and remembered how bad the timing was in dbuezas library (inject bitwidth needs to be ~5150 for example)
-// Other libraries won't work at all and just crash out
-// FOR LGT8F328P
-// Still in testing - issues with stand-alone version going through large bouts of working fine, then being completely and utterly dead - always 100% working in debug mode connected to PC though.
-
-
 /*
 Based off PSNEE V7 by Rama
  __    __  __                            __    __                     
