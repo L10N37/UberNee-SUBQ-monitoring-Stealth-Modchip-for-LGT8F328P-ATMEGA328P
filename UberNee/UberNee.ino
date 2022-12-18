@@ -88,7 +88,7 @@ uint8_t hysteresis = 0x00;
 
 //***************** Debug Mode *****************************
 //      yes / no ?
-const bool DEBUG_MODE = yes  //<---------------------------------------------Debug Mode / Fine Tuning
+const bool DEBUG_MODE = yes  //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
 //**********************************************************
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
