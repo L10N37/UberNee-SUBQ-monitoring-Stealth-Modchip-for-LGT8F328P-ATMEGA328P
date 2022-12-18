@@ -71,12 +71,12 @@ uint8_t hysteresis = 0x00;
 
 //***************** Debug Mode *****************************
 //      yes / no ?
-const bool DEBUG_MODE = yes  //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
+const bool DEBUG_MODE = yes   //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
 //**********************************************************
 
 #define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-  int TWEAK_DRIVE = 5;  //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+  int TWEAK_DRIVE = 5;        //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
 
 
@@ -103,9 +103,6 @@ void setup() {
 }
 
 
-
-
-
 void print() {  // subq byte capture debug serial printing, also resets the array (required or MCU crashes and bootloops)
 
   for (int debugprint = 0; debugprint < 12; debugprint++) {
@@ -116,7 +113,6 @@ void print() {  // subq byte capture debug serial printing, also resets the arra
     if (debugprint == 11) Serial.print("\n");
   }
 }
-
 
 
 void inject() {
@@ -160,7 +156,6 @@ void inject() {
 }
 
 
-
 void capturepackets() {
 
   uint8_t sqbp = 0;
@@ -202,20 +197,13 @@ noInterrupts();
   }
 }
 
-void _hysteresis() {
 
-  /*
-wobble (sqb[0] == 0x01 || datasector) && (sqb[1] == 0x00 && sqb[6] == 0x00))
-datasector (sqb[0] == 0x41 || sqb[0] == 0x61)
-indicator (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2)
-indicator_ (sqb[0] == 0x41 && sqb[2] == 0x01) && (sqb[3] >= 0x98) || sqb[3] <= 0x02))
-*/
+void _hysteresis() {
 
   bool hysteresisflag = false;
   bool hysteresisflag_ = false;
 
-  if (
-    (sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2))
+  if ((sqb[0] == 0x41 || sqb[0] == 0x61) && (sqb[2] == 0xA0 || sqb[2] == 0xA1 || sqb[2] == 0xA2))
 
     hysteresisflag = true;
 
