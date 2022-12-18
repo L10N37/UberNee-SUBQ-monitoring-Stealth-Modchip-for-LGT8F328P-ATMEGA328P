@@ -191,12 +191,11 @@ noInterrupts();
     for (int TOCpos = 0; TOCpos < 8; TOCpos++) {  //capture 8 bits, bits valid as subq clock is high when captured
 
 
-      // Clock Sync - Make sure the clocks high! IF it's high, pause until it goes low - else restart captures as we've lost sync. (sort of a soft reset/re-init of the chip)
-      // recalling this function at this point causes a crashout of the MCU, so heading back to setup instead.
+      // Clock Sync - Make sure the clocks high! IF it's high, pause until it goes low - else restart captures as we've lost sync.
       if (clockishigh) {
       while (clockishigh);
       }
-      else setup();
+      else break;
 
 
         while (!clockishigh)
