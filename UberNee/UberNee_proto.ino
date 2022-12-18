@@ -12,6 +12,8 @@
 // Went back to the original library and remembered how bad the timing was in dbuezas library (inject bitwidth needs to be ~5150 for example)
 // Other libraries won't work at all and just crash out
 // FOR LGT8F328P
+// This version is only reliable when connected in debug mode - can't fault it, but has issues as a stand-alone chip. 
+// Just here for history sake!
 
 
 
