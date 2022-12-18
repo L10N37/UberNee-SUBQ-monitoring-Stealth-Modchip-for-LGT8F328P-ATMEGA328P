@@ -7,7 +7,15 @@ to bypass the onboard LDO which isn't required.
 that's basically there to step 5v down to 3.3v.
 
 The rail straight from the PS1 is good here.
-Might update the flashing guide eventually.
+The flashing guide has being updated to reflect this.
+
+It's important to note that WFCK modulation for PU22+ differs from other chips so that changes wiring.
+The correct wiring point is the opposite side of the WFCK link wire used to permanantly fix WFCK modulation into the SCEx data injection on oldcrow installations.
+The other end is the WFCK point on the PS1 mainboard, old crow perma-links and other chips sample from here - this (these) chip injects it's own modulation of the same freq.
+
+I also use the opposite end of the small cap for the data (SCEx) line point on PU22+
+
+
 
 Example capture over debug mode:
 
