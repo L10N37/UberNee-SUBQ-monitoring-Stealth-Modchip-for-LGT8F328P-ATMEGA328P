@@ -103,7 +103,7 @@ void setup() {
 }
 
 
-void print() {  // subq byte capture debug serial printing, also resets the array (required or MCU crashes and bootloops)
+void print() {  // subq byte capture debug serial printing
 
   for (int debugprint = 0; debugprint < 12; debugprint++) {
     if (sqb[debugprint] == 0x00 || sqb[debugprint] < 0x10) Serial.print("0");
