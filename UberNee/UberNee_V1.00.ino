@@ -1,11 +1,7 @@
 //To do:
 // PAL PSone region unlock
 // JP region unlock
-// We're breaking the nested for loop in the capture packets function when loss of sync is detected, set a flag here, 
-// check the flag in the outer while loop and break that as well.
-// no point in continuing for the entire 12 byte capture once there's sync loss - ultimately won't make a difference to reliability but its a little more thorough.
-// Probably get rid of the 'bad read' prints. Most often it's not the chip losing sync..it's more the console itself sending a bad or incomplete clock pulse.
-// Just to tidy up the serial print outs.
+
 
 
 /*
@@ -18,7 +14,7 @@ Based off PSNEE V7 by Rama
 | $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
-  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.00
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.00 (slight changes may be made without a Version update)
   VajskiDs Consoles                                                                    
                                                                       
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
@@ -197,12 +193,8 @@ noInterrupts();
   }
 
   if (badread) {  // reset array index counter and restart capture on a bad read
-    if (DEBUG_MODE) {
-      Serial.print("\n");
-      Serial.print("   bad read");
-      Serial.print("\n");
-      Serial.flush();
-    }
+    interrupts();
+    delay (3);
     capturepackets();
   }
 }
