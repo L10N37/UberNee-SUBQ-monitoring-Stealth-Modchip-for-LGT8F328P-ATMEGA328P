@@ -1,7 +1,8 @@
 //To do:
 // PAL PSone region unlock
 // JP region unlock
-// We're breaking the nested for loop in the capture packets function when loss of sync is detected, set a flag here, check the flag in the outer while loop and break that as well
+// We're breaking the nested for loop in the capture packets function when loss of sync is detected, set a flag here, 
+// check the flag in the outer while loop and break that as well.
 // no point in continuing for the entire 12 byte capture once there's sync loss - ultimately won't make a difference to reliability but its a little more thorough.
 
 
