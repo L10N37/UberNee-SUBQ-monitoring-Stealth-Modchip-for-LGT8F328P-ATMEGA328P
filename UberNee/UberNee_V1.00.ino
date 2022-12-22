@@ -4,6 +4,8 @@
 // We're breaking the nested for loop in the capture packets function when loss of sync is detected, set a flag here, 
 // check the flag in the outer while loop and break that as well.
 // no point in continuing for the entire 12 byte capture once there's sync loss - ultimately won't make a difference to reliability but its a little more thorough.
+// Probably get rid of the 'bad read' prints. Most often it's not the chip losing sync..it's more the console itself sending a bad or incomplete clock pulse.
+// Just to tidy up the serial print outs.
 
 
 /*
