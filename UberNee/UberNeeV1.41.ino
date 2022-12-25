@@ -25,6 +25,9 @@ Based off PSNEE V7 by Rama
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
+                      
+PAL PSOne (PM41)      BIOS A18           = DIGITAL PIN 2
+                      BIOS D2            = DIGITAL PIN 11             
 */
 
 
