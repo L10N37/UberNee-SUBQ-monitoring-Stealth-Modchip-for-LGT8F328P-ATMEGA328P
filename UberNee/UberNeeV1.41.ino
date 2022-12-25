@@ -1,6 +1,6 @@
 // To do:
 // JP region unlock (different on each BIOS revision)
-
+// This somehow works with a straight ino flash from Arduino IDE! No ISP flash required! Tested on PAL PM41 with BIOS region unlock patch!
 
 
 /*
@@ -13,7 +13,7 @@ Based off PSNEE V7 by Rama
 | $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
-  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.41 (PAL PSONE BIOS PATCHING!)
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.00 (slight changes may be made without a Version update)
   VajskiDs Consoles                                                                    
                                                                       
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
@@ -25,9 +25,6 @@ Based off PSNEE V7 by Rama
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
-
-PAL PSONE BIOS        A18                = DIGITAL PIN 2
-                      D2                 = DIGITAL PIN 11
 */
 
 
@@ -53,8 +50,8 @@ PAL PSONE BIOS        A18                = DIGITAL PIN 2
 
 ////////////////////////////////  Avoid printing dud captures ////////////////////////////////
 //  zero field (byte 6) should always be 0x00 for valid captures, but we don't want to discard the read until all 12 bytes are captured (so byte 11 is not of the initialised value)
-#define badread (sqb[6] != 0x00 && sqb[11] !=0x00 || sqb[0] == 0x00 || sqb[10] == 0x00 || sqb[11] == 0x00 || sqb[0] == 0x83)
-// Also's 
+#define badread (sqb[6] != 0x00 && sqb[11] != 0x00 || sqb[0] == 0x00 || sqb[10] == 0x00 || sqb[11] == 0x00 || sqb[0] == 0x83)
+// Also's
 // control/ADR (byte 0) shouldn't read zero
 // CRC fields shouldn't read zero
 // Upon a reset, we always seem to catch 0x83  as byte zero, then it re-aligns to correct positions for the next capture onwards, so lets skip that.
@@ -84,18 +81,18 @@ bool SYSTEMOFF = true;
 
 //***************** Debug Mode *****************************
 //      yes / no ?
-const bool DEBUG_MODE = yes   //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
+const bool DEBUG_MODE = yes     //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
 //**********************************************************
 
-#define SELECT_MAGICKEY SCEE  //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
+#define SELECT_MAGICKEY SCEE    //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-  int TWEAK_DRIVE = 5;        //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+  int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+
+const bool DEBUGGINGPM41 = no   //<---------------------------------------------Debugging on a PAL PM41? (which requires BIOS patch)
 
 
-
-
-
-void setup() {
+  void
+  setup() {
 
   DDRB = 0x00;                // Direction register for port B all high-z inputs
   bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
@@ -174,7 +171,7 @@ void capturepackets() {
   uint8_t sqbp = 0;
   uint8_t TOC = 0x00;
 
-noInterrupts();
+  noInterrupts();
 
   while (sqbp < 12) {
 
@@ -184,12 +181,12 @@ noInterrupts();
 
       // Clock Sync - Make sure the clocks high! IF it's high, pause until it goes low - else restart captures as we've lost sync.
       if (clockishigh) {
-      while (clockishigh);
-      }
-      else break;
+        while (clockishigh)
+          ;
+      } else break;
 
 
-        while (!clockishigh)
+      while (!clockishigh)
         ;                                         // Clocks in sync! just pause here, wait for clock to go high again and grab our bit
       if (sqdatastate) bitWrite(TOC, TOCpos, 1);  // write out the captured bit
       else bitClear(TOC, TOCpos);
@@ -201,7 +198,7 @@ noInterrupts();
 
   if (badread) {  // reset array index counter and restart capture on a bad read
     interrupts();
-    delay (3);
+    delay(3);
     capturepackets();
   }
 }
@@ -260,29 +257,32 @@ void _hysteresis() {
 
 void loop() {
 
-if (SYSTEMOFF) {
-while (addr18LOW){          // for debugging, we don't want to do ANYTHING until the power is on
-  Serial.print ("... System is not powered on");      
-  while (addr18LOW);
-  Serial.print ("\n");
-  Serial.print ("   Lets go!   ");
-  Serial.print ("\n");
-  SYSTEMOFF = 0;
-} 
-}
+  if (DEBUGGINGPM41) {
+    if (SYSTEMOFF) {
+      while (addr18LOW) {  // for debugging, we don't want to do ANYTHING until the power is on
+        Serial.print("... System is not powered on");
+        while (addr18LOW)
+          ;
+        Serial.print("\n");
+        Serial.print("   Lets go!   ");
+        Serial.print("\n");
+        SYSTEMOFF = 0;
+      }
+    }
+  }
 
 
 
-if (PSONE_BIOS_NOT_PATCHED) {
-delay (2600);               // Skip all the noise on A18 @ boot, it goes quiet around 2.6s in
-while (addr18LOW);          // ... Now wait for the indicating BIOS patch pulse
-delayMicroseconds (15);     // BIOS patch low is approx 15us after the indicating pulse on A18
-pullBIOS;                   // 
-delayMicroseconds(5);       // Patch low pull is 6.2us duration
-releaseBIOS;                // 
-PSONE_BIOS_NOT_PATCHED = 0; // BIOS is patched, won't need to run this patch again
-
-}
+  if (PSONE_BIOS_NOT_PATCHED) {
+    delay(2600);  // Skip all the noise on A18 @ boot, it goes quiet around 2.6s in
+    while (addr18LOW)
+      ;                          // ... Now wait for the indicating BIOS patch pulse
+    delayMicroseconds(15);       // BIOS patch low is approx 15us after the indicating pulse on A18
+    pullBIOS;                    //
+    delayMicroseconds(5);        // Patch low pull is 6.2us duration
+    releaseBIOS;                 //
+    PSONE_BIOS_NOT_PATCHED = 0;  // BIOS is patched, won't need to run this patch again
+  }
 
 
 
