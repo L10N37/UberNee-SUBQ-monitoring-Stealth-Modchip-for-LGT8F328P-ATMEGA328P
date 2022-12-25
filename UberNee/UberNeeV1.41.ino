@@ -13,7 +13,7 @@ Based off PSNEE V7 by Rama
 | $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
-  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.00 (slight changes may be made without a Version update)
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.41 (PAL PSONE BIOS PATCHING!)
   VajskiDs Consoles                                                                    
                                                                       
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
@@ -25,6 +25,9 @@ Based off PSNEE V7 by Rama
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
+
+PAL PSONE BIOS        A18                = DIGITAL PIN 2
+                      D2                 = DIGITAL PIN 11
 */
 
 
