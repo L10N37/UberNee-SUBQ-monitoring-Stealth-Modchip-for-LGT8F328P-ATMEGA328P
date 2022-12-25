@@ -2,6 +2,6 @@ Some LA readings from a Onechip i flashed to a 12C509A to see how it worked.
 Kudos to who ever engineered this chip originally, because reverse engineering a working chip is much easier :P
 
 
-Basically, theres far too much activity on D2 to scope that signal, so D2 was removed off the board. A18 was left on the OneChip (this is the 'fire now' signal, it's for timing). I pulled up the D2 pin on the PIC chip with a 10k resistor to 3.3v so it would idle high, then just caught the reaction of the OneChip :) (so i could see when pulled low).
+Basically, theres far too much activity on D2 to scope that signal, so D2 was removed off the board (PS1 mainboard). A18 was left on the OneChip connected to the PS1 mainboard (this is the 'fire now' signal, it's for timing). I pulled up the D2 pin on the PIC chip with a 10k resistor to 3.3v so it would idle high, then just caught the reaction of the OneChip :) (so i could see when pulled low).
 
 It didnt' take long :) From there, the coding was simple.
