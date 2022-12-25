@@ -13,7 +13,7 @@ Based off PSNEE V7 by Rama
 | $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
-  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.00 (slight changes may be made without a Version update)
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.41 (Now Supports PAL PM41 BIOS patching)
   VajskiDs Consoles                                                                    
                                                                       
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
