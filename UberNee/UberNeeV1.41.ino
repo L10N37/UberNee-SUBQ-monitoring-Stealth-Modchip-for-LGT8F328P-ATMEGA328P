@@ -90,15 +90,16 @@ const bool DEBUG_MODE = yes     //<---------------------------------------------
 
 #define SELECT_MAGICKEY SCEE    //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
 
-  int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+const int TWEAK_DRIVE = 5;      //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
 
 const bool PM41PATCH = yes      //<---------------------------------------------PAL PM41 (PSOne) BIOS patch required?
 const bool DEBUGGINGPM41 = no   //<---------------------------------------------Debugging on a PAL PM41? (which requires BIOS patch)
 
 
-  void
-  setup() {
+
+
+  void setup() {
 
   DDRB = 0x00;                // Direction register for port B all high-z inputs
   bitClear(DDRD, injectpin);  // ensure datapin (injectpin) is high-z
