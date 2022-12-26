@@ -85,16 +85,16 @@ bool SYSTEMOFF = true;
 
 //***************** Debug Mode *****************************
 //      yes / no ?
-const bool DEBUG_MODE = yes     //<---------------------------------------------Debug Mode / Fine Tuning (Leave this on in this version!)
+const bool DEBUG_MODE = yes     //<---------------------------------------------> Debug Mode / Fine Tuning (Leave this on in this version!)
 //**********************************************************
 
-#define SELECT_MAGICKEY SCEE    //<---------------------------------------------REGION SELECT!! ENTER CONSOLE REGION
+#define SELECT_MAGICKEY SCEE    //<---------------------------------------------> REGION SELECT!! ENTER CONSOLE REGION
 
-const int TWEAK_DRIVE = 5;      //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
+const int TWEAK_DRIVE = 5;      //<---------------------------------------------> Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
 
-const bool PM41PATCH = yes      //<---------------------------------------------PAL PM41 (PSOne) BIOS patch required?
-const bool DEBUGGINGPM41 = no   //<---------------------------------------------Debugging on a PAL PM41? (which requires BIOS patch)
+const bool PM41PATCH = yes      //<---------------------------------------------> PAL PM41 (PSOne) BIOS patch required?
+const bool DEBUGGINGPM41 = no   //<---------------------------------------------> Debugging on a PAL PM41? (which requires BIOS patch)
 
 
 
