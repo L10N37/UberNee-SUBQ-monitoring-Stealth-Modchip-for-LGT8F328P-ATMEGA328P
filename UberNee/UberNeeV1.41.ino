@@ -1,6 +1,7 @@
 // To do:
 // JP region unlock (different on each BIOS revision)
-// This somehow works with a straight ino flash from Arduino IDE! No ISP flash required! Tested on PAL PM41 with BIOS region unlock patch!
+// Now working with a straight flash from Arduino IDE! No ISP flashing required!
+
 
 
 /*
@@ -13,7 +14,7 @@ Based off PSNEE V7 by Rama
 | $$  | $$| $$  | $$| $$    $$| $$   \$$| $$\$$ $$| $$    $$| $$    $$
 | $$__/ $$| $$__/ $$| $$$$$$$$| $$      | $$ \$$$$| $$$$$$$$| $$$$$$$$
  \$$    $$| $$    $$ \$$     \| $$      | $$  \$$$ \$$     \ \$$     \
-  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.41 (Now Supports PAL PM41 BIOS patching)
+  \$$$$$$  \$$$$$$$   \$$$$$$$ \$$       \$$   \$$  \$$$$$$$  \$$$$$$$        Version 1.41
   VajskiDs Consoles                                                                    
                                                                       
  PU22+ -              DATA / SCEx output = DIGITAL PIN 4
@@ -25,9 +26,9 @@ Based off PSNEE V7 by Rama
                       SUBQ DATA          = DIGITAL PIN 8
                       SUBQ CLOCK         = DIGITAL PIN 9 
                       WFCK / GATE        = DIGITAL PIN 3 (Best to just tie to ground on the PS1 mainboard, but you can use this pin on the MCU)
-                      
+
 PAL PSOne (PM41)      BIOS A18           = DIGITAL PIN 2
-                      BIOS D2            = DIGITAL PIN 11             
+                      BIOS D2            = DIGITAL PIN 11 
 */
 
 
@@ -91,6 +92,8 @@ const bool DEBUG_MODE = yes     //<---------------------------------------------
 
   int TWEAK_DRIVE = 5;          //<---------------------------------------------Likely won't need adjustment, but tweakable to the level of wear on your disc drive. Default 5.
 
+
+const bool PM41PATCH = yes      //<---------------------------------------------PAL PM41 (PSOne) BIOS patch required?
 const bool DEBUGGINGPM41 = no   //<---------------------------------------------Debugging on a PAL PM41? (which requires BIOS patch)
 
 
@@ -257,10 +260,9 @@ void _hysteresis() {
   }
 }
 
+void PAL_PSOne(){
 
-void loop() {
-
-  if (DEBUGGINGPM41) {
+ if (DEBUGGINGPM41) {
     if (SYSTEMOFF) {
       while (addr18LOW) {  // for debugging, we don't want to do ANYTHING until the power is on
         Serial.print("... System is not powered on");
@@ -286,8 +288,14 @@ void loop() {
     releaseBIOS;                 //
     PSONE_BIOS_NOT_PATCHED = 0;  // BIOS is patched, won't need to run this patch again
   }
+}
 
 
+void loop() {
+
+if (PM41PATCH){
+PAL_PSOne();
+}  
 
   capturepackets();
   interrupts();
