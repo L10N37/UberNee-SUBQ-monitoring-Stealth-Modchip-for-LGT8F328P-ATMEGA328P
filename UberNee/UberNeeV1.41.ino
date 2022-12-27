@@ -1,6 +1,6 @@
 // To do:
 // JP region unlock (different on each BIOS revision)
-// Now working with a straight flash from Arduino IDE! No ISP flashing required!
+// Now working with a straight flash from Arduino IDE! No ISP flashing required! (Large MCU with USB-C ONLY!, for smaller micro boards use ISP Flash!)
 
 
 
