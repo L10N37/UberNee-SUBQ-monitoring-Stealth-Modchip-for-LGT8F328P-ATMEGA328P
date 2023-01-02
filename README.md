@@ -30,10 +30,14 @@ The WFCK Frequency was calculated with RTM Timer Calculator
 
 ## Descriptions
 
-An Open Source arduino "full stealth" modchip developed for each model of PS1. The PU18 Is assumed to be working
+An Open Source arduino timing based stealth chip (~99% stealth) or UberNee which uses SUBQ data and is 100% stealth.
+
+Works on all revisions of PS1. Uber-D-D supports PAL PSOne region unlocking and JP system region unlocking but isn't 100% (sometimes fails).
+UberNee incorporates the 'onechip' unlock method for PAL PSOne region unlocking and is 100%.
+There is a mostly working separate region unlocker for JP consoles to use along with UberNee as well for PIC12F675.
 
 The chips include multi-disc support and initially started with a full serial monitor output which shows you exactly what's
-happening, as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
+happening (this is part of UberNee by default), as well as acting like a built in debugger. There are of course stand-alone internal install versions with out a debugger.
 
 No Audio CD delay- will boot straight to audio CD player
 
@@ -158,6 +162,9 @@ Some NTSC games have their anti-mod disabled when used on PAL region consoles (d
 
 This chip is based on PSNEE V7 and only fires off it's injections of the key when it knows the laser head is in the position of the disc where
 the key is located on a genuine disc. This makes it 100% stealth and multi-disc compatible. It's runs on dirt cheap LGT8F328P MCU's!
+
+It supports PAL PSOne region unlocking (reverse engineered 'onechip') and there's a separate region unlocker for PIC12F675 for JP consoles to use
+with this chip.
 
 
 ##
