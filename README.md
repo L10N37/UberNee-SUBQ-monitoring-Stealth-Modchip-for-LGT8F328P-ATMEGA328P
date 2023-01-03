@@ -25,7 +25,7 @@ You don't need to start the console with the lid open, you don't need save explo
 UberChip was started from scratch as a timing based stealth chip - though being timing based, it was probably 99% stealth due to the different 
 checks, performed at different times for different anti-mod titles.
 
-As I learned more about PS1 modchips from various versions of UberNee I slowly progressed onto writing UberNee, which is based off PSNEE V7.
+As I learned more about PS1 modchips from various versions of UberChip I slowly progressed onto writing UberNee, which is based off PSNEE V7.
 This offers a 100% stealth chip with multi-disc support. Though UberNee was started on Arduino Nano's with a 168/328P MCU, they became expensive
 at one stage and I moved coding across to the LGT8F328P MCU - these are obtainable for an *extremely* low cost.
 
