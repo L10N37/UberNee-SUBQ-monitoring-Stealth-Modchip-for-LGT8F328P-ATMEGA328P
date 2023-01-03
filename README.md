@@ -18,8 +18,9 @@ This article: http://www.oldcrows.net/mcc2.html
 I've read it quite a few times.
 
 
-Though softmods are gaining popularity with many such UniRom, Tonyhax (and it's forks, like Tonyhax international) & PS1 stealth unlocker - nothing beats
-a hardmod. With a hard mod you get the euphoric boot up with the white screen , followed by the black and the game just boots straight up! 
+Though softmods are gaining popularity with the many available such as UniRom, Tonyhax (and it's forks, like Tonyhax international) & PS1 stealth unlocker - nothing beats a hardmod. With a hard mod you get the euphoric boot up with the white screen , followed by the black and the game just boots straight up! 
+
+You don't need to start the console with the lid open, you don't need save exploits, you don't need to enter the memory card manager and wait for a load up.
 
 UberChip was started from scratch as a timing based stealth chip - though being timing based, it was probably 99% stealth due to the different 
 checks, performed at different times for different anti-mod titles.
