@@ -18,7 +18,9 @@ This article: http://www.oldcrows.net/mcc2.html
 I've read it quite a few times.
 
 
-Though softmods are gaining popularity with the many available such as UniRom, Tonyhax (and it's forks, like Tonyhax international) & PS1 stealth unlocker - nothing beats a hardmod. With a hard mod you get the euphoric boot up with the white screen , followed by the black and the game just boots straight up! 
+Though softmods are gaining popularity with the many available such as UniRom, Tonyhax (and it's forks, like Tonyhax international) & PS1 stealth unlocker - nothing beats a hardmod. With a hard mod you get the euphoric boot up with the white screen , followed by the black and the game just boots straight up!
+
+At this stage, there is no softmod with 100% compatibility either. 
 
 You don't need to start the console with the lid open, you don't need save exploits, you don't need to enter the memory card manager and wait for a load up.
 
