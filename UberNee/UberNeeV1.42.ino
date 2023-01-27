@@ -157,7 +157,7 @@ void inject() {
   }
       else {
 
-  //ATMEGA32P (168P won't work, undiagnosed issue)
+  //ATMEGA328P (16Mhz, 168P won't work, undiagnosed issue)
 TCCR1B = 0x18; // 0001 1000, Disable Timer Clock 
 TCCR1A = 0xA2; // 1010 0010
 ICR1 = 2205-1;
