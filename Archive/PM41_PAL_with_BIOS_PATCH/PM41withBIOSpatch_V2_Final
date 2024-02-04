@@ -1,0 +1,155 @@
+// PM41 with BIOS patch  - UBER-D-D  V2.00, basically a rewritten and properly debugged version 1 - [VajskiDs Consoles 2021]
+// Getting rid of the 'D' 'D' is possible but impacts reliablity (as attempted on V1.5), you will get a black screen with
+// sony entertainment America with this version, but very rarely.
+// You may also get the normal European screen, but very rarely.
+// LED (with appropriate resistor) to 5v on mainboard, Arduino provides path to ground on Digital Pin 2
+//
+//
+// LED STATUSES:
+//                Fast Pulsing =     Pulses after each full string injection
+//                Blinking (4s) =    Blinks every 4s post injection routine, modchip is in stealth mode and monitoring drive lid status
+//                Solid =            Drive door lid is open, will return to Pulsing between string injections once the lid is closed
+//                Blinking (10s) =   Genuine Disc Mode / chip is effectively only capable of blinking a light until it's reset or power cycled
+//
+//
+//
+// I haven't had much time lately to do much, and I am losing interest in the project - I haven't had an issue with original discs until this version,
+// so now you can start the console with the lid open, then close it for a genuine disc - this disables any modchip functionality and just issues a status light.
+// For my own personal use, and I'm sure most people out there - this code has a totally acceptable strike rate of at least 80% (One game did refuse to load,
+// a tiny alteration in the BIOS window has being made since. Code is SUPER easy to break - mainly the BIOS patch.
+//
+// Once again, thanks to all the peope who put any helpful information out there, if this is ever tweaked to 'perfection' I hope you let us know!
+//
+//  Reliability video:                  https://youtu.be/Ahy8XMkAvQc 
+//  220UF bypass cap connected!!! You can use the mounting hole next to 3.3v as the GND. Slot in sideways, leave some of the positive leg exposed for the wire to
+//  the PSX mainboard
+//  Install diagrams in this folder and an example installation - probably better off routing in the gap bottom right or all through the hole near the laser.
+//  you can rest the shield on an angle against the bottom shell with some overhang while installing so the wires aren't massively long.
+
+#define DRIVE_LID_SENS 8
+#define LED 2
+#define DATA 12
+#define PSOneBIOS 11
+#define mchipregwrite PORTD   //register to write pin states to in setup
+#define DRIVE_LID_SENS_REG PORTB //the register with the DATA line and our drive lid sensor line
+int bitdelay (3794); //delay between bits sent to drive controller (MS)
+int stringdelay (167); //delay between string injections
+char SCEE[] = "S10011010100100111101001010111010010101110100";
+int NTSC_FIX = 0; // injection counter, also times the BIOS patch
+
+
+void setup() {
+  //Set up the used pins
+
+  pinMode (PSOneBIOS, INPUT);
+  pinMode (DATA, OUTPUT);
+  digitalWrite (DATA, LOW);
+  pinMode (DRIVE_LID_SENS, INPUT);
+  digitalWrite (mchipregwrite, 0B00001011);
+  digitalWrite (DRIVE_LID_SENS_REG, 0B000000);
+}
+
+void Genuine() {              //Genuine disc mode (start PSX with lid open, then close) does nothing, just lets you know it's in this mode with the LED
+  pinMode (LED, INPUT);
+  delay (10000);
+  pinMode (LED, OUTPUT);
+  digitalWrite (LED, LOW);  //pulse the LED light every 4 seconds to indicate string injections complete, stealth mode on, awaiting disc change
+  delay (1000);
+  Genuine();
+}
+
+void NewDisc() {
+  if (digitalRead(DRIVE_LID_SENS) == 1) {
+    pinMode (LED, OUTPUT);
+    digitalWrite (LED, LOW);
+  }
+  else if (digitalRead(DRIVE_LID_SENS) == 0) {
+    pinMode (LED, INPUT);
+    inject();
+  }
+  NewDisc();
+}
+
+void DriveLidStatus() { //a conditional loop for the status of the drive lid sensor pin using the state of it's entire register
+  //for multi-disc games
+
+
+  if (digitalRead(DRIVE_LID_SENS) == 0) { //state of this register after initial injection routine with lid closed
+    NTSC_FIX = 0 ;          //  reset our variables / counters
+    pinMode (LED, INPUT);
+    delay (3000);
+    pinMode (LED, OUTPUT);
+    digitalWrite (LED, LOW);  //pulse the LED light every 4 seconds to indicate string injections complete, stealth mode on, awaiting disc change
+    delay (1000);
+  }
+  else {
+    NewDisc();
+  }
+  DriveLidStatus();                           //forms a conditional if loop
+}
+
+
+
+void inject() {
+
+
+  if (NTSC_FIX == 76 || (digitalRead(DRIVE_LID_SENS) == 1))      //When this condition is met we break the injection cycle (also Includes a drive lid status check)
+  {
+    pinMode (DATA, INPUT);                                      // Make certain we've released the DATA line
+    DriveLidStatus();                                           // & jump to the Drive lid status routine, BIOS D2 was already released at the iteration below
+  }
+
+
+
+ //888888888888888888888888888888888888==   BIOS STUFF    =888888888888888888888888888888888888//
+
+  if (NTSC_FIX > 4 && (NTSC_FIX < 28))                        // No rocket-science here!
+  {
+    pinMode (PSOneBIOS, OUTPUT);                             // Simply attempt to spoof NTSC console detection by pulling BIOS D2 low between
+    digitalWrite (PSOneBIOS, LOW);                           // these string injection iterations
+  }
+
+
+  if (NTSC_FIX == 29)
+  {
+    pinMode (PSOneBIOS, INPUT);                               // Then release the line!
+  }                                                           // This is EXTREMELY touchy! as non-precise as it seems, it's actually quite precise
+                                                              //  Disc drive quality matters!
+  //888888888888888888888888888888888888==   BIOS STUFF    =888888888888888888888888888888888888//
+
+
+  {
+    for (byte i = 0; i < sizeof(SCEE) - 1; i++)
+      if (SCEE[i] == '1')
+      {
+        pinMode (DATA, INPUT);
+        delayMicroseconds (bitdelay);
+      }
+      else if (SCEE[i] == 'S') // BETWEEN STRING INJECTIONS
+      {
+        pinMode (LED, OUTPUT);
+        digitalWrite (LED, LOW);
+        delay(stringdelay); //string delay (time) when it hits 's' @ the end of the injection string bits
+        pinMode (LED, INPUT);
+        NTSC_FIX = (NTSC_FIX + 1); //increment this counter
+      }
+      else
+      {
+        pinMode (DATA, OUTPUT);
+        digitalWrite (DATA, LOW);
+        delayMicroseconds (bitdelay);
+      }
+  }
+  inject();
+}
+
+
+void loop() {
+  if (digitalRead(DRIVE_LID_SENS) == 1) {
+    pinMode (DATA, INPUT);  //revert these lines to inputs so they don't interfere with the genuine disc string
+    pinMode (PSOneBIOS, INPUT);
+    Genuine();              //jump to blinky light status indicating chips in genuine disc mode
+  }
+  delay (3800); //start-up delay
+  inject();
+}

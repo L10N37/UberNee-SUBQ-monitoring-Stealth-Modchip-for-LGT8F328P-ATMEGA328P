@@ -1,0 +1,24 @@
+Just a folder for tested arduinos, check images
+
+The clone version with the Atmega 168 pictured doesn't seem to be very trust worthy, I've had one erase itself over night and then require reflashing. No issues with the 368.
+
+There are red PCB's that look just like the 368 clone, but are 168's, most of these haven't worked. They flash properly everytime but just don't seem to go. They work fine for PSXTAL (the dual region mod, another project)
+
+LGT8F328P - NO GO
+Clone 168P - NO GO
+Clone 328P - All good
+Octrobot 8F328P-U - NO GO
+
+
+I've found a fix, simply because I have a large batch of these chips going to waste and the 328P clone price sky rocketed from Ali Express.
+The only australian places sell them for either 30 a pop, or 15 plus shipping! totally not worth it when I have a huge load of 12C509A's.
+
+So the issue is the data line, I'd re-written 2.1J while working on a PU22. No issues, as long as the dataline is not connected (D12, which I moved to D7 in the latest unreleased revision). It has a problem with this being connected at boot to the console. As long as there's a switch here, and you start the LGT8F328P without the data line connected, then connect it a few seconds later, it will work. How to fix it?? I don't know!
+
+5 minutes later: Moved the initial boot delay above setup, so the chip sits there dead, uninitialised in anyway until that time passes. We have magic key acception! though the game didn't actually proceed any further and originals aren't working at all.
+
+I *might* come up with a fix.
+
+
+
+Update 2024: A lot of the chips not working were likely timing issues with the library, as for the 168P ...not sure and can't be bothered with it.
