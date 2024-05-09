@@ -67,6 +67,8 @@ There is nothing complicated about creating an UberNee chip from scratch.
 
 -VajSkids
 
+Threw together a board for flashing UberNee: https://github.com/L10N37/brother-yan-LGTISP-board
+
 
 
 
